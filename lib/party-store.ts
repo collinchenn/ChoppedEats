@@ -9,6 +9,7 @@ export interface Party {
   createdAt: string
   vibes: Vibe[]
   restaurants: Restaurant[]
+  votingCandidates?: Restaurant[]
 }
 
 export interface Vibe {
@@ -29,6 +30,8 @@ export interface Restaurant {
   address: string
   image?: string
   votes: number
+  addedBy?: string
+  source?: 'manual' | 'groq'
 }
 
 const DATA_FILE = join(process.cwd(), 'data', 'parties.json')

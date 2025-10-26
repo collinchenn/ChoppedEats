@@ -18,7 +18,8 @@ export async function GET(
 
     return NextResponse.json({
       vibes: party.vibes,
-      restaurants: party.restaurants
+      restaurants: party.restaurants,
+      votingCandidates: party.votingCandidates || []
     })
   } catch (error) {
     console.error('Error fetching party:', error)

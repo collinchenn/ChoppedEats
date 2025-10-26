@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Copy, Check, MapPin } from 'lucide-react'
+import { Copy, Check, MapPin, LocateFixed } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import LoadingOverlay from '@/components/LoadingOverlay'
 
@@ -13,6 +13,38 @@ export default function CreateParty() {
   const [partyCode, setPartyCode] = useState('')
   const [copied, setCopied] = useState(false)
   const router = useRouter()
+
+  const [isLocating, setIsLocating] = useState(false)
+
+  const useCurrentLocation = async () => {
+    if (!('geolocation' in navigator)) {
+      alert('Geolocation is not supported by your browser.')
+      return
+    }
+    setIsLocating(true)
+    try {
+      const coords = await new Promise<GeolocationCoordinates>((resolve, reject) => {
+        navigator.geolocation.getCurrentPosition(
+          (pos) => resolve(pos.coords),
+          (err) => reject(err),
+          { enableHighAccuracy: true, timeout: 10000 }
+        )
+      })
+      const res = await fetch(`/api/geocode?lat=${coords.latitude}&lng=${coords.longitude}`)
+      if (!res.ok) {
+        throw new Error('Failed to resolve address')
+      }
+      const data = await res.json()
+      if (data.address) {
+        setLocation(data.address)
+      }
+    } catch (e) {
+      console.error(e)
+      alert('Could not get your current location. Please enter it manually.')
+    } finally {
+      setIsLocating(false)
+    }
+  }
 
   const generatePartyCode = () => {
     return Math.random().toString(36).substring(2, 8).toUpperCase()
@@ -151,15 +183,27 @@ export default function CreateParty() {
             <MapPin className="h-4 w-4 inline mr-1" />
             Location
           </label>
-          <input
-            type="text"
-            id="location"
-            value={location}
-            onChange={(e) => setLocation(e.target.value)}
-            placeholder="e.g., San Francisco, CA"
-            className="input-field"
-            required
-          />
+          <div className="flex gap-2">
+            <input
+              type="text"
+              id="location"
+              value={location}
+              onChange={(e) => setLocation(e.target.value)}
+              placeholder="e.g., San Francisco, CA"
+              className="input-field flex-1"
+              required
+            />
+            <button
+              type="button"
+              onClick={useCurrentLocation}
+              disabled={isLocating}
+              className="px-3 py-2 bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center"
+              title="Use current location"
+            >
+              <LocateFixed className="h-4 w-4 mr-1" />
+              {isLocating ? 'Locating...' : 'Use Current'}
+            </button>
+          </div>
         </div>
 
         <button

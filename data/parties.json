@@ -1384,5 +1384,847 @@
         }
       ]
     }
+  ],
+  [
+    "6QA5J1",
+    {
+      "id": "1761454104914",
+      "code": "6QA5J1",
+      "name": "dere",
+      "location": "1501 19th Ave, San Francisco, CA 94122, USA",
+      "createdAt": "2025-10-26T04:48:24.914Z",
+      "vibes": [
+        {
+          "id": "1761454515745",
+          "user": "Nosite3",
+          "message": "sushi",
+          "budget": 15,
+          "timestamp": "2025-10-26T04:55:15.745Z"
+        }
+      ],
+      "restaurants": [
+        {
+          "id": "ChIJXan6DWaHhYARfEg6P4q9XXM",
+          "name": "Sushi Goemon Restaurant",
+          "cuisine": "Restaurant",
+          "priceRange": "$$",
+          "rating": 4.5,
+          "distance": "",
+          "address": "1524 Irving St, San Francisco, CA 94122, USA",
+          "votes": 0
+        },
+        {
+          "id": "ChIJ4ShgGXCHhYAR1UMjouhlWdw",
+          "name": "Sushi Uma",
+          "cuisine": "Restaurant",
+          "priceRange": "$$",
+          "rating": 4,
+          "distance": "",
+          "address": "2026 Irving St, San Francisco, CA 94122, USA",
+          "votes": 0
+        },
+        {
+          "id": "ChIJmdMDeGKHhYARxOwt0GsQdUI",
+          "name": "Fujiyama-Ya",
+          "cuisine": "Restaurant",
+          "priceRange": "$",
+          "rating": 4.4,
+          "distance": "",
+          "address": "1234 Noriega St, San Francisco, CA 94122, USA",
+          "votes": 0
+        },
+        {
+          "id": "ChIJI1-0LoCHhYARmn0IA5tIM4g",
+          "name": "Shinjuku Japanese Bistro",
+          "cuisine": "Restaurant",
+          "priceRange": "$$",
+          "rating": 2.8,
+          "distance": "",
+          "address": "2026 Irving St, San Francisco, CA 94122, USA",
+          "votes": 0
+        },
+        {
+          "id": "ChIJVyzXKAeHhYARNSvg3G6RphI",
+          "name": "Yoma Cafe - Japanese Bento Box, Sushi rolls, Sandwiches, Snacks and boba Drinks",
+          "cuisine": "Restaurant",
+          "priceRange": "$$",
+          "rating": 4.8,
+          "distance": "",
+          "address": "1518 Irving St, San Francisco, CA 94122, USA",
+          "votes": 0
+        },
+        {
+          "id": "ChIJDyKiTu6HhYAR-jAyYENzQkU",
+          "name": "Noriega Teriyaki House",
+          "cuisine": "Restaurant",
+          "priceRange": "$$",
+          "rating": 4.1,
+          "distance": "",
+          "address": "1755 Noriega St, San Francisco, CA 94122, USA",
+          "votes": 0
+        },
+        {
+          "id": "ChIJSf9KlMiHhYARjdG-GjPd-OE",
+          "name": "Zentarou Sushi and Sake Bar",
+          "cuisine": "Restaurant",
+          "priceRange": "$$",
+          "rating": 4.8,
+          "distance": "",
+          "address": "1380 9th Ave, San Francisco, CA 94122, USA",
+          "votes": 0
+        },
+        {
+          "id": "ChIJE9bWr12HhYARa9JKFMOMMFs",
+          "name": "Sushi Kazu",
+          "cuisine": "Restaurant",
+          "priceRange": "$",
+          "rating": 4.6,
+          "distance": "",
+          "address": "841 Irving St, San Francisco, CA 94122, USA",
+          "votes": 0
+        },
+        {
+          "id": "ChIJbT8jR1mHhYARsRwIaCpbYAY",
+          "name": "You See Sushi",
+          "cuisine": "Restaurant",
+          "priceRange": "$",
+          "rating": 4.4,
+          "distance": "",
+          "address": "94 Judah St, San Francisco, CA 94122, USA",
+          "votes": 0
+        },
+        {
+          "id": "ChIJ93MU4FyHhYARNsN1cMElpgo",
+          "name": "Ebisu Restaurant",
+          "cuisine": "Restaurant",
+          "priceRange": "$$",
+          "rating": 4.6,
+          "distance": "",
+          "address": "1283 9th Ave, San Francisco, CA 94122, USA",
+          "votes": 0
+        }
+      ],
+      "votingCandidates": [
+        {
+          "id": "ChIJXan6DWaHhYARfEg6P4q9XXM",
+          "name": "Sushi Goemon Restaurant",
+          "cuisine": "Restaurant",
+          "priceRange": "$$",
+          "rating": 4.5,
+          "distance": "",
+          "address": "1524 Irving St, San Francisco, CA 94122, USA",
+          "votes": 0
+        },
+        {
+          "id": "Sushi Hon-3838 18th St, San Francisco, CA 94114",
+          "name": "Sushi Hon",
+          "cuisine": "Japanese, Sushi",
+          "priceRange": "$",
+          "rating": 4.5,
+          "distance": "",
+          "address": "3838 18th St, San Francisco, CA 94114",
+          "votes": 0
+        },
+        {
+          "id": "Ebisu-1283 9th Ave, San Francisco, CA 94122",
+          "name": "Ebisu",
+          "cuisine": "Japanese, Sushi",
+          "priceRange": "$$",
+          "rating": 4.2,
+          "distance": "",
+          "address": "1283 9th Ave, San Francisco, CA 94122",
+          "votes": 0
+        },
+        {
+          "id": "KoJa Kitchen-3295 22nd St, San Francisco, CA 94110",
+          "name": "KoJa Kitchen",
+          "cuisine": "Japanese, Korean, Sushi",
+          "priceRange": "$",
+          "rating": 4.4,
+          "distance": "",
+          "address": "3295 22nd St, San Francisco, CA 94110",
+          "votes": 0
+        },
+        {
+          "id": "Sushi Zone-1700 Irving St, San Francisco, CA 94122",
+          "name": "Sushi Zone",
+          "cuisine": "Japanese, Sushi",
+          "priceRange": "$",
+          "rating": 4.1,
+          "distance": "",
+          "address": "1700 Irving St, San Francisco, CA 94122",
+          "votes": 0
+        },
+        {
+          "id": "Fat Angel-1740 O'Farrell St, San Francisco, CA 94115",
+          "name": "Fat Angel",
+          "cuisine": "Japanese, Sushi",
+          "priceRange": "$$",
+          "rating": 4.3,
+          "distance": "",
+          "address": "1740 O'Farrell St, San Francisco, CA 94115",
+          "votes": 0
+        }
+      ]
+    }
+  ],
+  [
+    "HW9DS9",
+    {
+      "id": "1761454267835",
+      "code": "HW9DS9",
+      "name": "rtoma",
+      "location": "Berkeley",
+      "createdAt": "2025-10-26T04:51:07.835Z",
+      "vibes": [
+        {
+          "id": "1761454279907",
+          "user": "nigger",
+          "message": "tomato",
+          "budget": 20,
+          "timestamp": "2025-10-26T04:51:19.907Z"
+        },
+        {
+          "id": "1761454293831",
+          "user": "qweqwe",
+          "message": "sushi",
+          "timestamp": "2025-10-26T04:51:33.831Z"
+        },
+        {
+          "id": "1761454301334",
+          "user": "qweqwe",
+          "message": "pizza",
+          "timestamp": "2025-10-26T04:51:41.334Z"
+        }
+      ],
+      "restaurants": [
+        {
+          "id": "ChIJSamo255-hYARKNqKn1gl9bQ",
+          "name": "Red Tomato Pizza House",
+          "cuisine": "Restaurant",
+          "priceRange": "$",
+          "rating": 4.3,
+          "distance": "",
+          "address": "2017 University Ave, Berkeley, CA 94704, USA",
+          "votes": 0
+        },
+        {
+          "id": "ChIJFXdiGix8hYAR01l909XiGJo",
+          "name": "Kiraku",
+          "cuisine": "Restaurant",
+          "priceRange": "$$$",
+          "rating": 4.6,
+          "distance": "",
+          "address": "2566B Telegraph Ave, Berkeley, CA 94704, USA",
+          "votes": 0
+        },
+        {
+          "id": "ChIJ7TmM5LZ_hYAR3BmgRolJpUU",
+          "name": "Kinda Izakaya",
+          "cuisine": "Restaurant",
+          "priceRange": "$",
+          "rating": 4.4,
+          "distance": "",
+          "address": "1941A University Ave, Berkeley, CA 94704, USA",
+          "votes": 0
+        },
+        {
+          "id": "ChIJPX9pZyx_hYARTlOgUIKyE8U",
+          "name": "Kura Revolving Sushi Bar",
+          "cuisine": "Restaurant",
+          "priceRange": "$$",
+          "rating": 4.1,
+          "distance": "",
+          "address": "2100 University Ave, Berkeley, CA 94704, USA",
+          "votes": 0
+        },
+        {
+          "id": "ChIJvY9ohSZ_hYARs6WxzmFS5TI",
+          "name": "Nagoya Sushi",
+          "cuisine": "Restaurant",
+          "priceRange": "$$",
+          "rating": 4.5,
+          "distance": "",
+          "address": "1463 Shattuck Ave., Berkeley, CA 94709, USA",
+          "votes": 0
+        },
+        {
+          "id": "ChIJdStFV29_hYARRDaF9GhbyjE",
+          "name": "Itani Sushi - Berkeley",
+          "cuisine": "Restaurant",
+          "priceRange": "$$",
+          "rating": 4.4,
+          "distance": "",
+          "address": "1511 Shattuck Ave. #1581, Berkeley, CA 94709, USA",
+          "votes": 0
+        },
+        {
+          "id": "ChIJy4FbaQB_hYARpqpLj7W7X_o",
+          "name": "Butterfish Sushi",
+          "cuisine": "Restaurant",
+          "priceRange": "$$",
+          "rating": 4.7,
+          "distance": "",
+          "address": "915 University Ave, Berkeley, CA 94710, USA",
+          "votes": 0
+        },
+        {
+          "id": "ChIJWdm6fAB_hYARw7a0b2rFiKo",
+          "name": "Sun Sun Sushi Shop",
+          "cuisine": "Restaurant",
+          "priceRange": "$$",
+          "rating": 4.8,
+          "distance": "",
+          "address": "2033 Martin Luther King Jr Way, Berkeley, CA 94704, USA",
+          "votes": 0
+        },
+        {
+          "id": "ChIJCfIwvtx-hYAR3IXexvpoX7Q",
+          "name": "Iyasare",
+          "cuisine": "Restaurant",
+          "priceRange": "$$$",
+          "rating": 4.5,
+          "distance": "",
+          "address": "1830 Fourth St, Berkeley, CA 94710, USA",
+          "votes": 0
+        },
+        {
+          "id": "ChIJc6oKNYB-hYARd6X4GNwE1NQ",
+          "name": "Kirala",
+          "cuisine": "Restaurant",
+          "priceRange": "$$",
+          "rating": 4.5,
+          "distance": "",
+          "address": "2100 Ward St, Berkeley, CA 94705, USA",
+          "votes": 0
+        },
+        {
+          "id": "ChIJucLtwJ1-hYAR7qhrXpzINOo",
+          "name": "Ippuku",
+          "cuisine": "Restaurant",
+          "priceRange": "$$$",
+          "rating": 4.5,
+          "distance": "",
+          "address": "2130 Center St, Berkeley, CA 94704, USA",
+          "votes": 0
+        },
+        {
+          "id": "ChIJ3QzP935_hYARmnKKpPob0HE",
+          "name": "Bigotes Pizza",
+          "cuisine": "Restaurant",
+          "priceRange": "$$",
+          "rating": 4.8,
+          "distance": "",
+          "address": "1706 University Ave, Berkeley, CA 94703, USA",
+          "votes": 0
+        },
+        {
+          "id": "ChIJRYVeD6V_hYARnY1IPrjuF_Q",
+          "name": "Pizzeria da Laura",
+          "cuisine": "Restaurant",
+          "priceRange": "$$",
+          "rating": 4.6,
+          "distance": "",
+          "address": "2049 Shattuck Ave., Berkeley, CA 94704, USA",
+          "votes": 0
+        },
+        {
+          "id": "ChIJr5hMNKF-hYARxmkk-5t0SzE",
+          "name": "Cheese Board Collective Pizzeria",
+          "cuisine": "Restaurant",
+          "priceRange": "$",
+          "rating": 4.8,
+          "distance": "",
+          "address": "1512 Shattuck Ave., Berkeley, CA 94709, USA",
+          "votes": 0
+        },
+        {
+          "id": "ChIJNwUiuJ1-hYARlmMobInl1SI",
+          "name": "Jupiter",
+          "cuisine": "Restaurant",
+          "priceRange": "$$",
+          "rating": 4.5,
+          "distance": "",
+          "address": "2181 Shattuck Ave., Berkeley, CA 94704, USA",
+          "votes": 0
+        },
+        {
+          "id": "ChIJDbudpy98hYARBRu1gsKfwGk",
+          "name": "Artichoke Basille's Pizza",
+          "cuisine": "Restaurant",
+          "priceRange": "$$",
+          "rating": 4.5,
+          "distance": "",
+          "address": "2590 Durant Ave, Berkeley, CA 94704, USA",
+          "votes": 0
+        },
+        {
+          "id": "ChIJyYoUTpZ-hYARzkyKDnO_0b0",
+          "name": "North Beach Pizza",
+          "cuisine": "Restaurant",
+          "priceRange": "$$",
+          "rating": 4.3,
+          "distance": "",
+          "address": "2420 Shattuck Ave., Berkeley, CA 94704, USA",
+          "votes": 0
+        },
+        {
+          "id": "ChIJjWUS7Z5-hYARH7aBIGP5DZk",
+          "name": "Bobby G's Pizzeria",
+          "cuisine": "Restaurant",
+          "priceRange": "$$",
+          "rating": 4.2,
+          "distance": "",
+          "address": "2072 University Ave, Berkeley, CA 94704, USA",
+          "votes": 0
+        },
+        {
+          "id": "ChIJo9nT0sl-hYARTneOhWu2O0k",
+          "name": "three.one four pizzeria",
+          "cuisine": "Restaurant",
+          "priceRange": "$$",
+          "rating": 4.5,
+          "distance": "",
+          "address": "1329 Gilman St, Berkeley, CA 94706, USA",
+          "votes": 0
+        },
+        {
+          "id": "ChIJg4R2MZl-hYARO99ZJJae1Ew",
+          "name": "Rose Pizzeria",
+          "cuisine": "Restaurant",
+          "priceRange": "$$",
+          "rating": 4.6,
+          "distance": "",
+          "address": "1960 University Ave, Berkeley, CA 94704, USA",
+          "votes": 0
+        },
+        {
+          "id": "ChIJoYmqpS55hYARs7ZL0hr0jRI",
+          "name": "Pizza Twist",
+          "cuisine": "Restaurant",
+          "priceRange": "$",
+          "rating": 4.8,
+          "distance": "",
+          "address": "1821 Solano Ave, Berkeley, CA 94707, USA",
+          "votes": 0
+        }
+      ]
+    }
+  ],
+  [
+    "W9X2V7",
+    {
+      "id": "1761454314947",
+      "code": "W9X2V7",
+      "name": "Qweu",
+      "location": "1501 19th Ave, San Francisco, CA 94122, USA",
+      "createdAt": "2025-10-26T04:51:54.947Z",
+      "vibes": [
+        {
+          "id": "1761454324478",
+          "user": "Nigger",
+          "message": "pizza",
+          "timestamp": "2025-10-26T04:52:04.478Z"
+        }
+      ],
+      "restaurants": [
+        {
+          "id": "ChIJj2dkgWWHhYAReMxgaDvJN-E",
+          "name": "SF Hole In The Wall Pizza",
+          "cuisine": "Restaurant",
+          "priceRange": "$",
+          "rating": 4.3,
+          "distance": "",
+          "address": "1825 Irving St, San Francisco, CA 94122, USA",
+          "votes": 0
+        },
+        {
+          "id": "ChIJv50vpo-HhYARcpT8f3sjfFs",
+          "name": "The Pizza Place on Noriega",
+          "cuisine": "Restaurant",
+          "priceRange": "$$",
+          "rating": 4.5,
+          "distance": "",
+          "address": "3901 Noriega St, San Francisco, CA 94122, USA",
+          "votes": 0
+        },
+        {
+          "id": "ChIJ7dBoQVyHhYAR1kAzDEJvXOU",
+          "name": "Pasquale's Pizzeria",
+          "cuisine": "Restaurant",
+          "priceRange": "$",
+          "rating": 4.4,
+          "distance": "",
+          "address": "700 Irving St, San Francisco, CA 94122, USA",
+          "votes": 0
+        },
+        {
+          "id": "ChIJsXD4it59j4ARISJszTESKyU",
+          "name": "Seniores Pizza",
+          "cuisine": "Restaurant",
+          "priceRange": "$",
+          "rating": 4.1,
+          "distance": "",
+          "address": "2415 19th Ave, San Francisco, CA 94116, USA",
+          "votes": 0
+        },
+        {
+          "id": "ChIJHxooqPeHhYARPEcGJ0tTqnU",
+          "name": "DAMNFiNE pizza",
+          "cuisine": "Restaurant",
+          "priceRange": "$$",
+          "rating": 4.6,
+          "distance": "",
+          "address": "3410 Judah St, San Francisco, CA 94122, USA",
+          "votes": 0
+        }
+      ]
+    }
+  ],
+  [
+    "2TU3OK",
+    {
+      "id": "1761454336435",
+      "code": "2TU3OK",
+      "name": "Qweu",
+      "location": "1501 19th Ave, San Francisco, CA 94122, USA",
+      "createdAt": "2025-10-26T04:52:16.435Z",
+      "vibes": [
+        {
+          "id": "1761454345327",
+          "user": "bruh",
+          "message": "pizza",
+          "timestamp": "2025-10-26T04:52:25.327Z"
+        },
+        {
+          "id": "1761454351701",
+          "user": "bruh",
+          "message": "tomato",
+          "timestamp": "2025-10-26T04:52:31.701Z"
+        },
+        {
+          "id": "1761454358523",
+          "user": "bruh",
+          "message": "tomato",
+          "timestamp": "2025-10-26T04:52:38.523Z"
+        }
+      ],
+      "restaurants": [
+        {
+          "id": "ChIJj2dkgWWHhYAReMxgaDvJN-E",
+          "name": "SF Hole In The Wall Pizza",
+          "cuisine": "Restaurant",
+          "priceRange": "$",
+          "rating": 4.3,
+          "distance": "",
+          "address": "1825 Irving St, San Francisco, CA 94122, USA",
+          "votes": 0
+        },
+        {
+          "id": "ChIJ7dBoQVyHhYAR1kAzDEJvXOU",
+          "name": "Pasquale's Pizzeria",
+          "cuisine": "Restaurant",
+          "priceRange": "$",
+          "rating": 4.4,
+          "distance": "",
+          "address": "700 Irving St, San Francisco, CA 94122, USA",
+          "votes": 0
+        },
+        {
+          "id": "ChIJv50vpo-HhYARcpT8f3sjfFs",
+          "name": "The Pizza Place on Noriega",
+          "cuisine": "Restaurant",
+          "priceRange": "$$",
+          "rating": 4.5,
+          "distance": "",
+          "address": "3901 Noriega St, San Francisco, CA 94122, USA",
+          "votes": 0
+        },
+        {
+          "id": "ChIJHxooqPeHhYARPEcGJ0tTqnU",
+          "name": "DAMNFiNE pizza",
+          "cuisine": "Restaurant",
+          "priceRange": "$$",
+          "rating": 4.6,
+          "distance": "",
+          "address": "3410 Judah St, San Francisco, CA 94122, USA",
+          "votes": 0
+        },
+        {
+          "id": "ChIJsXD4it59j4ARISJszTESKyU",
+          "name": "Seniores Pizza",
+          "cuisine": "Restaurant",
+          "priceRange": "$",
+          "rating": 4.1,
+          "distance": "",
+          "address": "2415 19th Ave, San Francisco, CA 94116, USA",
+          "votes": 0
+        },
+        {
+          "id": "ChIJ9U0CpKt_j4ARFITCTxxvCUA",
+          "name": "What A Tomato Produce Co Inc",
+          "cuisine": "Restaurant",
+          "priceRange": "$$",
+          "rating": 4,
+          "distance": "",
+          "address": "2055 Jerrold Ave, San Francisco, CA 94124, USA",
+          "votes": 0
+        }
+      ]
+    }
+  ],
+  [
+    "C77BA8",
+    {
+      "id": "1761454376070",
+      "code": "C77BA8",
+      "name": "toma",
+      "location": "1501 19th Ave, San Francisco, CA 94122, USA",
+      "createdAt": "2025-10-26T04:52:56.070Z",
+      "vibes": [
+        {
+          "id": "1761454388374",
+          "user": "Nigger",
+          "message": "ita",
+          "timestamp": "2025-10-26T04:53:08.374Z"
+        },
+        {
+          "id": "1761454393813",
+          "user": "Nigger",
+          "message": "italian",
+          "timestamp": "2025-10-26T04:53:13.813Z"
+        },
+        {
+          "id": "1761454422069",
+          "user": "john",
+          "message": "pizza",
+          "timestamp": "2025-10-26T04:53:42.069Z"
+        }
+      ],
+      "restaurants": [
+        {
+          "id": "ChIJKVyasiuHhYARPQkgcXZCcyw",
+          "name": "Fiorella Sunset",
+          "cuisine": "Restaurant",
+          "priceRange": "$$",
+          "rating": 4.5,
+          "distance": "",
+          "address": "1240 9th Ave, San Francisco, CA 94122, USA",
+          "votes": 0
+        },
+        {
+          "id": "ChIJ7dBoQVyHhYAR1kAzDEJvXOU",
+          "name": "Pasquale's Pizzeria",
+          "cuisine": "Restaurant",
+          "priceRange": "$",
+          "rating": 4.4,
+          "distance": "",
+          "address": "700 Irving St, San Francisco, CA 94122, USA",
+          "votes": 0
+        },
+        {
+          "id": "ChIJg0a43A5_j4ARH8IaUaRVUCs",
+          "name": "Itria",
+          "cuisine": "Restaurant",
+          "priceRange": "$$",
+          "rating": 4.5,
+          "distance": "",
+          "address": "3266 24th St, San Francisco, CA 94110, USA",
+          "votes": 0
+        },
+        {
+          "id": "ChIJxZMBuHV_j4ARK1fO7KSqyOE",
+          "name": "Bottega",
+          "cuisine": "Restaurant",
+          "priceRange": "$$",
+          "rating": 4.4,
+          "distance": "",
+          "address": "1132 Valencia St, San Francisco, CA 94110, USA",
+          "votes": 0
+        },
+        {
+          "id": "ChIJVVWZC-yAhYARTO9lj9HYPlQ",
+          "name": "Collina",
+          "cuisine": "Restaurant",
+          "priceRange": "$$",
+          "rating": 4.8,
+          "distance": "",
+          "address": "1550 Hyde St, San Francisco, CA 94109, USA",
+          "votes": 0
+        },
+        {
+          "id": "ChIJpzBpPPCAhYARSVWETFcLf8M",
+          "name": "The Italian Homemade Company",
+          "cuisine": "Restaurant",
+          "priceRange": "$",
+          "rating": 4.6,
+          "distance": "",
+          "address": "716 Columbus Ave, San Francisco, CA 94133, USA",
+          "votes": 0
+        },
+        {
+          "id": "ChIJuSLVS9uAhYARQVqsZ6vLuX0",
+          "name": "The Italian Homemade Company",
+          "cuisine": "Restaurant",
+          "priceRange": "$$",
+          "rating": 4.6,
+          "distance": "",
+          "address": "1919 Union St, San Francisco, CA 94123, USA",
+          "votes": 0
+        },
+        {
+          "id": "ChIJywavgtqBhYARA9MeXMJWREA",
+          "name": "The Tailor's Son",
+          "cuisine": "Restaurant",
+          "priceRange": "$$",
+          "rating": 4.4,
+          "distance": "",
+          "address": "2049 Fillmore St, San Francisco, CA 94115, USA",
+          "votes": 0
+        },
+        {
+          "id": "ChIJp6R2eBWBhYARauMedwaOHKs",
+          "name": "Luisa's Restaurant Wine Bar Since 1959",
+          "cuisine": "Restaurant",
+          "priceRange": "$$",
+          "rating": 4.6,
+          "distance": "",
+          "address": "759 Columbus Ave, San Francisco, CA 94133, USA",
+          "votes": 0
+        },
+        {
+          "id": "ChIJrSASgn6AhYAR48OZb8J4nH8",
+          "name": "Pazzia Ristorante Italiano",
+          "cuisine": "Restaurant",
+          "priceRange": "$$",
+          "rating": 4.6,
+          "distance": "",
+          "address": "337 3rd St, San Francisco, CA 94107, USA",
+          "votes": 0
+        },
+        {
+          "id": "ChIJj2dkgWWHhYAReMxgaDvJN-E",
+          "name": "SF Hole In The Wall Pizza",
+          "cuisine": "Restaurant",
+          "priceRange": "$",
+          "rating": 4.3,
+          "distance": "",
+          "address": "1825 Irving St, San Francisco, CA 94122, USA",
+          "votes": 0
+        },
+        {
+          "id": "ChIJv50vpo-HhYARcpT8f3sjfFs",
+          "name": "The Pizza Place on Noriega",
+          "cuisine": "Restaurant",
+          "priceRange": "$$",
+          "rating": 4.5,
+          "distance": "",
+          "address": "3901 Noriega St, San Francisco, CA 94122, USA",
+          "votes": 0
+        },
+        {
+          "id": "ChIJHxooqPeHhYARPEcGJ0tTqnU",
+          "name": "DAMNFiNE pizza",
+          "cuisine": "Restaurant",
+          "priceRange": "$$",
+          "rating": 4.6,
+          "distance": "",
+          "address": "3410 Judah St, San Francisco, CA 94122, USA",
+          "votes": 0
+        },
+        {
+          "id": "ChIJsXD4it59j4ARISJszTESKyU",
+          "name": "Seniores Pizza",
+          "cuisine": "Restaurant",
+          "priceRange": "$",
+          "rating": 4.1,
+          "distance": "",
+          "address": "2415 19th Ave, San Francisco, CA 94116, USA",
+          "votes": 0
+        }
+      ],
+      "votingCandidates": [
+        {
+          "id": "ChIJKVyasiuHhYARPQkgcXZCcyw",
+          "name": "Fiorella Sunset",
+          "cuisine": "Restaurant",
+          "priceRange": "$$",
+          "rating": 4.5,
+          "distance": "",
+          "address": "1240 9th Ave, San Francisco, CA 94122, USA",
+          "votes": 0
+        },
+        {
+          "id": "ChIJg0a43A5_j4ARH8IaUaRVUCs",
+          "name": "Itria",
+          "cuisine": "Restaurant",
+          "priceRange": "$$",
+          "rating": 4.5,
+          "distance": "",
+          "address": "3266 24th St, San Francisco, CA 94110, USA",
+          "votes": 0
+        },
+        {
+          "id": "ChIJj2dkgWWHhYAReMxgaDvJN-E",
+          "name": "SF Hole In The Wall Pizza",
+          "cuisine": "Restaurant",
+          "priceRange": "$",
+          "rating": 4.3,
+          "distance": "",
+          "address": "1825 Irving St, San Francisco, CA 94122, USA",
+          "votes": 0
+        },
+        {
+          "id": "Pizzeria Delfina-3611 18th St, San Francisco, CA 94110",
+          "name": "Pizzeria Delfina",
+          "cuisine": "Italian",
+          "priceRange": "$$",
+          "rating": 4.5,
+          "distance": "",
+          "address": "3611 18th St, San Francisco, CA 94110",
+          "votes": 0
+        },
+        {
+          "id": "Gioia Pizzeria-2240 Polk St, San Francisco, CA 94109",
+          "name": "Gioia Pizzeria",
+          "cuisine": "Italian",
+          "priceRange": "$$",
+          "rating": 4.5,
+          "distance": "",
+          "address": "2240 Polk St, San Francisco, CA 94109",
+          "votes": 0
+        },
+        {
+          "id": "Baonecci Ristorante-701 Columbus Ave, San Francisco, CA 94133",
+          "name": "Baonecci Ristorante",
+          "cuisine": "Italian",
+          "priceRange": "$$$",
+          "rating": 4.5,
+          "distance": "",
+          "address": "701 Columbus Ave, San Francisco, CA 94133",
+          "votes": 0
+        },
+        {
+          "id": "Del Popolo-549 Hayes St, San Francisco, CA 94102",
+          "name": "Del Popolo",
+          "cuisine": "Italian",
+          "priceRange": "$$",
+          "rating": 4.5,
+          "distance": "",
+          "address": "549 Hayes St, San Francisco, CA 94102",
+          "votes": 0
+        },
+        {
+          "id": "Flour + Water Pizzeria-2401 Harrison St, San Francisco, CA 94110",
+          "name": "Flour + Water Pizzeria",
+          "cuisine": "Italian",
+          "priceRange": "$$",
+          "rating": 4.5,
+          "distance": "",
+          "address": "2401 Harrison St, San Francisco, CA 94110",
+          "votes": 0
+        }
+      ]
+    }
   ]
 ]

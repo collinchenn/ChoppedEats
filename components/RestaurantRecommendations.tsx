@@ -25,12 +25,20 @@ interface RestaurantRecommendationsProps {
 export default function RestaurantRecommendations({ restaurants, onVote, onAddToVoting, mode = 'all' }: RestaurantRecommendationsProps) {
   const [votedRestaurant, setVotedRestaurant] = useState<string | null>(null)
   const [photoUrls, setPhotoUrls] = useState<Record<string, string>>({})
+  const [addedToVoting, setAddedToVoting] = useState<Set<string>>(new Set())
 
   const handleVote = (restaurantId: string) => {
     if (votedRestaurant) return 
     
     onVote(restaurantId)
     setVotedRestaurant(restaurantId)
+  }
+
+  const handleAddToVoting = (restaurant: Restaurant) => {
+    if (onAddToVoting) {
+      onAddToVoting(restaurant)
+      setAddedToVoting(prev => new Set(Array.from(prev).concat(restaurant.id)))
+    }
   }
 
   const sortedRestaurants = [...restaurants].sort((a, b) => b.votes - a.votes)
@@ -135,10 +143,20 @@ export default function RestaurantRecommendations({ restaurants, onVote, onAddTo
                 <div className="flex items-center justify-end space-x-2">
                   {onAddToVoting && (
                     <button
-                      onClick={() => onAddToVoting(restaurant)}
-                      className="px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-700 hover:bg-blue-200"
+                      onClick={() => handleAddToVoting(restaurant)}
+                      disabled={addedToVoting.has(restaurant.id)}
+                      className={`flex items-center space-x-1 px-3 py-1 rounded-full text-sm font-medium transition-colors ${
+                        addedToVoting.has(restaurant.id)
+                          ? 'bg-green-100 text-green-700 cursor-default'
+                          : 'bg-blue-100 text-blue-700 hover:bg-blue-200'
+                      }`}
                     >
-                      Add to voting
+                      {addedToVoting.has(restaurant.id) && (
+                        <CheckCircle className="h-4 w-4" />
+                      )}
+                      <span>
+                        {addedToVoting.has(restaurant.id) ? 'Added to voting' : 'Add to voting'}
+                      </span>
                     </button>
                   )}
                   <button

@@ -70,12 +70,13 @@ export default function PartyPage() {
           timestamp: new Date(data.vibe.timestamp)
         }
         setVibes(prev => [...prev, vibeWithDate])
-        if (Array.isArray(data.matches)) {
+        if (Array.isArray(data.matches) && data.matches.length > 0) {
           setLatestMatches(data.matches)
           setShowRecommendations(true)
         }
       } else if (data.type === 'restaurants_updated') {
         setRestaurants(data.restaurants)
+        setLatestMatches(null) // Clear latest matches to show all restaurants
         setShowRecommendations(true)
       } else if (data.type === 'vote_updated') {
         setRestaurants(prev => 
@@ -402,10 +403,10 @@ export default function PartyPage() {
                   </div>
                 </div>
                 <RestaurantRecommendations 
-                  restaurants={latestMatches || []} 
+                  restaurants={latestMatches && latestMatches.length > 0 ? latestMatches : restaurants} 
                   onVote={handleVote}
                   onAddToVoting={addToVoting}
-                  mode={latestMatches ? 'matches' : 'all'}
+                  mode={latestMatches && latestMatches.length > 0 ? 'matches' : 'all'}
                 />
                 
                 {/* Proceed Button */}

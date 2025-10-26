@@ -12,6 +12,7 @@ export interface Party {
   createdAt: string
   vibes: Vibe[]
   restaurants: Restaurant[]
+  votingCandidates?: Restaurant[]
 }
 
 export interface Vibe {
@@ -32,6 +33,8 @@ export interface Restaurant {
   address: string
   image?: string
   votes: number
+  addedBy?: string
+  source?: 'manual' | 'groq'
 }
 
 const DATA_FILE = join(process.cwd(), 'data', 'parties.json')
@@ -110,6 +113,60 @@ export function setRestaurantsForParty(code: string, restaurants: Restaurant[]) 
     parties.set(code, party)
     saveParties(parties)
   }
+}
+
+export function getVotingCandidates(code: string): Restaurant[] {
+  const party = parties.get(code)
+  return party?.votingCandidates || []
+}
+
+export function setVotingCandidates(code: string, candidates: Restaurant[]) {
+  const party = parties.get(code)
+  if (party) {
+    party.votingCandidates = candidates
+    parties.set(code, party)
+    saveParties(parties)
+  }
+}
+
+export function addVotingCandidate(code: string, candidate: Restaurant) {
+  const party = parties.get(code)
+  if (party) {
+    const list = party.votingCandidates || []
+    const key = (r: Restaurant) => `${(r.name || '').toLowerCase()}|${(r.address || '').toLowerCase()}`
+    const exists = list.some(r => key(r) === key(candidate))
+    if (!exists) {
+      list.push({ ...candidate, votes: candidate.votes ?? 0, addedBy: candidate.addedBy, source: candidate.source || 'manual' })
+      party.votingCandidates = list
+      parties.set(code, party)
+      saveParties(parties)
+    }
+    return party.votingCandidates
+  }
+  return []
+}
+
+export function clearVotingCandidates(code: string) {
+  const party = parties.get(code)
+  if (party) {
+    party.votingCandidates = []
+    parties.set(code, party)
+    saveParties(parties)
+  }
+}
+
+export function voteForVotingCandidate(code: string, restaurantId: string) {
+  const party = parties.get(code)
+  if (party && party.votingCandidates) {
+    const restaurant = party.votingCandidates.find(r => r.id === restaurantId)
+    if (restaurant) {
+      restaurant.votes = (restaurant.votes || 0) + 1
+      parties.set(code, party)
+      saveParties(parties)
+      return restaurant.votes
+    }
+  }
+  return 0
 }
 
 export function voteForRestaurant(code: string, restaurantId: string) {

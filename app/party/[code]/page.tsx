@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { useParams } from 'next/navigation'
-import { Utensils, DollarSign, MapPin, Users, Send, Heart, Trophy } from 'lucide-react'
+import { Utensils, DollarSign, MapPin, Users, Send, Heart, Trophy, Vote, ListPlus } from 'lucide-react'
 import VibeInput from '@/components/VibeInput'
 import VibeList from '@/components/VibeList'
 import RestaurantRecommendations from '@/components/RestaurantRecommendations'
@@ -34,6 +34,7 @@ export default function PartyPage() {
   
   const [vibes, setVibes] = useState<Vibe[]>([])
   const [restaurants, setRestaurants] = useState<Restaurant[]>([])
+  const [latestMatches, setLatestMatches] = useState<Restaurant[] | null>(null)
   const [isAnalyzing, setIsAnalyzing] = useState(false)
   const [showRecommendations, setShowRecommendations] = useState(false)
   const [showWinner, setShowWinner] = useState(false)
@@ -69,6 +70,10 @@ export default function PartyPage() {
           timestamp: new Date(data.vibe.timestamp)
         }
         setVibes(prev => [...prev, vibeWithDate])
+        if (Array.isArray(data.matches)) {
+          setLatestMatches(data.matches)
+          setShowRecommendations(true)
+        }
       } else if (data.type === 'restaurants_updated') {
         setRestaurants(data.restaurants)
         setShowRecommendations(true)
@@ -260,6 +265,30 @@ export default function PartyPage() {
     }
   }
 
+  const addToVoting = async (restaurant: Restaurant) => {
+    try {
+      await fetch(`/api/parties/${partyCode}/voting/add`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ restaurant, addedBy: 'Current User' })
+      })
+    } catch (e) {
+      console.error('Error adding to voting:', e)
+    }
+  }
+
+  const enterVoting = async () => {
+    try {
+      await fetch(`/api/parties/${partyCode}/voting/select`, { method: 'POST' })
+      // optimistic navigate shortly after
+      setTimeout(() => {
+        window.location.href = `/party/${partyCode}/voting`
+      }, 200)
+    } catch (e) {
+      console.error('Error entering voting:', e)
+    }
+  }
+
   const handleProceed = () => {
     // Find restaurant with most votes
     if (restaurants.length === 0) return
@@ -300,7 +329,7 @@ export default function PartyPage() {
         </div>
 
         <div className="grid lg:grid-cols-2 gap-6">
-          {/* Left Column - Vibes */}
+          {/* Left Column - Vibes + All Recommendations */}
           <div className="space-y-6">
             {/* Vibe Input */}
             <VibeInput onSubmit={handleVibeSubmit} />
@@ -333,15 +362,50 @@ export default function PartyPage() {
                 </p>
               </div>
             )}
+
+            {/* All Recommended (accumulated) */}
+            <div className="bg-white rounded-lg shadow-sm p-6">
+              <h3 className="text-lg font-semibold text-gray-900 mb-3">All recommended</h3>
+              {restaurants.length === 0 ? (
+                <p className="text-sm text-gray-500">No recommendations yet</p>
+              ) : (
+                <ul className="list-disc list-inside text-sm text-gray-700 space-y-1">
+                  {restaurants.map(r => (
+                    <li key={r.id}>{r.name} — {r.address}</li>
+                  ))}
+                </ul>
+              )}
+            </div>
           </div>
 
           {/* Right Column - Recommendations */}
           <div>
             {showRecommendations ? (
               <div className="space-y-4">
+                <div className="bg-white rounded-lg shadow-sm p-4 flex items-center justify-between">
+                  <div className="text-sm text-gray-700">
+                    {latestMatches ? 'Latest vibe matches' : 'All recommendations'}
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={() => (window.location.href = `/party/${partyCode}/voting`)}
+                      className="px-3 py-2 bg-gray-100 text-gray-700 rounded hover:bg-gray-200"
+                    >
+                      View voting
+                    </button>
+                    <button
+                      onClick={enterVoting}
+                      className="btn-primary px-4 py-2"
+                    >
+                      Enter voting
+                    </button>
+                  </div>
+                </div>
                 <RestaurantRecommendations 
-                  restaurants={restaurants} 
+                  restaurants={latestMatches || []} 
                   onVote={handleVote}
+                  onAddToVoting={addToVoting}
+                  mode={latestMatches ? 'matches' : 'all'}
                 />
                 
                 {/* Proceed Button */}

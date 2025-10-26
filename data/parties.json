@@ -2725,6 +2725,382 @@
       "location": "1501 19th Ave, San Francisco, CA 94122, USA",
       "createdAt": "2025-10-26T08:48:48.910Z",
       "vibes": [],
+      "restaurants": [],
+      "votingCandidates": []
+    }
+  ],
+  [
+    "88YVSO",
+    {
+      "id": "1761468765045",
+      "code": "88YVSO",
+      "name": "asd",
+      "location": "asd",
+      "createdAt": "2025-10-26T08:52:45.045Z",
+      "vibes": [],
+      "restaurants": []
+    }
+  ],
+  [
+    "1HH519",
+    {
+      "id": "1761469596478",
+      "code": "1HH519",
+      "name": "a",
+      "location": "s",
+      "createdAt": "2025-10-26T09:06:36.478Z",
+      "vibes": [],
+      "restaurants": []
+    }
+  ],
+  [
+    "9BES7Z",
+    {
+      "id": "1761470093581",
+      "code": "9BES7Z",
+      "name": "Friday Night Dinner",
+      "location": "Irvine CA",
+      "createdAt": "2025-10-26T09:14:53.581Z",
+      "vibes": [],
+      "restaurants": [],
+      "votingCandidates": [
+        {
+          "id": "ChIJLUsBAp3e3IARYq0lCrW8HiY",
+          "address": "2700 Alton Pkwy #133, Irvine, CA 92606, USA",
+          "distance": "",
+          "addedBy": "Jiaxuan Chen",
+          "name": "Kura Revolving Sushi Bar",
+          "rating": 4.2,
+          "cuisine": "Sushi",
+          "votes": 0,
+          "priceRange": "$$"
+        },
+        {
+          "id": "Sushi Damo-15333 Culver Dr, Irvine, CA 92604",
+          "name": "Sushi Damo",
+          "cuisine": "Sushi",
+          "priceRange": "$$",
+          "rating": 4.5,
+          "distance": "",
+          "address": "15333 Culver Dr, Irvine, CA 92604",
+          "votes": 0,
+          "addedBy": "AI"
+        },
+        {
+          "id": "Sushi Imari-3955 Irvine Blvd, Irvine, CA 92614",
+          "name": "Sushi Imari",
+          "cuisine": "Sushi",
+          "priceRange": "$$",
+          "rating": 4.7,
+          "distance": "",
+          "address": "3955 Irvine Blvd, Irvine, CA 92614",
+          "votes": 0,
+          "addedBy": "AI"
+        },
+        {
+          "id": "Kaisen Sushi-14450 Culver Dr, Irvine, CA 92604",
+          "name": "Kaisen Sushi",
+          "cuisine": "Sushi",
+          "priceRange": "$$",
+          "rating": 4.5,
+          "distance": "",
+          "address": "14450 Culver Dr, Irvine, CA 92604",
+          "votes": 0,
+          "addedBy": "AI"
+        },
+        {
+          "id": "Sushi Noguchi-2710 Alton Pkwy, Irvine, CA 92606",
+          "name": "Sushi Noguchi",
+          "cuisine": "Sushi",
+          "priceRange": "$$",
+          "rating": 4.6,
+          "distance": "",
+          "address": "2710 Alton Pkwy, Irvine, CA 92606",
+          "votes": 0,
+          "addedBy": "AI"
+        },
+        {
+          "id": "Sakura Sushi-5321 Alton Pkwy, Irvine, CA 92604",
+          "name": "Sakura Sushi",
+          "cuisine": "Sushi",
+          "priceRange": "$$",
+          "rating": 4.4,
+          "distance": "",
+          "address": "5321 Alton Pkwy, Irvine, CA 92604",
+          "votes": 0,
+          "addedBy": "AI"
+        }
+      ]
+    }
+  ],
+  [
+    "RC0YM0",
+    {
+      "id": "1761470625452",
+      "code": "RC0YM0",
+      "name": "Friday Night Dinner",
+      "location": "Irvine CA",
+      "createdAt": "2025-10-26T09:23:45.452Z",
+      "vibes": [],
+      "restaurants": [],
+      "votingCandidates": [
+        {
+          "id": "ChIJ051qQPPe3IAR-HG4wzIXBz0",
+          "address": "2222 Michelson Dr ste 246, Irvine, CA 92612, USA",
+          "distance": "",
+          "addedBy": "Rick Liu",
+          "name": "Otoro Sushi",
+          "rating": 4.5,
+          "cuisine": "Sushi",
+          "votes": 0,
+          "priceRange": "$$"
+        },
+        {
+          "id": "Sushi Noguchi-3333 Michelson Dr, Irvine, CA 92612",
+          "name": "Sushi Noguchi",
+          "cuisine": "Japanese, Sushi",
+          "priceRange": "$$$",
+          "rating": 4.5,
+          "distance": "",
+          "address": "3333 Michelson Dr, Irvine, CA 92612",
+          "votes": 0,
+          "addedBy": "AI"
+        },
+        {
+          "id": "Blue C Sushi-2967 Michelson Dr, Irvine, CA 92612",
+          "name": "Blue C Sushi",
+          "cuisine": "Japanese, Sushi",
+          "priceRange": "$$",
+          "rating": 4.2,
+          "distance": "",
+          "address": "2967 Michelson Dr, Irvine, CA 92612",
+          "votes": 0,
+          "addedBy": "AI"
+        },
+        {
+          "id": "Sushi Osaka-15333 Culver Dr, Irvine, CA 92604",
+          "name": "Sushi Osaka",
+          "cuisine": "Japanese, Sushi",
+          "priceRange": "$$",
+          "rating": 4.4,
+          "distance": "",
+          "address": "15333 Culver Dr, Irvine, CA 92604",
+          "votes": 0,
+          "addedBy": "AI"
+        },
+        {
+          "id": "Kaisen Sushi-17595 Harvard Ave, Irvine, CA 92614",
+          "name": "Kaisen Sushi",
+          "cuisine": "Japanese, Sushi",
+          "priceRange": "$$$",
+          "rating": 4.6,
+          "distance": "",
+          "address": "17595 Harvard Ave, Irvine, CA 92614",
+          "votes": 0,
+          "addedBy": "AI"
+        },
+        {
+          "id": "Sakura Japanese Restaurant-2710 Alton Pkwy, Irvine, CA 92606",
+          "name": "Sakura Japanese Restaurant",
+          "cuisine": "Japanese, Sushi",
+          "priceRange": "$$",
+          "rating": 4.3,
+          "distance": "",
+          "address": "2710 Alton Pkwy, Irvine, CA 92606",
+          "votes": 0,
+          "addedBy": "AI"
+        }
+      ]
+    }
+  ],
+  [
+    "180EAX",
+    {
+      "id": "1761470644259",
+      "code": "180EAX",
+      "name": "asd",
+      "location": "asd",
+      "createdAt": "2025-10-26T09:24:04.259Z",
+      "vibes": [],
+      "restaurants": [],
+      "votingCandidates": [
+        {
+          "id": "No recommendations available-No address available",
+          "name": "No recommendations available",
+          "cuisine": "None",
+          "priceRange": "$",
+          "rating": 0,
+          "distance": "",
+          "address": "No address available",
+          "votes": 0,
+          "addedBy": "AI"
+        }
+      ]
+    }
+  ],
+  [
+    "XARTDS",
+    {
+      "id": "1761470737007",
+      "code": "XARTDS",
+      "name": "Friday Night Dinner",
+      "location": "Irvine CA",
+      "createdAt": "2025-10-26T09:25:37.007Z",
+      "vibes": [],
+      "restaurants": []
+    }
+  ],
+  [
+    "EHROM6",
+    {
+      "id": "1761470887007",
+      "code": "EHROM6",
+      "name": "asd",
+      "location": "asd",
+      "createdAt": "2025-10-26T09:28:07.007Z",
+      "vibes": [],
+      "restaurants": [],
+      "votingCandidates": [
+        {
+          "id": "ChIJ4ShgGXCHhYAR1UMjouhlWdw",
+          "address": "2026 Irving St, San Francisco, CA 94122, USA",
+          "distance": "",
+          "addedBy": "derek",
+          "name": "Sushi Uma",
+          "rating": 4,
+          "cuisine": "Japanese",
+          "votes": 0,
+          "priceRange": "$$"
+        },
+        {
+          "id": "ChIJE9bWr12HhYARa9JKFMOMMFs",
+          "address": "841 Irving St, San Francisco, CA 94122, USA",
+          "distance": "",
+          "addedBy": "derek",
+          "name": "Sushi Kazu",
+          "rating": 4.6,
+          "cuisine": "Japanese",
+          "votes": 0,
+          "priceRange": "$"
+        },
+        {
+          "id": "Sushi Ota-2323 E Indian School Rd, Phoenix, AZ 85016",
+          "name": "Sushi Ota",
+          "cuisine": "Japanese, Sushi",
+          "priceRange": "$$$",
+          "rating": 4.5,
+          "distance": "",
+          "address": "2323 E Indian School Rd, Phoenix, AZ 85016",
+          "votes": 0,
+          "addedBy": "AI"
+        },
+        {
+          "id": "RA Sushi Bar Restaurant-2525 E Camelback Rd, Phoenix, AZ 85016",
+          "name": "RA Sushi Bar Restaurant",
+          "cuisine": "Japanese, Sushi",
+          "priceRange": "$$",
+          "rating": 4.2,
+          "distance": "",
+          "address": "2525 E Camelback Rd, Phoenix, AZ 85016",
+          "votes": 0,
+          "addedBy": "AI"
+        },
+        {
+          "id": "Kona Grill-2150 E Williams Field Rd, Gilbert, AZ 85296",
+          "name": "Kona Grill",
+          "cuisine": "Japanese, American",
+          "priceRange": "$$",
+          "rating": 4.1,
+          "distance": "",
+          "address": "2150 E Williams Field Rd, Gilbert, AZ 85296",
+          "votes": 0,
+          "addedBy": "AI"
+        }
+      ]
+    }
+  ],
+  [
+    "VIYRQK",
+    {
+      "id": "1761471018531",
+      "code": "VIYRQK",
+      "name": "asd",
+      "location": "asd",
+      "createdAt": "2025-10-26T09:30:18.531Z",
+      "vibes": [],
+      "restaurants": []
+    }
+  ],
+  [
+    "9AGMPE",
+    {
+      "id": "1761471050473",
+      "code": "9AGMPE",
+      "name": "Friday Night Dinner",
+      "location": "Irvine CA",
+      "createdAt": "2025-10-26T09:30:50.473Z",
+      "vibes": [],
+      "restaurants": []
+    }
+  ],
+  [
+    "DQAG6J",
+    {
+      "id": "1761471323456",
+      "code": "DQAG6J",
+      "name": "asd",
+      "location": "asd",
+      "createdAt": "2025-10-26T09:35:23.456Z",
+      "vibes": [],
+      "restaurants": []
+    }
+  ],
+  [
+    "3H9QDC",
+    {
+      "id": "1761471540106",
+      "code": "3H9QDC",
+      "name": "Friday Night Dinner",
+      "location": "Irvine CA",
+      "createdAt": "2025-10-26T09:39:00.106Z",
+      "vibes": [],
+      "restaurants": [],
+      "votingCandidates": [
+        {
+          "id": "ChIJXcDONa7f3IARbgM-zlLABmY",
+          "name": "Postino Park Place",
+          "cuisine": "Bar & Grill",
+          "priceRange": "$$",
+          "rating": 4.7,
+          "distance": "",
+          "address": "2981 Michelson Dr suite e, Irvine, CA 92612, USA",
+          "votes": 0,
+          "addedBy": "hacker"
+        }
+      ]
+    }
+  ],
+  [
+    "3J1QHH",
+    {
+      "id": "1761471657627",
+      "code": "3J1QHH",
+      "name": "asd",
+      "location": "asd",
+      "createdAt": "2025-10-26T09:40:57.627Z",
+      "vibes": [],
+      "restaurants": []
+    }
+  ],
+  [
+    "V5BDUU",
+    {
+      "id": "1761471677557",
+      "code": "V5BDUU",
+      "name": "asd",
+      "location": "asd",
+      "createdAt": "2025-10-26T09:41:17.557Z",
+      "vibes": [],
       "restaurants": []
     }
   ]

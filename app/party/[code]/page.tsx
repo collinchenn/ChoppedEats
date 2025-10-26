@@ -9,7 +9,8 @@ import VibeList from '@/components/VibeList'
 import RestaurantRecommendations from '@/components/RestaurantRecommendations'
 import WinnerDisplay from '@/components/WinnerDisplay'
 import NameEntryModal from '@/components/NameEntryModal'
-import { collection, doc, onSnapshot, orderBy, query } from 'firebase/firestore'
+import { collection, doc, onSnapshot, orderBy, query, setDoc } from 'firebase/firestore'
+import PartyJoinFeedFirebase from '@/components/PartyJoinFeedFirebase'
 
 interface Vibe {
   id: string
@@ -91,13 +92,27 @@ export default function PartyPage() {
     }
   }, [partyCode])
 
-  const handleNameSubmit = (name: string) => {
+  const handleNameSubmit = async (name: string) => {
     setUserName(name)
     setShowNameModal(false)
     
     // Save name for this session
     const sessionKey = `cardivor-user-name-${partyCode}`
     sessionStorage.setItem(sessionKey, name)
+    
+    // Save to Firebase members collection - this triggers CSGO notification!
+    try {
+      const { db } = getFirebaseServices()
+      const memberRef = doc(db, 'parties', partyCode, 'members', sessionUserId)
+      await setDoc(memberRef, {
+        name: name,
+        userId: sessionUserId,
+        joinedAt: new Date(),
+        timestamp: Date.now()
+      })
+    } catch (error) {
+      console.error('Error saving member to Firebase:', error)
+    }
     
     // Now setup realtime updates
     const idKey = `cardivor-user-id-${partyCode}`
@@ -406,6 +421,9 @@ export default function PartyPage() {
         onClose={handleNameSubmit} 
       />
       
+      {/* CSGO-style join feed */}
+      <PartyJoinFeedFirebase partyCode={partyCode} />
+      
       <div className="container mx-auto px-4 py-8">
         {/* Header */}
         <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
@@ -488,13 +506,13 @@ export default function PartyPage() {
                     Share a vibe to see your recommendations
                   </div>
                 )}
-                {/* Debug info */}
+                {/* Debug info
                 <div className="mt-4 p-2 bg-gray-100 text-xs">
                   <div>Debug: latestMatches = {latestMatches?.length || 0} items</div>
                   <div>Debug: restaurants = {restaurants.length} items</div>
                   <div>Debug: showRecommendations = {showRecommendations.toString()}</div>
                   <div>Debug: mode = {latestMatches && latestMatches.length > 0 ? 'matches' : 'none'}</div>
-                </div>
+                </div> */}
                 
                 {/* Proceed Button */}
                 {restaurants.some(r => r.votes > 0) && (

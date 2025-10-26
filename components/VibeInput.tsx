@@ -29,7 +29,7 @@ export default function VibeInput({ onSubmit, userName }: VibeInputProps) {
   return (
     <div className="bg-white rounded-lg shadow-sm p-6">
       <h3 className="text-lg font-semibold text-gray-900 mb-4">Share Your Vibe</h3>
-      
+
       <div className="mb-4 p-3 bg-blue-50 rounded-lg">
         <p className="text-sm text-blue-800">
           <strong>Posting as:</strong> {userName}
@@ -74,7 +74,7 @@ export default function VibeInput({ onSubmit, userName }: VibeInputProps) {
         <button
           type="submit"
           disabled={!message.trim()}
-          className="flex justify-center item-center btn-primary w-full disabled:opacity-50 disabled:cursor-not-allowed"
+          className="flex justify-center items-center btn-primary w-full disabled:opacity-50 disabled:cursor-not-allowed"
         >
           <Send className="h-4 w-4 mr-2" />
           Share Vibe
@@ -83,7 +83,7 @@ export default function VibeInput({ onSubmit, userName }: VibeInputProps) {
 
       <div className="mt-4 p-3 bg-blue-50 rounded-lg">
         <p className="text-sm text-blue-800">
-          <strong>Tips:</strong> Be specific about what you're craving, any dietary restrictions, 
+          <strong>Tips:</strong> Be specific about what you're craving, any dietary restrictions,
           and your budget. The more details you share, the better our recommendations will be!
         </p>
       </div>

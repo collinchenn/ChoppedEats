@@ -57,8 +57,20 @@ export default function RestaurantRecommendations({ restaurants, onVote, onAddTo
     if (isAdded) {
       // Remove from voting
       if (onRemoveFromVoting) {
-        onRemoveFromVoting(restaurant.id)
-        // Don't update local state here - let Firestore listener handle it
+        // Optimistic update
+        setAddedToVoting(prev => {
+          const newSet = new Set(Array.from(prev))
+          newSet.delete(restaurant.id)
+          return newSet
+        })
+        
+        try {
+          await onRemoveFromVoting(restaurant.id)
+        } catch (error) {
+          // Revert optimistic update on error
+          setAddedToVoting(prev => new Set(Array.from(prev).concat(restaurant.id)))
+          console.error('Failed to remove restaurant from voting:', error)
+        }
       }
     } else {
       // Add to voting
@@ -164,11 +176,12 @@ export default function RestaurantRecommendations({ restaurants, onVote, onAddTo
                   </div>
                   <div className="flex items-center">
                     <span>{restaurant.priceRange}</span>
+                    
                   </div>
                   
                 </div>
                 
-                <p className="text-sm text-gray-600 mt-2">{restaurant.address}</p>
+                
                 </div>
               </div>
               
@@ -186,7 +199,7 @@ export default function RestaurantRecommendations({ restaurants, onVote, onAddTo
                       <CheckCircle className="h-4 w-4" />
                     )}
                     <span>
-                      {addedToVoting.has(restaurant.id) ? 'Added to voting' : 'Add to voting'}
+                      {addedToVoting.has(restaurant.id) ? 'Added to Voting' : 'Add to voting'}
                     </span>
                   </button>
                 )}

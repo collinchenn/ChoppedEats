@@ -123,9 +123,6 @@ export default function LandingPage() {
               >
                 Start a Group →
               </DelayedLink>
-              <div className="text-sm text-gray-700">
-                Free • No signup required
-              </div>
             </div>
           </div>
 

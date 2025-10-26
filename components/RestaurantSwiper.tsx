@@ -20,13 +20,15 @@ interface RestaurantSwiperProps {
   onLike?: (restaurant: Restaurant) => void
   onDislike?: (restaurant: Restaurant) => void
   onComplete?: (liked: Restaurant[], disliked: Restaurant[]) => void
+  hideCompletionScreen?: boolean
 }
 
 export default function RestaurantSwiper({ 
   restaurants, 
   onLike, 
   onDislike,
-  onComplete 
+  onComplete,
+  hideCompletionScreen = false
 }: RestaurantSwiperProps) {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isDragging, setIsDragging] = useState(false)
@@ -37,6 +39,7 @@ export default function RestaurantSwiper({
   const [photoUrls, setPhotoUrls] = useState<Record<string, string>>({})
   const [showInfo, setShowInfo] = useState(false)
   const [isTransitioning, setIsTransitioning] = useState(false)
+  const [imagesLoaded, setImagesLoaded] = useState<Record<string, boolean>>({})
   const cardRef = useRef<HTMLDivElement>(null)
 
   const currentRestaurant = restaurants[currentIndex]
@@ -77,6 +80,25 @@ export default function RestaurantSwiper({
     }
   }, [restaurants])
 
+  // Preload images for smooth transitions
+  useEffect(() => {
+    const preloadImages = () => {
+      Object.entries(photoUrls).forEach(([restaurantId, url]) => {
+        const img = new Image()
+        img.onload = () => {
+          setImagesLoaded(prev => ({ ...prev, [restaurantId]: true }))
+        }
+        img.onerror = () => {
+          setImagesLoaded(prev => ({ ...prev, [restaurantId]: false }))
+        }
+        img.src = url
+      })
+    }
+    if (Object.keys(photoUrls).length > 0) {
+      preloadImages()
+    }
+  }, [photoUrls])
+
   const handleSwipe = (direction: 'left' | 'right', animated: boolean = false) => {
     if (!currentRestaurant) return
 
@@ -89,10 +111,17 @@ export default function RestaurantSwiper({
     }
 
     if (direction === 'right') {
-      setLikedRestaurants([...likedRestaurants, currentRestaurant])
+      // Prevent duplicate likes if user rapidly triggers multiple swipes/buttons
+      const alreadyLiked = likedRestaurants.some(r => r.id === currentRestaurant.id)
+      if (!alreadyLiked) {
+        setLikedRestaurants([...likedRestaurants, currentRestaurant])
+      }
       onLike?.(currentRestaurant)
     } else {
-      setDislikedRestaurants([...dislikedRestaurants, currentRestaurant])
+      const alreadyDisliked = dislikedRestaurants.some(r => r.id === currentRestaurant.id)
+      if (!alreadyDisliked) {
+        setDislikedRestaurants([...dislikedRestaurants, currentRestaurant])
+      }
       onDislike?.(currentRestaurant)
     }
 
@@ -179,7 +208,7 @@ export default function RestaurantSwiper({
   const rotation = isDragging ? dragOffset.x / 20 : 0
   const opacity = isDragging ? Math.max(0.5, 1 - Math.abs(dragOffset.x) / 500) : 1
 
-  if (isComplete) {
+  if (isComplete && !hideCompletionScreen) {
     return (
       <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-pink-50 via-white to-purple-50 p-6">
         <div className="bg-white rounded-2xl shadow-xl p-8 max-w-md w-full text-center">
@@ -248,6 +277,21 @@ export default function RestaurantSwiper({
     )
   }
 
+  // If completion screen is hidden but swiping is complete, show loading
+  if (isComplete && hideCompletionScreen) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50 p-6">
+        <div className="bg-white rounded-2xl shadow-xl p-8 max-w-md w-full text-center">
+          <div className="w-16 h-16 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center mx-auto mb-4">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+          </div>
+          <h2 className="text-2xl font-bold text-gray-900 mb-2">Processing...</h2>
+          <p className="text-gray-600">Please wait while we process your votes.</p>
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-pink-50 via-white to-purple-50 p-6">
       {/* Header */}
@@ -256,6 +300,11 @@ export default function RestaurantSwiper({
         <p className="text-gray-600">
           {currentIndex + 1} / {restaurants.length}
         </p>
+        {Object.keys(photoUrls).length < restaurants.length && (
+          <div className="mt-2 text-sm text-gray-500">
+            Loading images... ({Object.keys(photoUrls).length}/{restaurants.length})
+          </div>
+        )}
       </div>
 
       {/* Card Stack */}
@@ -296,7 +345,7 @@ export default function RestaurantSwiper({
           >
             {/* Restaurant Image */}
             <div className="relative h-96">
-              {photoUrls[currentRestaurant.id] ? (
+              {photoUrls[currentRestaurant.id] && imagesLoaded[currentRestaurant.id] ? (
                 <img
                   src={photoUrls[currentRestaurant.id]}
                   alt={currentRestaurant.name}
@@ -305,7 +354,9 @@ export default function RestaurantSwiper({
                 />
               ) : (
                 <div className="w-full h-full bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center">
-                  <div className="text-gray-400 text-lg">No image available</div>
+                  <div className="text-gray-400 text-lg">
+                    {photoUrls[currentRestaurant.id] ? 'Loading image...' : 'No image available'}
+                  </div>
                 </div>
               )}
 

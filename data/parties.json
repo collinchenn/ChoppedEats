@@ -1762,5 +1762,617 @@
         }
       ]
     }
+  ],
+  [
+    "BAO17R",
+    {
+      "id": "1761465138976",
+      "code": "BAO17R",
+      "name": "derek",
+      "location": "1501 CA-1, San Francisco, CA 94122, USA",
+      "createdAt": "2025-10-26T07:52:18.976Z",
+      "vibes": [],
+      "restaurants": [],
+      "votingCandidates": [
+        {
+          "id": "ChIJ4ShgGXCHhYAR1UMjouhlWdw",
+          "name": "Sushi Uma",
+          "cuisine": "Japanese",
+          "priceRange": "$$",
+          "rating": 4,
+          "distance": "",
+          "address": "2026 Irving St, San Francisco, CA 94122, USA",
+          "votes": 0,
+          "addedBy": "derek"
+        },
+        {
+          "id": "ChIJE9bWr12HhYARa9JKFMOMMFs",
+          "name": "Sushi Kazu",
+          "cuisine": "Japanese",
+          "priceRange": "$",
+          "rating": 4.6,
+          "distance": "",
+          "address": "841 Irving St, San Francisco, CA 94122, USA",
+          "votes": 0,
+          "addedBy": "derek"
+        },
+        {
+          "id": "ChIJ-Tu9InB9j4ARn4npo8PZzEw",
+          "name": "Pasquale's Pizzeria Restaurant",
+          "cuisine": "Pizza",
+          "priceRange": "$$",
+          "rating": 4,
+          "distance": "",
+          "address": "2640 Sloat Blvd, San Francisco, CA 94116, USA",
+          "votes": 0,
+          "addedBy": "rick"
+        },
+        {
+          "id": "ChIJ-UdgVlSHhYARdN1RZs-r7eI",
+          "name": "Golden Edge Pizza",
+          "cuisine": "Pizza",
+          "priceRange": "$",
+          "rating": 4.6,
+          "distance": "",
+          "address": "5351 Geary Blvd, San Francisco, CA 94121, USA",
+          "votes": 0,
+          "addedBy": "rick"
+        },
+        {
+          "id": "Cliff House-1090 Point Lobos Ave, San Francisco, CA 94121",
+          "name": "Cliff House",
+          "cuisine": "American",
+          "priceRange": "$$$",
+          "rating": 4,
+          "distance": "",
+          "address": "1090 Point Lobos Ave, San Francisco, CA 94121",
+          "votes": 0,
+          "addedBy": "AI"
+        },
+        {
+          "id": "The Beach Chalet-1000 Great Hwy, San Francisco, CA 94121",
+          "name": "The Beach Chalet",
+          "cuisine": "American",
+          "priceRange": "$$",
+          "rating": 4,
+          "distance": "",
+          "address": "1000 Great Hwy, San Francisco, CA 94121",
+          "votes": 0,
+          "addedBy": "AI"
+        },
+        {
+          "id": "Warming Hut-983 Marine Dr, San Francisco, CA 94129",
+          "name": "Warming Hut",
+          "cuisine": "American",
+          "priceRange": "$",
+          "rating": 4,
+          "distance": "",
+          "address": "983 Marine Dr, San Francisco, CA 94129",
+          "votes": 0,
+          "addedBy": "AI"
+        },
+        {
+          "id": "Louis' Restaurant-902 Point Lobos Ave, San Francisco, CA 94121",
+          "name": "Louis' Restaurant",
+          "cuisine": "American",
+          "priceRange": "$$",
+          "rating": 4,
+          "distance": "",
+          "address": "902 Point Lobos Ave, San Francisco, CA 94121",
+          "votes": 0,
+          "addedBy": "AI"
+        },
+        {
+          "id": "El Farolito-2779 24th St, San Francisco, CA 94110",
+          "name": "El Farolito",
+          "cuisine": "Mexican",
+          "priceRange": "$",
+          "rating": 4,
+          "distance": "",
+          "address": "2779 24th St, San Francisco, CA 94110",
+          "votes": 0,
+          "addedBy": "AI"
+        }
+      ]
+    }
+  ],
+  [
+    "XOZ79D",
+    {
+      "id": "1761466199435",
+      "code": "XOZ79D",
+      "name": "derek",
+      "location": "1529 Kirkham St, San Francisco, CA 94122, USA",
+      "createdAt": "2025-10-26T08:09:59.435Z",
+      "vibes": [],
+      "restaurants": [],
+      "votingCandidates": [
+        {
+          "id": "ChIJ4ShgGXCHhYAR1UMjouhlWdw",
+          "name": "Sushi Uma",
+          "cuisine": "Japanese",
+          "priceRange": "$$",
+          "rating": 4,
+          "distance": "",
+          "address": "2026 Irving St, San Francisco, CA 94122, USA",
+          "votes": 0,
+          "addedBy": "Derek"
+        },
+        {
+          "id": "ChIJ93MU4FyHhYARNsN1cMElpgo",
+          "name": "Ebisu Restaurant",
+          "cuisine": "Japanese",
+          "priceRange": "$$",
+          "rating": 4.6,
+          "distance": "",
+          "address": "1283 9th Ave, San Francisco, CA 94122, USA",
+          "votes": 0,
+          "addedBy": "Derek"
+        },
+        {
+          "id": "ChIJ-UdgVlSHhYARdN1RZs-r7eI",
+          "name": "Golden Edge Pizza",
+          "cuisine": "Pizza",
+          "priceRange": "$",
+          "rating": 4.6,
+          "distance": "",
+          "address": "5351 Geary Blvd, San Francisco, CA 94121, USA",
+          "votes": 0,
+          "addedBy": "rick"
+        },
+        {
+          "id": "ChIJ7dBoQVyHhYAR1kAzDEJvXOU",
+          "name": "Pasquale's Pizzeria",
+          "cuisine": "Pizza",
+          "priceRange": "$",
+          "rating": 4.4,
+          "distance": "",
+          "address": "700 Irving St, San Francisco, CA 94122, USA",
+          "votes": 0,
+          "addedBy": "rick"
+        },
+        {
+          "id": "Nopa-560 Divisadero St, San Francisco, CA 94117",
+          "name": "Nopa",
+          "cuisine": "American",
+          "priceRange": "$$$",
+          "rating": 4.5,
+          "distance": "",
+          "address": "560 Divisadero St, San Francisco, CA 94117",
+          "votes": 0,
+          "addedBy": "AI"
+        },
+        {
+          "id": "Nari-1625 Post St, San Francisco, CA 94115",
+          "name": "Nari",
+          "cuisine": "Thai",
+          "priceRange": "$$$",
+          "rating": 4.5,
+          "distance": "",
+          "address": "1625 Post St, San Francisco, CA 94115",
+          "votes": 0,
+          "addedBy": "AI"
+        },
+        {
+          "id": "Nabe-2151 Lombard St, San Francisco, CA 94123",
+          "name": "Nabe",
+          "cuisine": "Japanese",
+          "priceRange": "$$",
+          "rating": 4.5,
+          "distance": "",
+          "address": "2151 Lombard St, San Francisco, CA 94123",
+          "votes": 0,
+          "addedBy": "AI"
+        },
+        {
+          "id": "PPQ Beef Noodle House-1816 Irving St, San Francisco, CA 94122",
+          "name": "PPQ Beef Noodle House",
+          "cuisine": "Vietnamese",
+          "priceRange": "$",
+          "rating": 4.5,
+          "distance": "",
+          "address": "1816 Irving St, San Francisco, CA 94122",
+          "votes": 0,
+          "addedBy": "AI"
+        },
+        {
+          "id": "Chubby Noodle-5700 Geary Blvd, San Francisco, CA 94121",
+          "name": "Chubby Noodle",
+          "cuisine": "Asian Fusion",
+          "priceRange": "$$",
+          "rating": 4,
+          "distance": "",
+          "address": "5700 Geary Blvd, San Francisco, CA 94121",
+          "votes": 0,
+          "addedBy": "AI"
+        }
+      ]
+    }
+  ],
+  [
+    "09NT1W",
+    {
+      "id": "1761466400234",
+      "code": "09NT1W",
+      "name": "derek",
+      "location": "1529 Kirkham St, San Francisco, CA 94122, USA",
+      "createdAt": "2025-10-26T08:13:20.234Z",
+      "vibes": [],
+      "restaurants": [],
+      "votingCandidates": [
+        {
+          "id": "Nopa-560 Divisadero St, San Francisco, CA 94117",
+          "name": "Nopa",
+          "cuisine": "American",
+          "priceRange": "$$$",
+          "rating": 4.5,
+          "distance": "",
+          "address": "560 Divisadero St, San Francisco, CA 94117",
+          "votes": 0,
+          "addedBy": "AI"
+        },
+        {
+          "id": "Nari-1625 Post St, San Francisco, CA 94115",
+          "name": "Nari",
+          "cuisine": "Thai",
+          "priceRange": "$$$",
+          "rating": 4.5,
+          "distance": "",
+          "address": "1625 Post St, San Francisco, CA 94115",
+          "votes": 0,
+          "addedBy": "AI"
+        },
+        {
+          "id": "PPQ Beef Noodle House-1816 Irving St, San Francisco, CA 94122",
+          "name": "PPQ Beef Noodle House",
+          "cuisine": "Vietnamese",
+          "priceRange": "$$",
+          "rating": 4.5,
+          "distance": "",
+          "address": "1816 Irving St, San Francisco, CA 94122",
+          "votes": 0,
+          "addedBy": "AI"
+        },
+        {
+          "id": "Chile Lindo-3725 Mission St, San Francisco, CA 94110",
+          "name": "Chile Lindo",
+          "cuisine": "Latin American",
+          "priceRange": "$",
+          "rating": 4.5,
+          "distance": "",
+          "address": "3725 Mission St, San Francisco, CA 94110",
+          "votes": 0,
+          "addedBy": "AI"
+        },
+        {
+          "id": "Burma Superstar-309 Clement St, San Francisco, CA 94118",
+          "name": "Burma Superstar",
+          "cuisine": "Burmese",
+          "priceRange": "$$",
+          "rating": 4.2,
+          "distance": "",
+          "address": "309 Clement St, San Francisco, CA 94118",
+          "votes": 0,
+          "addedBy": "AI"
+        }
+      ]
+    }
+  ],
+  [
+    "OAXZ58",
+    {
+      "id": "1761466456567",
+      "code": "OAXZ58",
+      "name": "derek",
+      "location": "1529 Kirkham St, San Francisco, CA 94122, USA",
+      "createdAt": "2025-10-26T08:14:16.567Z",
+      "vibes": [],
+      "restaurants": [],
+      "votingCandidates": [
+        {
+          "id": "ChIJ4ShgGXCHhYAR1UMjouhlWdw",
+          "name": "Sushi Uma",
+          "cuisine": "Japanese",
+          "priceRange": "$$",
+          "rating": 4,
+          "distance": "",
+          "address": "2026 Irving St, San Francisco, CA 94122, USA",
+          "votes": 0,
+          "addedBy": "derek"
+        },
+        {
+          "id": "ChIJ-UdgVlSHhYARdN1RZs-r7eI",
+          "name": "Golden Edge Pizza",
+          "cuisine": "Pizza",
+          "priceRange": "$",
+          "rating": 4.6,
+          "distance": "",
+          "address": "5351 Geary Blvd, San Francisco, CA 94121, USA",
+          "votes": 0,
+          "addedBy": "rick"
+        },
+        {
+          "id": "Nopa-560 Divisadero St, San Francisco, CA 94117",
+          "name": "Nopa",
+          "cuisine": "American",
+          "priceRange": "$$$",
+          "rating": 4.5,
+          "distance": "",
+          "address": "560 Divisadero St, San Francisco, CA 94117",
+          "votes": 0,
+          "addedBy": "AI"
+        },
+        {
+          "id": "Nari-1625 Post St, San Francisco, CA 94115",
+          "name": "Nari",
+          "cuisine": "Thai",
+          "priceRange": "$$$",
+          "rating": 4.5,
+          "distance": "",
+          "address": "1625 Post St, San Francisco, CA 94115",
+          "votes": 0,
+          "addedBy": "AI"
+        },
+        {
+          "id": "Nabe-2151 Fillmore St, San Francisco, CA 94115",
+          "name": "Nabe",
+          "cuisine": "Japanese",
+          "priceRange": "$$",
+          "rating": 4.2,
+          "distance": "",
+          "address": "2151 Fillmore St, San Francisco, CA 94115",
+          "votes": 0,
+          "addedBy": "AI"
+        },
+        {
+          "id": "Nihon-1779 Divisadero St, San Francisco, CA 94115",
+          "name": "Nihon",
+          "cuisine": "Japanese",
+          "priceRange": "$$$",
+          "rating": 4.4,
+          "distance": "",
+          "address": "1779 Divisadero St, San Francisco, CA 94115",
+          "votes": 0,
+          "addedBy": "AI"
+        },
+        {
+          "id": "Namu Gaji-499 Dolores St, San Francisco, CA 94110",
+          "name": "Namu Gaji",
+          "cuisine": "Korean",
+          "priceRange": "$$",
+          "rating": 4.4,
+          "distance": "",
+          "address": "499 Dolores St, San Francisco, CA 94110",
+          "votes": 0,
+          "addedBy": "AI"
+        }
+      ]
+    }
+  ],
+  [
+    "01DPZ2",
+    {
+      "id": "1761466709633",
+      "code": "01DPZ2",
+      "name": "d",
+      "location": "1529 Kirkham St, San Francisco, CA 94122, USA",
+      "createdAt": "2025-10-26T08:18:29.633Z",
+      "vibes": [],
+      "restaurants": [],
+      "votingCandidates": [
+        {
+          "id": "ChIJ4ShgGXCHhYAR1UMjouhlWdw",
+          "name": "Sushi Uma",
+          "cuisine": "Japanese",
+          "priceRange": "$$",
+          "rating": 4,
+          "distance": "",
+          "address": "2026 Irving St, San Francisco, CA 94122, USA",
+          "votes": 0,
+          "addedBy": "Derek"
+        },
+        {
+          "id": "ChIJ93MU4FyHhYARNsN1cMElpgo",
+          "name": "Ebisu Restaurant",
+          "cuisine": "Japanese",
+          "priceRange": "$$",
+          "rating": 4.6,
+          "distance": "",
+          "address": "1283 9th Ave, San Francisco, CA 94122, USA",
+          "votes": 0,
+          "addedBy": "Derek"
+        },
+        {
+          "id": "ChIJ-UdgVlSHhYARdN1RZs-r7eI",
+          "name": "Golden Edge Pizza",
+          "cuisine": "Pizza",
+          "priceRange": "$",
+          "rating": 4.6,
+          "distance": "",
+          "address": "5351 Geary Blvd, San Francisco, CA 94121, USA",
+          "votes": 0,
+          "addedBy": "rick"
+        },
+        {
+          "id": "ChIJ7dBoQVyHhYAR1kAzDEJvXOU",
+          "name": "Pasquale's Pizzeria",
+          "cuisine": "Pizza",
+          "priceRange": "$",
+          "rating": 4.4,
+          "distance": "",
+          "address": "700 Irving St, San Francisco, CA 94122, USA",
+          "votes": 0,
+          "addedBy": "rick"
+        },
+        {
+          "id": "Nopa-560 Divisadero St, San Francisco, CA 94117",
+          "name": "Nopa",
+          "cuisine": "American",
+          "priceRange": "$$$",
+          "rating": 4.5,
+          "distance": "",
+          "address": "560 Divisadero St, San Francisco, CA 94117",
+          "votes": 0,
+          "addedBy": "AI"
+        },
+        {
+          "id": "Nari-1625 Post St, San Francisco, CA 94115",
+          "name": "Nari",
+          "cuisine": "Thai",
+          "priceRange": "$$$",
+          "rating": 4.5,
+          "distance": "",
+          "address": "1625 Post St, San Francisco, CA 94115",
+          "votes": 0,
+          "addedBy": "AI"
+        },
+        {
+          "id": "PPQ Beef Noodle House-1816 Irving St, San Francisco, CA 94122",
+          "name": "PPQ Beef Noodle House",
+          "cuisine": "Vietnamese",
+          "priceRange": "$$",
+          "rating": 4.5,
+          "distance": "",
+          "address": "1816 Irving St, San Francisco, CA 94122",
+          "votes": 0,
+          "addedBy": "AI"
+        },
+        {
+          "id": "Chubby Noodle-5700 Geary Blvd, San Francisco, CA 94121",
+          "name": "Chubby Noodle",
+          "cuisine": "Asian Fusion",
+          "priceRange": "$$",
+          "rating": 4.2,
+          "distance": "",
+          "address": "5700 Geary Blvd, San Francisco, CA 94121",
+          "votes": 0,
+          "addedBy": "AI"
+        },
+        {
+          "id": "Burma Superstar-309 Clement St, San Francisco, CA 94118",
+          "name": "Burma Superstar",
+          "cuisine": "Burmese",
+          "priceRange": "$$",
+          "rating": 4.4,
+          "distance": "",
+          "address": "309 Clement St, San Francisco, CA 94118",
+          "votes": 0,
+          "addedBy": "AI"
+        }
+      ]
+    }
+  ],
+  [
+    "PV78FK",
+    {
+      "id": "1761467096232",
+      "code": "PV78FK",
+      "name": "derek",
+      "location": "1529 Kirkham St, San Francisco, CA 94122, USA",
+      "createdAt": "2025-10-26T08:24:56.232Z",
+      "vibes": [],
+      "restaurants": [],
+      "votingCandidates": [
+        {
+          "id": "ChIJ06Hh75aHhYARre2ZXOUDzXY",
+          "name": "Breadbelly",
+          "cuisine": "Sandwiches",
+          "priceRange": "$$",
+          "rating": 4.6,
+          "distance": "",
+          "address": "1408 Clement St, San Francisco, CA 94118, USA",
+          "votes": 0,
+          "addedBy": "e"
+        },
+        {
+          "id": "ChIJ67x-RL6HhYAR9KHFEC_C4k8",
+          "name": "Bread n' Chu",
+          "cuisine": "Sandwiches",
+          "priceRange": "$",
+          "rating": 4,
+          "distance": "",
+          "address": "1900 Clement St, San Francisco, CA 94121, USA",
+          "votes": 0,
+          "addedBy": "e"
+        },
+        {
+          "id": "ChIJ-Tu9InB9j4ARn4npo8PZzEw",
+          "name": "Pasquale's Pizzeria Restaurant",
+          "cuisine": "Pizza",
+          "priceRange": "$$",
+          "rating": 4,
+          "distance": "",
+          "address": "2640 Sloat Blvd, San Francisco, CA 94116, USA",
+          "votes": 0,
+          "addedBy": "derek"
+        },
+        {
+          "id": "ChIJ-UdgVlSHhYARdN1RZs-r7eI",
+          "name": "Golden Edge Pizza",
+          "cuisine": "Pizza",
+          "priceRange": "$",
+          "rating": 4.6,
+          "distance": "",
+          "address": "5351 Geary Blvd, San Francisco, CA 94121, USA",
+          "votes": 0,
+          "addedBy": "derek"
+        },
+        {
+          "id": "Nopa-560 Divisadero St, San Francisco, CA 94117",
+          "name": "Nopa",
+          "cuisine": "American",
+          "priceRange": "$$$",
+          "rating": 4.5,
+          "distance": "",
+          "address": "560 Divisadero St, San Francisco, CA 94117",
+          "votes": 0,
+          "addedBy": "AI"
+        },
+        {
+          "id": "Nari-1625 Post St, San Francisco, CA 94115",
+          "name": "Nari",
+          "cuisine": "Thai",
+          "priceRange": "$$$",
+          "rating": 4.5,
+          "distance": "",
+          "address": "1625 Post St, San Francisco, CA 94115",
+          "votes": 0,
+          "addedBy": "AI"
+        },
+        {
+          "id": "Namu Gaji-499 Dolores St, San Francisco, CA 94110",
+          "name": "Namu Gaji",
+          "cuisine": "Korean",
+          "priceRange": "$$",
+          "rating": 4.4,
+          "distance": "",
+          "address": "499 Dolores St, San Francisco, CA 94110",
+          "votes": 0,
+          "addedBy": "AI"
+        },
+        {
+          "id": "PPQ Beef Noodle House-1816 Irving St, San Francisco, CA 94122",
+          "name": "PPQ Beef Noodle House",
+          "cuisine": "Vietnamese",
+          "priceRange": "$",
+          "rating": 4.4,
+          "distance": "",
+          "address": "1816 Irving St, San Francisco, CA 94122",
+          "votes": 0,
+          "addedBy": "AI"
+        },
+        {
+          "id": "Chile Lindo-2944 16th St, San Francisco, CA 94103",
+          "name": "Chile Lindo",
+          "cuisine": "Latin American",
+          "priceRange": "$",
+          "rating": 4.6,
+          "distance": "",
+          "address": "2944 16th St, San Francisco, CA 94103",
+          "votes": 0,
+          "addedBy": "AI"
+        }
+      ]
+    }
   ]
 ]

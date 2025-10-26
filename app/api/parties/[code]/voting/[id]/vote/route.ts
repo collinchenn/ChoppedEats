@@ -22,7 +22,10 @@ export async function POST(
 
     const result = voteForVotingCandidate(code, id, userId)
     try {
-      await adminDb().collection('parties').doc(code).collection('votingCandidates').doc(id).set({ votes: result.votes }, { merge: true })
+      await adminDb().collection('parties').doc(code).collection('votingCandidates').doc(id).set({ 
+        votes: result.votes, 
+        votedBy: result.votedBy 
+      }, { merge: true })
     } catch (e) {
       console.error('Firestore vote update error:', e)
     }
@@ -60,6 +63,14 @@ export async function DELETE(
     }
 
     const result = unvoteForVotingCandidate(code, id, userId)
+    try {
+      await adminDb().collection('parties').doc(code).collection('votingCandidates').doc(id).set({ 
+        votes: result.votes, 
+        votedBy: result.votedBy 
+      }, { merge: true })
+    } catch (e) {
+      console.error('Firestore unvote update error:', e)
+    }
     broadcastToParty(code, { 
       type: 'voting_vote_updated', 
       restaurantId: id, 

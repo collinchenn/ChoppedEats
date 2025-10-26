@@ -6,7 +6,7 @@
 
 *Built for groups who want to find the perfect restaurant together*
 
-[Live Demo](#) • [Features](#features) • [Tech Stack](#tech-stack) • [Getting Started](#getting-started)
+[Live Demo](#) • [Features](#-features) • [Tech Stack](#-tech-stack) • [Getting Started](#-getting-started)
 
 </div>
 
@@ -58,15 +58,16 @@ ChoppedEats provides a streamlined 3-step process:
 - **Candidate Selection**: Curate the final voting list from recommendations
 
 ### 🔄 Real-Time Collaboration
-- **Server-Sent Events (SSE)**: Instant updates without polling
-- **Live Synchronization**: Changes broadcast to all party members immediately
-- **Persistent State**: Full state recovery on page refresh
-- **Event-Driven Architecture**: Efficient real-time communication
+- **Firebase Firestore Listeners**: Real-time database subscriptions with `onSnapshot()`
+- **Instant Synchronization**: Changes propagate to all clients within milliseconds
+- **Persistent State**: Full state recovery on page refresh via Firestore
+- **Anonymous Authentication**: Seamless user experience without sign-up required
+- **Optimistic Updates**: Changes appear instantly while syncing in background
 
 ### 📊 Restaurant Information
 - **Google Places Photos**: Real restaurant images via Places API
 - **Ratings & Reviews**: Display authentic Google ratings
-- **Price Levels**: Visual price range indicators ($, $$, $$$, $$$$)
+- **Price Levels**: Visual price range indicators ($$$, $$$$, $$$$$$$, $$$$$$$$)
 - **Location Details**: Full addresses with map integration ready
 - **Cuisine Types**: Automatic categorization (Chinese, Italian, etc.)
 
@@ -76,20 +77,20 @@ ChoppedEats provides a streamlined 3-step process:
 
 ### Frontend
 - **Next.js 14** - React framework with App Router
-- **TypeScript** - Type-safe development
-- **Tailwind CSS** - Utility-first styling
-- **Lucide React** - Beautiful icon library
-- **Server-Sent Events** - Real-time updates
+- **TypeScript** - Type-safety
+- **Tailwind CSS** - Styling
+- **Lucide React** - Icon library
 
 ### Backend
 - **Next.js API Routes** - Serverless API endpoints
 - **Node.js** - Runtime environment
-- **File-Based Storage** - JSON persistence (parties.json)
-- **Server-Sent Events** - Real-time event streaming
+- **Firebase Firestore** - Real-time NoSQL database for party data, vibes, and voting
+- **Server-Sent Events** - Real-time event streaming for instant updates
 
 ### APIs & Services
 - **Google Places API** - Restaurant discovery and photos
-- **Groq AI** - Natural language processing (optional)
+- **Groq AI** - NLP and restaurant recommendation
+- **Firebase Realtime Sync** - Realtime user sync
 
 ### Key Libraries
 ```json
@@ -99,7 +100,9 @@ ChoppedEats provides a streamlined 3-step process:
   "typescript": "^5.2.2",
   "tailwindcss": "^3.3.5",
   "lucide-react": "^0.292.0",
-  "groq-sdk": "^0.3.3"
+  "groq-sdk": "^0.3.3",
+  "firebase": "^10.14.1",
+  "firebase-admin": "^12.7.0"
 }
 ```
 
@@ -110,9 +113,10 @@ ChoppedEats provides a streamlined 3-step process:
 ### Prerequisites
 
 - Node.js 18 or higher
-- npm or yarn package manager
+- npm
+- Firebase project with Firestore enabled ([Create one here](https://console.firebase.google.com/))
 - Google Places API key ([Get one here](https://developers.google.com/maps/documentation/places/web-service/get-api-key))
-- (Optional) Groq API key for enhanced AI features
+- Groq API key for enhanced AI features
 
 ### Installation
 
@@ -125,23 +129,42 @@ cd ChoppedEats
 2. **Install dependencies**
 ```bash
 npm install
-# or
-yarn install
 ```
 
 3. **Set up environment variables**
 
 Create a `.env.local` file in the root directory:
 ```env
+# Google Places API
 GOOGLE_PLACES_API_KEY=your_google_places_api_key_here
-GROQ_API_KEY=your_groq_api_key_here (optional)
+
+# Groq AI (optional)
+GROQ_API_KEY=your_groq_api_key_here
+
+# Firebase Admin (Server-side)
+FIREBASE_SERVICE_ACCOUNT='{"type": "service_account", "project_id": "...", ...}'
+
+# Firebase Client (Browser-side)
+NEXT_PUBLIC_FIREBASE_API_KEY=your_firebase_api_key
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your-project.firebaseapp.com
+NEXT_PUBLIC_FIREBASE_PROJECT_ID=your-project-id
+NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=your-project.firebasestorage.app
+NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
+NEXT_PUBLIC_FIREBASE_APP_ID=your_app_id
 ```
+
+**Firebase Setup:**
+1. Go to [Firebase Console](https://console.firebase.google.com/)
+2. Create a new project or select existing
+3. Enable Firestore Database
+4. Go to Project Settings → Service Accounts → Generate new private key
+5. Copy the JSON content to `FIREBASE_SERVICE_ACCOUNT` environment variable
+6. Get your web app config from Project Settings → General → Your apps
+7. Copy the config values to the `NEXT_PUBLIC_FIREBASE_*` variables
 
 4. **Run the development server**
 ```bash
 npm run dev
-# or
-yarn dev
 ```
 
 5. **Open your browser**
@@ -188,18 +211,21 @@ The system:
 ### 5️⃣ Real-Time Updates
 
 ```typescript
-// Server-Sent Events keep everyone in sync
-eventSource.onmessage = (event) => {
-  const data = JSON.parse(event.data)
-  
-  if (data.type === 'vibe_added') {
-    // New vibe shared
-  } else if (data.type === 'restaurants_updated') {
-    // New recommendations available
-  } else if (data.type === 'voting_vote_updated') {
-    // Vote count changed
-  }
-}
+// Firebase Firestore listeners keep everyone in sync
+const { db } = getFirebaseServices()
+const vibesRef = collection(db, 'parties', partyCode, 'vibes')
+
+// Real-time listener - updates automatically when data changes
+const unsubscribe = onSnapshot(vibesRef, (snapshot) => {
+  const vibes = snapshot.docs.map(doc => ({
+    id: doc.id,
+    ...doc.data()
+  }))
+  setVibes(vibes) // Instant UI update across all clients
+})
+
+// Cleanup when component unmounts
+return () => unsubscribe()
 ```
 
 ---
@@ -245,21 +271,40 @@ ChoppedEats/
 ### Data Flow
 
 ```
-User Input → API Route → Party Store → Broadcast → All Clients
+User Input → API Route → Firebase Firestore → onSnapshot Listeners → All Clients
                 ↓
          Google Places API
                 ↓
-         Restaurant Data → Storage → SSE Updates
+            Groq API
+                ↓
+         Restaurant Data → Firestore Collections → Real-time Updates
 ```
 
-### Real-Time Events
+### Firestore Collections Structure
 
-| Event Type | Trigger | Updates |
-|------------|---------|---------|
-| `vibe_added` | New vibe submitted | Vibes list, Recommendations |
-| `restaurants_updated` | Places API returns | Restaurant list |
-| `voting_candidates_updated` | Restaurant added/removed | Voting candidates |
-| `voting_vote_updated` | User votes/unvotes | Vote counts |
+```
+parties/{partyCode}
+├── members/{userId}           # Party members with join timestamps
+├── vibes/{vibeId}             # Shared dining preferences
+│   ├── username: string
+│   ├── message: string
+│   ├── budget: number
+│   └── timestamp: number
+└── votingCandidates/{restId}  # Restaurants in voting pool
+    ├── name: string
+    ├── cuisine: string
+    ├── rating: number
+    ├── votes: number
+    └── votedBy: string[]      # User IDs who voted
+```
+
+### Real-Time Sync Features
+
+| Collection | Listener | Updates |
+|------------|----------|---------|
+| `members` | Join notifications | Live party member count, CS:GO-style join alerts |
+| `vibes` | Vibe feed | Instant vibe updates across all clients |
+| `votingCandidates` | Voting UI | Real-time vote counts and restaurant list |
 
 ---
 
@@ -307,19 +352,45 @@ function toggleVote(restaurantId: string, userId: string) {
 }
 ```
 
-### Real-Time State Synchronization
+### Real-Time State Synchronization with Firebase
 
 ```typescript
-// Broadcast updates to all connected clients
-export function broadcastToParty(partyCode: string, data: any) {
-  const streams = eventStreams.get(partyCode)
-  streams?.forEach(controller => {
-    controller.enqueue(
-      new TextEncoder().encode(`data: ${JSON.stringify(data)}\n\n`)
-    )
+// Firebase provides automatic real-time sync across all clients
+import { collection, doc, setDoc, onSnapshot } from 'firebase/firestore'
+import { getFirebaseServices } from '@/lib/firebase-client'
+
+// Write data - automatically syncs to all listeners
+async function addVote(partyCode: string, restaurantId: string, userId: string) {
+  const { db } = getFirebaseServices()
+  const voteRef = doc(db, 'parties', partyCode, 'votingCandidates', restaurantId)
+  
+  await setDoc(voteRef, {
+    votes: votes + 1,
+    votedBy: [...votedBy, userId]
+  }, { merge: true })
+  
+  // All clients with listeners receive update instantly
+}
+
+// Listen for changes - updates in real-time
+function listenToVotes(partyCode: string) {
+  const { db } = getFirebaseServices()
+  const votesRef = collection(db, 'parties', partyCode, 'votingCandidates')
+  
+  return onSnapshot(votesRef, (snapshot) => {
+    // This callback runs automatically when data changes
+    snapshot.docs.forEach(doc => {
+      console.log('Vote updated:', doc.data())
+    })
   })
 }
 ```
+
+**Why Firebase Firestore?**
+- **Sub-second latency**: Changes propagate in < 100ms typically
+- **Offline support**: Continues working without internet, syncs when reconnected  
+- **Scalable**: Handles multiple concurrent parties and users effortlessly
+- **No server maintenance**: Fully managed backend infrastructure
 
 ---
 
@@ -363,7 +434,7 @@ export function broadcastToParty(partyCode: string, data: any) {
 
 **Scenario 1: Mixed Preferences**
 - Alice wants sushi ($30 budget)
-- Bob wants Italian ($$-$$$ range)
+- Bob wants Italian ($$$-$$$$ range)
 - Carol wants vegetarian options
 - ChoppedEats finds: Mediterranean restaurant with sushi, pasta, and veggie options
 
@@ -378,60 +449,6 @@ export function broadcastToParty(partyCode: string, data: any) {
 
 ---
 
-## 🚧 Future Enhancements
-
-### Planned Features
-- [ ] **User Accounts** - Save favorite restaurants and preferences
-- [ ] **Map Integration** - Visual restaurant locations
-- [ ] **Reservation Integration** - Book directly from the app
-- [ ] **Dietary Filters** - Vegetarian, vegan, gluten-free, etc.
-- [ ] **Distance Filtering** - "Restaurants within 2 miles"
-- [ ] **Schedule Coordination** - Find times that work for everyone
-- [ ] **Restaurant History** - Track where groups have eaten
-- [ ] **Split Bill Calculator** - Integrated payment planning
-- [ ] **Review Integration** - Pull reviews from multiple sources
-- [ ] **Mobile App** - Native iOS/Android applications
-
-### Technical Improvements
-- [ ] Database migration (PostgreSQL/MongoDB)
-- [ ] Redis for real-time state management
-- [ ] WebSocket upgrade for bidirectional communication
-- [ ] Rate limiting and API protection
-- [ ] Unit and integration tests
-- [ ] CI/CD pipeline
-- [ ] Docker containerization
-- [ ] Kubernetes orchestration
-
----
-
-## 🤝 Contributing
-
-We welcome contributions! Here's how you can help:
-
-1. **Fork the repository**
-2. **Create a feature branch**
-   ```bash
-   git checkout -b feature/AmazingFeature
-   ```
-3. **Commit your changes**
-   ```bash
-   git commit -m 'Add some AmazingFeature'
-   ```
-4. **Push to the branch**
-   ```bash
-   git push origin feature/AmazingFeature
-   ```
-5. **Open a Pull Request**
-
-### Development Guidelines
-- Follow TypeScript best practices
-- Use Tailwind CSS for styling
-- Write clear commit messages
-- Add comments for complex logic
-- Test real-time features thoroughly
-
----
-
 ## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
@@ -441,7 +458,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 👨‍💻 Authors
 
 **Collin Chen**
-- GitHub: [@collinchenn](https://github.com/collinchenn)
+**Derek Sun**
+**Marvin Chu**
+**Rick Liu**
 
 ---
 
@@ -452,15 +471,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - Next.js team for the amazing framework
 - Lucide for beautiful icons
 - Tailwind CSS for styling utilities
-
----
-
-## 📞 Support
-
-Have questions or issues?
-- 🐛 [Report a bug](https://github.com/collinchenn/ChoppedEats/issues)
-- 💡 [Request a feature](https://github.com/collinchenn/ChoppedEats/issues)
-- 📧 Contact: [your-email@example.com]
 
 ---
 

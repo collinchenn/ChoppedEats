@@ -375,20 +375,6 @@ export default function PartyPage() {
                 </p>
               </div>
             )}
-
-            {/* All Recommended (accumulated) */}
-            <div className="bg-white rounded-lg shadow-sm p-6">
-              <h3 className="text-lg font-semibold text-gray-900 mb-3">All recommended</h3>
-              {restaurants.length === 0 ? (
-                <p className="text-sm text-gray-500">No recommendations yet</p>
-              ) : (
-                <ul className="list-disc list-inside text-sm text-gray-700 space-y-1">
-                  {restaurants.map(r => (
-                    <li key={r.id}>{r.name} — {r.address}</li>
-                  ))}
-                </ul>
-              )}
-            </div>
           </div>
 
           {/* Right Column - Recommendations */}

@@ -2374,5 +2374,346 @@
         }
       ]
     }
+  ],
+  [
+    "115AK6",
+    {
+      "id": "1761467623301",
+      "code": "115AK6",
+      "name": "derek",
+      "location": "1529 Kirkham St, San Francisco, CA 94122, USA",
+      "createdAt": "2025-10-26T08:33:43.301Z",
+      "vibes": [],
+      "restaurants": []
+    }
+  ],
+  [
+    "X65X9W",
+    {
+      "id": "1761467629072",
+      "code": "X65X9W",
+      "name": "derek",
+      "location": "1529 Kirkham St, San Francisco, CA 94122, USA",
+      "createdAt": "2025-10-26T08:33:49.072Z",
+      "vibes": [],
+      "restaurants": []
+    }
+  ],
+  [
+    "PKTFG6",
+    {
+      "id": "1761467747041",
+      "code": "PKTFG6",
+      "name": "derek",
+      "location": "1529 Kirkham St, San Francisco, CA 94122, USA",
+      "createdAt": "2025-10-26T08:35:47.041Z",
+      "vibes": [],
+      "restaurants": [],
+      "votingCandidates": [
+        {
+          "id": "ChIJ-UdgVlSHhYARdN1RZs-r7eI",
+          "address": "5351 Geary Blvd, San Francisco, CA 94121, USA",
+          "distance": "",
+          "addedBy": "rick",
+          "name": "Golden Edge Pizza",
+          "rating": 4.6,
+          "cuisine": "Pizza",
+          "votes": 0,
+          "priceRange": "$"
+        },
+        {
+          "id": "ChIJ4ShgGXCHhYAR1UMjouhlWdw",
+          "address": "2026 Irving St, San Francisco, CA 94122, USA",
+          "distance": "",
+          "addedBy": "Derek",
+          "name": "Sushi Uma",
+          "rating": 4,
+          "cuisine": "Japanese",
+          "votes": 0,
+          "priceRange": "$$"
+        },
+        {
+          "id": "ChIJ7dBoQVyHhYAR1kAzDEJvXOU",
+          "address": "700 Irving St, San Francisco, CA 94122, USA",
+          "distance": "",
+          "addedBy": "rick",
+          "name": "Pasquale's Pizzeria",
+          "rating": 4.4,
+          "cuisine": "Pizza",
+          "votes": 0,
+          "priceRange": "$"
+        },
+        {
+          "id": "ChIJ93MU4FyHhYARNsN1cMElpgo",
+          "address": "1283 9th Ave, San Francisco, CA 94122, USA",
+          "distance": "",
+          "addedBy": "Derek",
+          "name": "Ebisu Restaurant",
+          "rating": 4.6,
+          "cuisine": "Japanese",
+          "votes": 0,
+          "priceRange": "$$"
+        },
+        {
+          "id": "Ebisu-1283 9th Ave, San Francisco, CA 94122",
+          "name": "Ebisu",
+          "cuisine": "Sushi",
+          "priceRange": "$$$",
+          "rating": 4.5,
+          "distance": "",
+          "address": "1283 9th Ave, San Francisco, CA 94122",
+          "votes": 0,
+          "addedBy": "AI"
+        },
+        {
+          "id": "Pizzaiolo-5008 Telegraph Ave, Oakland, CA 94609",
+          "name": "Pizzaiolo",
+          "cuisine": "Pizzeria",
+          "priceRange": "$$",
+          "rating": 4.4,
+          "distance": "",
+          "address": "5008 Telegraph Ave, Oakland, CA 94609",
+          "votes": 0,
+          "addedBy": "AI"
+        },
+        {
+          "id": "Sushi Hon-3832 24th St, San Francisco, CA 94114",
+          "name": "Sushi Hon",
+          "cuisine": "Sushi",
+          "priceRange": "$$$",
+          "rating": 4.7,
+          "distance": "",
+          "address": "3832 24th St, San Francisco, CA 94114",
+          "votes": 0,
+          "addedBy": "AI"
+        },
+        {
+          "id": "Arizmendi Bakery and Pizzeria-1331 9th Ave, San Francisco, CA 94122",
+          "name": "Arizmendi Bakery and Pizzeria",
+          "cuisine": "Pizzeria",
+          "priceRange": "$",
+          "rating": 4.5,
+          "distance": "",
+          "address": "1331 9th Ave, San Francisco, CA 94122",
+          "votes": 0,
+          "addedBy": "AI"
+        },
+        {
+          "id": "KoJa Kitchen-1635 Irving St, San Francisco, CA 94122",
+          "name": "KoJa Kitchen",
+          "cuisine": "Asian Fusion",
+          "priceRange": "$$",
+          "rating": 4.4,
+          "distance": "",
+          "address": "1635 Irving St, San Francisco, CA 94122",
+          "votes": 0,
+          "addedBy": "AI"
+        }
+      ]
+    }
+  ],
+  [
+    "GZGB9O",
+    {
+      "id": "1761467867591",
+      "code": "GZGB9O",
+      "name": "derek",
+      "location": "1529 Kirkham St, San Francisco, CA 94122, USA",
+      "createdAt": "2025-10-26T08:37:47.591Z",
+      "vibes": [],
+      "restaurants": [],
+      "votingCandidates": [
+        {
+          "id": "ChIJ-Tu9InB9j4ARn4npo8PZzEw",
+          "address": "2640 Sloat Blvd, San Francisco, CA 94116, USA",
+          "distance": "",
+          "addedBy": "joh",
+          "name": "Pasquale's Pizzeria Restaurant",
+          "rating": 4,
+          "cuisine": "Pizza",
+          "votes": 0,
+          "priceRange": "$$"
+        },
+        {
+          "id": "ChIJ4ShgGXCHhYAR1UMjouhlWdw",
+          "address": "2026 Irving St, San Francisco, CA 94122, USA",
+          "distance": "",
+          "addedBy": "derek",
+          "name": "Sushi Uma",
+          "rating": 4,
+          "cuisine": "Japanese",
+          "votes": 0,
+          "priceRange": "$$"
+        },
+        {
+          "id": "Ebisu-1283 9th Ave, San Francisco, CA 94122",
+          "name": "Ebisu",
+          "cuisine": "Sushi",
+          "priceRange": "$$$",
+          "rating": 4.5,
+          "distance": "",
+          "address": "1283 9th Ave, San Francisco, CA 94122",
+          "votes": 0,
+          "addedBy": "AI"
+        },
+        {
+          "id": "Pizzeria Delfina-3611 18th St, San Francisco, CA 94110",
+          "name": "Pizzeria Delfina",
+          "cuisine": "Pizza",
+          "priceRange": "$$",
+          "rating": 4.5,
+          "distance": "",
+          "address": "3611 18th St, San Francisco, CA 94110",
+          "votes": 0,
+          "addedBy": "AI"
+        },
+        {
+          "id": "Sushi Hon-3832 Geary Blvd, San Francisco, CA 94118",
+          "name": "Sushi Hon",
+          "cuisine": "Sushi",
+          "priceRange": "$$",
+          "rating": 4.5,
+          "distance": "",
+          "address": "3832 Geary Blvd, San Francisco, CA 94118",
+          "votes": 0,
+          "addedBy": "AI"
+        },
+        {
+          "id": "Nopa-560 Divisadero St, San Francisco, CA 94117",
+          "name": "Nopa",
+          "cuisine": "American",
+          "priceRange": "$$$",
+          "rating": 4.5,
+          "distance": "",
+          "address": "560 Divisadero St, San Francisco, CA 94117",
+          "votes": 0,
+          "addedBy": "AI"
+        },
+        {
+          "id": "Del Popolo-549 Mission St, San Francisco, CA 94105",
+          "name": "Del Popolo",
+          "cuisine": "Pizza",
+          "priceRange": "$$",
+          "rating": 4.5,
+          "distance": "",
+          "address": "549 Mission St, San Francisco, CA 94105",
+          "votes": 0,
+          "addedBy": "AI"
+        }
+      ]
+    }
+  ],
+  [
+    "VWQ3HG",
+    {
+      "id": "1761468012264",
+      "code": "VWQ3HG",
+      "name": "derek",
+      "location": "1501 19th Ave, San Francisco, CA 94122, USA",
+      "createdAt": "2025-10-26T08:40:12.264Z",
+      "vibes": [],
+      "restaurants": [],
+      "votingCandidates": [
+        {
+          "id": "ChIJ4ShgGXCHhYAR1UMjouhlWdw",
+          "address": "2026 Irving St, San Francisco, CA 94122, USA",
+          "distance": "",
+          "addedBy": "derek",
+          "name": "Sushi Uma",
+          "rating": 4,
+          "cuisine": "Japanese",
+          "votes": 0,
+          "priceRange": "$$"
+        },
+        {
+          "id": "ChIJ7dBoQVyHhYAR1kAzDEJvXOU",
+          "address": "700 Irving St, San Francisco, CA 94122, USA",
+          "distance": "",
+          "addedBy": "rick",
+          "name": "Pasquale's Pizzeria",
+          "rating": 4.4,
+          "cuisine": "Pizza",
+          "votes": 0,
+          "priceRange": "$"
+        },
+        {
+          "id": "Ebisu-1283 9th Ave, San Francisco, CA 94122",
+          "address": "1283 9th Ave, San Francisco, CA 94122",
+          "distance": "",
+          "addedBy": "AI",
+          "name": "Ebisu",
+          "rating": 4.5,
+          "cuisine": "Sushi",
+          "votes": 0,
+          "priceRange": "$$$"
+        },
+        {
+          "id": "Gioia Pizzeria-2240 Polk St, San Francisco, CA 94109",
+          "address": "2240 Polk St, San Francisco, CA 94109",
+          "distance": "",
+          "addedBy": "AI",
+          "name": "Gioia Pizzeria",
+          "rating": 4.5,
+          "cuisine": "Pizza",
+          "votes": 0,
+          "priceRange": "$$"
+        },
+        {
+          "id": "Nopa-560 Divisadero St, San Francisco, CA 94117",
+          "address": "560 Divisadero St, San Francisco, CA 94117",
+          "distance": "",
+          "addedBy": "AI",
+          "name": "Nopa",
+          "rating": 4.5,
+          "cuisine": "American",
+          "votes": 0,
+          "priceRange": "$$$"
+        },
+        {
+          "id": "Pizzeria Delfina-2406 California St, San Francisco, CA 94115",
+          "name": "Pizzeria Delfina",
+          "cuisine": "Pizza",
+          "priceRange": "$$",
+          "rating": 4.5,
+          "distance": "",
+          "address": "2406 California St, San Francisco, CA 94115",
+          "votes": 0,
+          "addedBy": "AI"
+        },
+        {
+          "id": "Nara Sushi-1515 Irving St, San Francisco, CA 94122",
+          "name": "Nara Sushi",
+          "cuisine": "Sushi",
+          "priceRange": "$$",
+          "rating": 4.5,
+          "distance": "",
+          "address": "1515 Irving St, San Francisco, CA 94122",
+          "votes": 0,
+          "addedBy": "AI"
+        },
+        {
+          "id": "Taraval Pizza-1435 Taraval St, San Francisco, CA 94116",
+          "name": "Taraval Pizza",
+          "cuisine": "Pizza",
+          "priceRange": "$",
+          "rating": 4,
+          "distance": "",
+          "address": "1435 Taraval St, San Francisco, CA 94116",
+          "votes": 0,
+          "addedBy": "AI"
+        },
+        {
+          "id": "KoJa Kitchen-349 Clement St, San Francisco, CA 94118",
+          "name": "KoJa Kitchen",
+          "cuisine": "Asian Fusion",
+          "priceRange": "$$",
+          "rating": 4.5,
+          "distance": "",
+          "address": "349 Clement St, San Francisco, CA 94118",
+          "votes": 0,
+          "addedBy": "AI"
+        }
+      ]
+    }
   ]
 ]

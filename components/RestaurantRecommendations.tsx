@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from 'react'
 import { Star, MapPin, DollarSign, Users, CheckCircle } from 'lucide-react'
+import { collection, onSnapshot } from 'firebase/firestore'
+import { getFirebaseServices } from '@/lib/firebase-client'
 
 interface Restaurant {
   id: string
@@ -28,37 +30,20 @@ export default function RestaurantRecommendations({ restaurants, onVote, onAddTo
   const [photoUrls, setPhotoUrls] = useState<Record<string, string>>({})
   const [addedToVoting, setAddedToVoting] = useState<Set<string>>(new Set())
 
-  // Load voting candidates on mount
+  // Load voting candidates on mount and listen for real-time updates
   useEffect(() => {
     if (!partyCode) return
     
-    const loadVotingCandidates = async () => {
-      try {
-        const response = await fetch(`/api/parties/${partyCode}/voting`)
-        if (response.ok) {
-          const data = await response.json()
-          const candidateIds = new Set<string>(data.candidates.map((c: Restaurant) => c.id))
-          setAddedToVoting(candidateIds)
-        }
-      } catch (error) {
-        console.error('Error loading voting candidates:', error)
-      }
-    }
+    const { db } = getFirebaseServices()
+    const votingCandidatesCol = collection(db, 'parties', partyCode, 'votingCandidates')
     
-    loadVotingCandidates()
-
-    // Listen for real-time updates to voting candidates
-    const eventSource = new EventSource(`/api/parties/${partyCode}/events`)
-    eventSource.onmessage = (event) => {
-      const data = JSON.parse(event.data)
-      if (data.type === 'voting_candidates_updated') {
-        const candidateIds = new Set<string>(data.candidates.map((c: Restaurant) => c.id))
-        setAddedToVoting(candidateIds)
-      }
-    }
+    const unsubscribe = onSnapshot(votingCandidatesCol, (snapshot) => {
+      const candidateIds = new Set<string>(snapshot.docs.map(doc => doc.id))
+      setAddedToVoting(candidateIds)
+    })
     
     return () => {
-      eventSource.close()
+      unsubscribe()
     }
   }, [partyCode])
 

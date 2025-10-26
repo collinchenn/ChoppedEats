@@ -22,7 +22,7 @@ export async function POST(
 
     const result = voteForVotingCandidate(code, id, userId)
     try {
-      await adminDb().collection('parties').doc(code).collection('votingCandidates').doc(id).set({ votes }, { merge: true })
+      await adminDb().collection('parties').doc(code).collection('votingCandidates').doc(id).set({ votes: result.votes }, { merge: true })
     } catch (e) {
       console.error('Firestore vote update error:', e)
     }
@@ -33,14 +33,8 @@ export async function POST(
       votedBy: result.votedBy 
     })
     return NextResponse.json({ success: true, votes: result.votes, votedBy: result.votedBy })
-    const votes = voteForVotingCandidate(code, id)
-    try {
-      await adminDb().collection('parties').doc(code).collection('votingCandidates').doc(id).set({ votes }, { merge: true })
-    } catch (e) {
-      console.error('Firestore vote update error:', e)
-    }
-    broadcastToParty(code, { type: 'voting_vote_updated', restaurantId: id, votes })
-    return NextResponse.json({ success: true, votes })
+
+
   } catch (error) {
     console.error('Error voting for candidate:', error)
     return NextResponse.json({ error: 'Failed to vote' }, { status: 500 })

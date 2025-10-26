@@ -45,28 +45,24 @@ export default function PartyPage() {
 
   // Load party data when component mounts
   useEffect(() => {
-    ensureSignedInAnonymously().then(async () => {
-      const { auth } = getFirebaseServices()
-      setCurrentUid(auth.currentUser?.uid || null)
-      loadPartyData()
-    })
     setupRealtimeUpdates()
     
     return () => {
-      // Cleanup event source when component unmounts
+      // Cleanup Firestore subscriptions
       if (typeof window !== 'undefined') {
-        const eventSource = (window as any).partyEventSource
-        if (eventSource) {
-          eventSource.close()
+        const unsubs: Array<() => void> | undefined = (window as any).partyUnsubs
+        if (Array.isArray(unsubs)) {
+          unsubs.forEach(u => { try { u() } catch {} })
         }
+        ;(window as any).partyUnsubs = undefined
       }
     }
   }, [partyCode])
 
   const setupRealtimeUpdates = () => {
     if (typeof window === 'undefined') return
-    const { auth, db } = getFirebaseServices()
-    const uid = auth.currentUser?.uid || null
+    const { db } = getFirebaseServices()
+    console.log('🚀 Setting up realtime updates')
     const unsubs: Array<() => void> = []
     ;(window as any).partyUnsubs = unsubs
 
@@ -85,7 +81,7 @@ export default function PartyPage() {
       if (arr.length > 0) setShowRecommendations(true)
     }))
 
-    // Vibes and matches for latest own vibe
+    // Vibes and matches for latest vibe (show all vibes, but matches for latest)
     let matchesUnsub: null | (() => void) = null
     const vibesCol = collection(db, 'parties', partyCode, 'vibes')
     const vibesQ = query(vibesCol, orderBy('timestamp', 'asc'))
@@ -94,61 +90,38 @@ export default function PartyPage() {
         const v: any = d.data()
         return { ...v, timestamp: new Date(v.timestamp) }
       }) as Vibe[]
+      console.log('🔥 Vibes updated:', list.length, 'vibes')
       setVibes(list)
-      if (uid) {
-        const own = (list as any[]).filter(v => (v as any).userId === uid)
-        const latest = own[own.length - 1]
-        const latestId = (latest as any)?.id
-        if (latestId) {
-          if (matchesUnsub) {
-            try { matchesUnsub() } catch {}
-          }
-          const matchesCol = collection(db, 'parties', partyCode, 'vibes', latestId, 'matches')
-          matchesUnsub = onSnapshot(matchesCol, (msnap) => {
-            const matches = msnap.docs.map(d => ({ id: d.id, ...(d.data() as any) })) as Restaurant[]
-            setLatestMatches(matches)
-            setShowRecommendations(true)
-          })
+      
+      // Get the latest vibe (most recent)
+      const latest = list[list.length - 1]
+      const latestId = latest?.id
+      console.log('📝 Latest vibe ID:', latestId)
+      if (latestId) {
+        if (matchesUnsub) {
+          try { matchesUnsub() } catch {}
         }
+        const matchesCol = collection(db, 'parties', partyCode, 'vibes', latestId, 'matches')
+        console.log('🎯 Setting up matches listener for vibe:', latestId)
+        matchesUnsub = onSnapshot(matchesCol, (msnap) => {
+          const matches = msnap.docs.map(d => ({ id: d.id, ...(d.data() as any) })) as Restaurant[]
+          console.log('🍽️ Matches received:', matches.length, 'restaurants')
+          console.log('🍽️ Match data:', matches)
+          setLatestMatches(matches)
+          setShowRecommendations(true)
+        })
+        // Add the matches unsubscribe to the cleanup array
+        unsubs.push(() => { try { matchesUnsub && matchesUnsub() } catch {} })
       }
     }))
-
-    if (matchesUnsub) {
-      unsubs.push(() => { try { matchesUnsub && matchesUnsub() } catch {} })
-    }
-  }
-
-  const loadPartyData = async () => {
-    try {
-      const response = await fetch(`/api/parties/${partyCode}`)
-      if (response.ok) {
-        const data = await response.json()
-        
-        // Convert string timestamps to Date objects
-        const vibesWithDates = (data.vibes || []).map((vibe: any) => ({
-          ...vibe,
-          timestamp: new Date(vibe.timestamp)
-        }))
-        
-        setVibes(vibesWithDates)
-        setRestaurants(data.restaurants || [])
-        setShowRecommendations(data.restaurants && data.restaurants.length > 0)
-        setOwnerUid(data.party?.ownerUid || null)
-      }
-    } catch (error) {
-      console.error('Error loading party data:', error)
-    }
   }
 
   const handleVibeSubmit = async (vibe: Omit<Vibe, 'id' | 'timestamp'>) => {
     try {
-      const { auth } = getFirebaseServices()
-      const token = await auth.currentUser?.getIdToken()
       const response = await fetch(`/api/parties/${partyCode}/vibes`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          ...(token ? { Authorization: `Bearer ${token}` } : {})
         },
         body: JSON.stringify(vibe),
       })
@@ -156,7 +129,7 @@ export default function PartyPage() {
       if (!response.ok) {
         console.error('Failed to save vibe')
       }
-      // Don't manually add to state - the EventSource will handle it via broadcast
+      // State updates come from Firestore listeners
     } catch (error) {
       console.error('Error saving vibe:', error)
     }
@@ -430,6 +403,13 @@ export default function PartyPage() {
                   partyCode={partyCode}
                   mode={latestMatches && latestMatches.length > 0 ? 'matches' : 'all'}
                 />
+                {/* Debug info */}
+                <div className="mt-4 p-2 bg-gray-100 text-xs">
+                  <div>Debug: latestMatches = {latestMatches?.length || 0} items</div>
+                  <div>Debug: restaurants = {restaurants.length} items</div>
+                  <div>Debug: showRecommendations = {showRecommendations.toString()}</div>
+                  <div>Debug: mode = {latestMatches && latestMatches.length > 0 ? 'matches' : 'all'}</div>
+                </div>
                 
                 {/* Proceed Button */}
                 {restaurants.some(r => r.votes > 0) && (

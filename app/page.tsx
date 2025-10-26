@@ -1,95 +1,200 @@
 'use client'
 
-import { useState } from 'react'
-import { Plus, Users, MapPin, Utensils } from 'lucide-react'
-import CreateParty from '@/components/CreateParty'
-import JoinParty from '@/components/JoinParty'
+import DelayedLink from '@/components/DelayedLinkWithLoading'
 
-export default function Home() {
-  const [activeTab, setActiveTab] = useState<'create' | 'join'>('create')
-
+export default function LandingPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary-50 to-primary-100">
-      <div className="container mx-auto px-4 py-8">
-        {/* Header */}
-        <div className="text-center mb-12">
-          <div className="flex items-center justify-center mb-4">
-            <Utensils className="h-12 w-12 text-primary-600 mr-3" />
-            <h1 className="text-4xl font-bold text-gray-900">ChopEats</h1>
-          </div>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Create parties and decide on restaurants together with your friends. 
-            Share your vibe, budget, and preferences to find the perfect spot!
-          </p>
-        </div>
-
-        {/* Main Content */}
-        <div className="max-w-4xl mx-auto">
-          {/* Tab Navigation */}
-          <div className="flex justify-center mb-8">
-            <div className="bg-white rounded-lg p-1 shadow-sm">
-              <button
-                onClick={() => setActiveTab('create')}
-                className={`flex items-center px-6 py-3 rounded-md font-medium transition-colors ${
-                  activeTab === 'create'
-                    ? 'bg-primary-600 text-white'
-                    : 'text-gray-600 hover:text-gray-900'
-                }`}
-              >
-                <Plus className="h-5 w-5 mr-2" />
-                Create Party
-              </button>
-              <button
-                onClick={() => setActiveTab('join')}
-                className={`flex items-center px-6 py-3 rounded-md font-medium transition-colors ${
-                  activeTab === 'join'
-                    ? 'bg-primary-600 text-white'
-                    : 'text-gray-600 hover:text-gray-900'
-                }`}
-              >
-                <Users className="h-5 w-5 mr-2" />
-                Join Party
-              </button>
+    <>
+      <style jsx global>{`
+        @keyframes gradient-shift {
+          0% {
+            background-position: 0% 50%;
+          }
+          50% {
+            background-position: 100% 50%;
+          }
+          100% {
+            background-position: 0% 50%;
+          }
+        }
+      `}</style>
+      
+      <div 
+        className="min-h-screen flex items-center justify-center px-6 py-12"
+        style={{
+          background: 'linear-gradient(90deg, #fecaca 0%, #fed7aa 30%, #fde68a 60%, #fef3c7 100%)',
+          backgroundSize: '200% 100%',
+          animation: 'gradient-shift 15s ease infinite'
+        }}
+      >
+        <div className="max-w-7xl w-full grid lg:grid-cols-[1.2fr_1fr] gap-16 items-center">
+          {/* Left side - Hero content */}
+          <div>
+            <div className="mb-12">
+              <div className="text-3xl font-bold text-gray-900 tracking-tight">ChoppedEats</div>
+            </div>
+            
+            <h1 className="text-6xl lg:text-7xl xl:text-8xl font-bold leading-tight mb-8 text-gray-900">
+              Find your group&apos;s perfect restaurant in seconds
+            </h1>
+                      
+            <p className="text-xl lg:text-2xl font-normal mb-10 leading-relaxed max-w-2xl text-gray-700">
+              Stop the endless debate. Everyone contributes. Everyone shares what they&apos;re feeling, and we&apos;ll show you restaurants that make whole group happy.
+            </p>
+            
+            <div className="flex items-center gap-4">
+              <DelayedLink 
+                  href="/create"
+                  delay={1500}
+                  className="inline-block bg-gray-900 text-white font-semibold text-lg px-10 py-5 rounded-full hover:bg-gray-800 transition-all duration-200 shadow-xl hover:shadow-2xl transform hover:scale-105"
+                >
+                Start a Group →
+              </DelayedLink>
+              <div className="text-sm text-gray-700">
+                Free • No signup required
+              </div>
             </div>
           </div>
 
-          {/* Tab Content */}
-          <div className="bg-white rounded-xl shadow-lg p-8">
-            {activeTab === 'create' ? <CreateParty /> : <JoinParty />}
-          </div>
+          {/* Right side - Phone mockup with floating elements */}
+          <div className="hidden lg:flex justify-end items-center">
+            <div className="relative">
+              {/* Floating card - Top left */}
+              <div className="absolute -left-24 top-12 bg-white rounded-2xl shadow-2xl p-5 w-64 z-20 transform hover:scale-105 transition-transform">
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="w-10 h-10 bg-gradient-to-br from-orange-400 to-red-400 rounded-full flex items-center justify-center text-white font-bold">
+                    M
+                  </div>
+                  <div>
+                    <p className="text-sm font-semibold text-gray-900">Mike</p>
+                    <p className="text-xs text-gray-500">Just shared</p>
+                  </div>
+                </div>
+                <p className="text-sm text-gray-700">
+                  "Craving spicy ramen, budget ~$25"
+                </p>
+              </div>
 
-          {/* Features */}
-          <div className="mt-16 grid md:grid-cols-3 gap-8">
-            <div className="text-center">
-              <div className="bg-primary-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Users className="h-8 w-8 text-primary-600" />
+              {/* Floating card - Bottom right */}
+              <div className="absolute -right-20 bottom-32 bg-white rounded-2xl shadow-2xl p-5 w-72 z-20 transform hover:scale-105 transition-transform">
+                <div className="flex items-center justify-between mb-3">
+                  <h4 className="text-sm font-bold text-gray-900">Top Match</h4>
+                  <span className="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full font-semibold">95% match</span>
+                </div>
+                <div className="flex gap-3">
+                  <div className="w-14 h-14 bg-gradient-to-br from-yellow-200 to-orange-200 rounded-lg flex items-center justify-center text-2xl">
+                    🍜
+                  </div>
+                  <div className="flex-1">
+                    <p className="font-semibold text-gray-900 text-sm">Ramen House</p>
+                    <p className="text-xs text-gray-500">Japanese • $$ • 0.3 mi</p>
+                    <div className="flex items-center gap-1 mt-1">
+                      <span className="text-yellow-500 text-xs">★★★★★</span>
+                      <span className="text-xs text-gray-600">4.8 (234)</span>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">Create & Invite</h3>
-              <p className="text-gray-600">
-                Create a party and get a unique code to share with your friends
-              </p>
-            </div>
-            <div className="text-center">
-              <div className="bg-primary-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Utensils className="h-8 w-8 text-primary-600" />
+
+              {/* Floating mini map indicator */}
+              <div className="absolute -left-16 bottom-24 bg-white rounded-xl shadow-xl p-3 z-20 transform hover:scale-105 transition-transform">
+                <div className="flex items-center gap-2">
+                  <div className="w-8 h-8 bg-red-500 rounded-full flex items-center justify-center text-white text-xs font-bold">
+                    3
+                  </div>
+                  <div>
+                    <p className="text-xs font-semibold text-gray-900">Nearby</p>
+                    <p className="text-xs text-gray-500">0.5 mi radius</p>
+                  </div>
+                </div>
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">Share Your Vibe</h3>
-              <p className="text-gray-600">
-                Tell everyone what you're craving, your budget, and dietary preferences
-              </p>
-            </div>
-            <div className="text-center">
-              <div className="bg-primary-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                <MapPin className="h-8 w-8 text-primary-600" />
+              
+              {/* iPhone frame */}
+              <div className="relative w-[340px] h-[690px] bg-black rounded-[3rem] p-3 shadow-[0_35px_60px_-15px_rgba(0,0,0,0.5)] z-10">
+                {/* Notch */}
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-40 h-7 bg-black rounded-b-3xl z-10"></div>
+                
+                {/* Screen */}
+                <div className="w-full h-full bg-white rounded-[2.5rem] overflow-hidden">
+                  {/* Actual app interface */}
+                  <div className="p-6 bg-white h-full overflow-hidden">
+                    {/* Header */}
+                    <div className="mb-8">
+                      <h2 className="text-xl font-bold text-gray-900 mb-1">Party: 2TQFKG</h2>
+                      <p className="text-sm text-gray-600">Share your dining vibe and find the perfect restaurant together</p>
+                      <div className="text-right text-xs text-gray-400 mt-1">
+                        <span>👥 0 members</span>
+                      </div>
+                    </div>
+                    
+                    {/* Form */}
+                    <div>
+                      <h3 className="text-lg font-semibold text-gray-900 mb-4">Share Your Vibe</h3>
+                      
+                      {/* Name input */}
+                      <div className="mb-4">
+                        <label className="block text-sm text-gray-700 mb-2">
+                          👤 Your Name
+                        </label>
+                        <input 
+                          type="text" 
+                          defaultValue="doma"
+                          className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
+                          readOnly
+                        />
+                      </div>
+                      
+                      {/* Vibe textarea */}
+                      <div className="mb-4">
+                        <label className="block text-sm text-gray-700 mb-2">
+                          What are you feeling?
+                        </label>
+                        <div className="relative">
+                          <textarea 
+                            placeholder="e.g., I'm craving sushi and have about $30 to spend"
+                            className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm min-h-[80px] resize-none"
+                          ></textarea>
+                          <div className="absolute bottom-2 right-2 w-7 h-7 bg-green-500 rounded-full flex items-center justify-center text-white text-base">
+                            ✓
+                          </div>
+                        </div>
+                      </div>
+                      
+                      {/* Budget input */}
+                      <div className="mb-6">
+                        <label className="block text-sm text-gray-700 mb-2">
+                          💲 Budget (optional)
+                        </label>
+                        <div className="relative">
+                          <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-600">$</span>
+                          <input 
+                            type="text" 
+                            placeholder="0.00"
+                            className="w-full px-3 py-2 pl-8 border border-gray-300 rounded-lg text-sm"
+                          />
+                        </div>
+                      </div>
+                      
+                      {/* Share button */}
+                      <button className="w-full py-3.5 bg-rose-400 text-white border-none rounded-xl text-base font-semibold cursor-pointer flex items-center justify-center gap-2">
+                        <span className="text-xl">✈️</span>
+                        Share Vibe
+                      </button>
+                      
+                      {/* Tips */}
+                      <div className="mt-4 p-3 bg-blue-50 rounded-lg border-l-4 border-blue-500">
+                        <p className="text-xs text-blue-900 leading-relaxed">
+                          <strong>Tips:</strong> Be specific about what you&apos;re craving, any dietary restrictions, and your budget. The more details you share, the better our recommendations will be!
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">Find & Decide</h3>
-              <p className="text-gray-600">
-                Get AI-powered restaurant recommendations and vote together
-              </p>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   )
 }

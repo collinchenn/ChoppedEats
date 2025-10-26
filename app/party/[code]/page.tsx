@@ -2,10 +2,11 @@
 
 import { useState, useEffect } from 'react'
 import { useParams } from 'next/navigation'
-import { Utensils, DollarSign, MapPin, Users, Send, Heart } from 'lucide-react'
+import { Utensils, DollarSign, MapPin, Users, Send, Heart, Trophy } from 'lucide-react'
 import VibeInput from '@/components/VibeInput'
 import VibeList from '@/components/VibeList'
 import RestaurantRecommendations from '@/components/RestaurantRecommendations'
+import WinnerDisplay from '@/components/WinnerDisplay'
 
 interface Vibe {
   id: string
@@ -35,40 +36,114 @@ export default function PartyPage() {
   const [restaurants, setRestaurants] = useState<Restaurant[]>([])
   const [isAnalyzing, setIsAnalyzing] = useState(false)
   const [showRecommendations, setShowRecommendations] = useState(false)
+  const [showWinner, setShowWinner] = useState(false)
 
-  // Mock data for demonstration
+  // Load party data when component mounts
   useEffect(() => {
-    // Simulate some existing vibes
-    setVibes([
-      {
-        id: '1',
-        user: 'Alice',
-        message: "I'm feeling like sushi. I got about 30 bucks total to spend",
-        budget: 30,
-        timestamp: new Date(Date.now() - 1000 * 60 * 5)
-      },
-      {
-        id: '2',
-        user: 'Bob',
-        message: "I want KBBQ, and I'm not really feeling anything too healthy",
-        timestamp: new Date(Date.now() - 1000 * 60 * 3)
+    loadPartyData()
+    setupRealtimeUpdates()
+    
+    return () => {
+      // Cleanup event source when component unmounts
+      if (typeof window !== 'undefined') {
+        const eventSource = (window as any).partyEventSource
+        if (eventSource) {
+          eventSource.close()
+        }
       }
-    ])
-  }, [])
-
-  const handleVibeSubmit = (vibe: Omit<Vibe, 'id' | 'timestamp'>) => {
-    const newVibe: Vibe = {
-      ...vibe,
-      id: Date.now().toString(),
-      timestamp: new Date()
     }
-    setVibes(prev => [...prev, newVibe])
+  }, [partyCode])
+
+  const setupRealtimeUpdates = () => {
+    if (typeof window === 'undefined') return
+    
+    const eventSource = new EventSource(`/api/parties/${partyCode}/events`)
+    ;(window as any).partyEventSource = eventSource
+    
+    eventSource.onmessage = (event) => {
+      const data = JSON.parse(event.data)
+      
+      if (data.type === 'vibe_added') {
+        const vibeWithDate = {
+          ...data.vibe,
+          timestamp: new Date(data.vibe.timestamp)
+        }
+        setVibes(prev => [...prev, vibeWithDate])
+      } else if (data.type === 'restaurants_updated') {
+        setRestaurants(data.restaurants)
+        setShowRecommendations(true)
+      } else if (data.type === 'vote_updated') {
+        setRestaurants(prev => 
+          prev.map(restaurant => 
+            restaurant.id === data.restaurantId 
+              ? { ...restaurant, votes: data.votes }
+              : restaurant
+          )
+        )
+      }
+    }
+    
+    eventSource.onerror = (error) => {
+      console.error('EventSource failed:', error)
+    }
   }
 
-  const analyzeVibes = async () => {
-    setIsAnalyzing(true)
-    
+  const loadPartyData = async () => {
     try {
+      const response = await fetch(`/api/parties/${partyCode}`)
+      if (response.ok) {
+        const data = await response.json()
+        
+        // Convert string timestamps to Date objects
+        const vibesWithDates = (data.vibes || []).map((vibe: any) => ({
+          ...vibe,
+          timestamp: new Date(vibe.timestamp)
+        }))
+        
+        setVibes(vibesWithDates)
+        setRestaurants(data.restaurants || [])
+        setShowRecommendations(data.restaurants && data.restaurants.length > 0)
+      }
+    } catch (error) {
+      console.error('Error loading party data:', error)
+    }
+  }
+
+  const handleVibeSubmit = async (vibe: Omit<Vibe, 'id' | 'timestamp'>) => {
+    try {
+      const response = await fetch(`/api/parties/${partyCode}/vibes`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(vibe),
+      })
+
+      if (!response.ok) {
+        console.error('Failed to save vibe')
+      }
+      // Don't manually add to state - the EventSource will handle it via broadcast
+    } catch (error) {
+      console.error('Error saving vibe:', error)
+    }
+  }
+  
+  const analyzeVibes = async () => {
+    if (vibes.length === 0) {
+      console.error('No vibes to analyze')
+      return
+    }
+
+    setIsAnalyzing(true)
+    try {
+      // Get party location with error handling
+      const partyResponse = await fetch(`/api/parties?code=${partyCode}`)
+      if (!partyResponse.ok) {
+        throw new Error('Failed to fetch party details')
+      }
+      const partyData = await partyResponse.json()
+      const location = partyData.party?.location || 'San Francisco, CA'
+
       const response = await fetch('/api/analyze-vibes', {
         method: 'POST',
         headers: {
@@ -80,30 +155,48 @@ export default function PartyPage() {
             message: vibe.message,
             budget: vibe.budget
           })),
-          location: 'San Francisco, CA' // In a real app, this would come from the party data
+          location
         }),
       })
 
-      if (!response.ok) {
-        throw new Error('Failed to get recommendations')
-      }
+      console.log('Analyze vibes response received 0')
 
+      if (!response.ok) {
+        const errorData = await response.json()
+        throw new Error(errorData.error || 'Failed to analyze vibes')
+      }
+      console.log('Analyze vibes response received')
       const data = await response.json()
       
+      // Validate response
+      if (!data.recommendations || !Array.isArray(data.recommendations)) {
+        throw new Error('Invalid response format from server')
+      }
+
       // Convert Groq recommendations to our restaurant format
       const restaurants: Restaurant[] = data.recommendations.map((rec: any, index: number) => ({
         id: (index + 1).toString(),
         name: rec.name,
         cuisine: rec.cuisine,
+        description: rec.description,
         priceRange: rec.priceRange,
-        rating: 4.0 + Math.random() * 1.0, // Mock rating
-        distance: `${(Math.random() * 2).toFixed(1)} mi`,
-        address: `Mock Address ${index + 1}, San Francisco, CA`,
+        rating: rec.yelpRating,
+        address: rec.address,
+        why: rec.why,
         votes: 0
       }))
       
       setRestaurants(restaurants)
       setShowRecommendations(true)
+      
+      // Save restaurants to server
+      await fetch(`/api/parties/${partyCode}/restaurants`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ restaurants }),
+      })
     } catch (error) {
       console.error('Error analyzing vibes:', error)
       // Fallback to mock data if API fails
@@ -147,14 +240,46 @@ export default function PartyPage() {
     }
   }
 
-  const handleVote = (restaurantId: string) => {
-    setRestaurants(prev => 
-      prev.map(restaurant => 
-        restaurant.id === restaurantId 
-          ? { ...restaurant, votes: restaurant.votes + 1 }
-          : restaurant
-      )
+  const handleVote = async (restaurantId: string) => {
+    try {
+      const response = await fetch(`/api/parties/${partyCode}/restaurants/${restaurantId}/vote`, {
+        method: 'POST',
+      })
+
+      if (response.ok) {
+        setRestaurants(prev => 
+          prev.map(restaurant => 
+            restaurant.id === restaurantId 
+              ? { ...restaurant, votes: restaurant.votes + 1 }
+              : restaurant
+          )
+        )
+      }
+    } catch (error) {
+      console.error('Error voting:', error)
+    }
+  }
+
+  const handleProceed = () => {
+    // Find restaurant with most votes
+    if (restaurants.length === 0) return
+    
+    const winner = restaurants.reduce((prev, current) => 
+      current.votes > prev.votes ? current : prev
     )
+    
+    // Only proceed if there's at least one vote
+    if (winner.votes > 0) {
+      setShowWinner(true)
+    }
+  }
+
+  // Show winner display if proceed was clicked
+  if (showWinner && restaurants.length > 0) {
+    const winner = restaurants.reduce((prev, current) => 
+      current.votes > prev.votes ? current : prev
+    )
+    return <WinnerDisplay restaurant={winner} onBack={() => setShowWinner(false)} />
   }
 
   return (
@@ -213,10 +338,28 @@ export default function PartyPage() {
           {/* Right Column - Recommendations */}
           <div>
             {showRecommendations ? (
-              <RestaurantRecommendations 
-                restaurants={restaurants} 
-                onVote={handleVote}
-              />
+              <div className="space-y-4">
+                <RestaurantRecommendations 
+                  restaurants={restaurants} 
+                  onVote={handleVote}
+                />
+                
+                {/* Proceed Button */}
+                {restaurants.some(r => r.votes > 0) && (
+                  <div className="bg-white rounded-lg shadow-sm p-6">
+                    <button
+                      onClick={handleProceed}
+                      className="btn-primary w-full flex items-center justify-center"
+                    >
+                      <Trophy className="h-5 w-5 mr-2" />
+                      Proceed with Winner
+                    </button>
+                    <p className="text-sm text-gray-500 mt-2 text-center">
+                      Click to reveal the restaurant with the most votes!
+                    </p>
+                  </div>
+                )}
+              </div>
             ) : (
               <div className="bg-white rounded-lg shadow-sm p-6 text-center">
                 <Utensils className="h-12 w-12 text-gray-300 mx-auto mb-4" />

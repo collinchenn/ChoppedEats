@@ -24,7 +24,7 @@ export default function RestaurantRecommendations({ restaurants, onVote }: Resta
   const [votedRestaurant, setVotedRestaurant] = useState<string | null>(null)
 
   const handleVote = (restaurantId: string) => {
-    if (votedRestaurant) return // Only allow one vote per user for now
+    if (votedRestaurant) return 
     
     onVote(restaurantId)
     setVotedRestaurant(restaurantId)

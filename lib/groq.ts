@@ -22,11 +22,12 @@ export async function analyzeVibesAndRecommendRestaurants(
   vibes: Vibe[],
   location: string
 ): Promise<RestaurantRecommendation[]> {
+  console.log("groq")
   if (!process.env.GROQ_API_KEY) {
     throw new Error('GROQ_API_KEY is not set')
   }
 
-  const vibeText = vibes.map(vibe => 
+  const vibeText = vibes.map(vibe =>
     `${vibe.user}: ${vibe.message}${vibe.budget ? ` (Budget: $${vibe.budget})` : ''}`
   ).join('\n')
 
@@ -48,6 +49,8 @@ For each restaurant, provide:
 - Name
 - Cuisine type
 - Price range ($, $$, $$$, $$$$)
+- The Yelp Rating
+- The address, make sure to fetch from yelp for the address to ensure accuracy
 - Brief description
 - Why it's recommended for this group
 
@@ -66,29 +69,63 @@ Only return the JSON array, no additional text.
 `
 
   try {
+    console.log('Calling Groq API with prompt...')
     const completion = await groq.chat.completions.create({
+      model: "llama-3.3-70b-versatile",
       messages: [
         {
-          role: 'user',
+          role: "user",
           content: prompt
         }
       ],
-      model: 'llama3-8b-8192',
-      temperature: 0.7,
-      max_tokens: 1000,
+      temperature: 0.6,
+      max_tokens: 4096,
+      top_p: 0.95,
+      stream: false
     })
 
     const response = completion.choices[0]?.message?.content
+    console.log('Raw Groq response:', response)
+
     if (!response) {
       throw new Error('No response from Groq')
     }
 
+    // Clean the response - remove markdown code blocks if present
+    let cleanedResponse = response.trim()
+
+    // Remove markdown code blocks (```json ... ``` or ``` ... ```)
+    if (cleanedResponse.startsWith('```')) {
+      cleanedResponse = cleanedResponse.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim()
+    }
+
+    // Remove any text before the first [ and after the last ]
+    const jsonStart = cleanedResponse.indexOf('[')
+    const jsonEnd = cleanedResponse.lastIndexOf(']')
+
+    if (jsonStart === -1 || jsonEnd === -1) {
+      throw new Error('No JSON array found in response')
+    }
+
+    cleanedResponse = cleanedResponse.substring(jsonStart, jsonEnd + 1)
+
+    console.log('Cleaned response:', cleanedResponse)
+
     // Parse the JSON response
-    const recommendations = JSON.parse(response)
+    const recommendations = JSON.parse(cleanedResponse)
+
+    if (!Array.isArray(recommendations)) {
+      throw new Error('Response is not an array')
+    }
+
     return recommendations
   } catch (error) {
     console.error('Error calling Groq API:', error)
-    throw new Error('Failed to get restaurant recommendations')
+    if (error instanceof Error) {
+      console.error('Error message:', error.message)
+      console.error('Error stack:', error.stack)
+    }
+    throw error
   }
 }
 
@@ -100,7 +137,7 @@ export async function generateRestaurantDescription(
     throw new Error('GROQ_API_KEY is not set')
   }
 
-  const vibeText = groupVibes.map(vibe => 
+  const vibeText = groupVibes.map(vibe =>
     `${vibe.user}: ${vibe.message}${vibe.budget ? ` (Budget: $${vibe.budget})` : ''}`
   ).join('\n')
 
@@ -114,15 +151,17 @@ The description should be 1-2 sentences highlighting what makes this restaurant 
 
   try {
     const completion = await groq.chat.completions.create({
+      model: "llama-3.3-70b-versatile",
       messages: [
         {
-          role: 'user',
+          role: "user",
           content: prompt
         }
       ],
-      model: 'llama3-8b-8192',
-      temperature: 0.8,
-      max_tokens: 150,
+      temperature: 0.6,
+      max_tokens: 200,
+      top_p: 0.95,
+      stream: false
     })
 
     return completion.choices[0]?.message?.content || 'A great dining option for your group!'

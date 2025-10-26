@@ -12,7 +12,7 @@ export async function POST(
       return NextResponse.json({ error: 'Party not found' }, { status: 404 })
     }
 
-    const { restaurant, addedBy } = await request.json()
+    const { restaurant } = await request.json()
     if (!restaurant) {
       return NextResponse.json({ error: 'Restaurant is required' }, { status: 400 })
     }
@@ -26,9 +26,7 @@ export async function POST(
       distance: restaurant.distance || '',
       address: restaurant.address || '',
       image: restaurant.image,
-      votes: restaurant.votes || 0,
-      addedBy: addedBy || 'Unknown',
-      source: 'manual'
+      votes: restaurant.votes || 0
     })
 
     broadcastToParty(code, { type: 'voting_candidates_updated', candidates })

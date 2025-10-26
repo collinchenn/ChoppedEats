@@ -38,9 +38,7 @@ export async function POST(
             rating: (r as any).yelpRating || 0,
             distance: '',
             address: (r as any).address || '',
-            votes: 0,
-            addedBy: 'AI',
-            source: 'groq'
+            votes: 0
           })
         }
         if (selected.length >= 5) break

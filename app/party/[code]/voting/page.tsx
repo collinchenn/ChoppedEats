@@ -14,8 +14,6 @@ interface Restaurant {
   address: string
   image?: string
   votes: number
-  addedBy?: string
-  source?: 'manual' | 'groq'
 }
 
 export default function VotingPage() {
@@ -78,16 +76,7 @@ export default function VotingPage() {
                     <div className="w-20 h-20 rounded bg-gray-100 mr-4" />
                   )}
                   <div className="flex-1">
-                    <div className="flex items-center justify-between mb-1">
-                      <h4 className="font-semibold text-gray-900">{r.name}</h4>
-                      <span className={`text-xs px-2 py-1 rounded-full ${
-                        r.source === 'groq' 
-                          ? 'bg-purple-100 text-purple-700' 
-                          : 'bg-blue-100 text-blue-700'
-                      }`}>
-                        {r.addedBy || (r.source === 'groq' ? 'AI' : 'Manual')}
-                      </span>
-                    </div>
+                    <h4 className="font-semibold text-gray-900">{r.name}</h4>
                     <p className="text-sm text-gray-600 mb-2">{r.cuisine}</p>
                     <div className="flex items-center space-x-4 text-sm text-gray-500">
                       <div className="flex items-center">

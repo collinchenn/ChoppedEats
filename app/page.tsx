@@ -1,31 +1,30 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef, useMemo } from 'react'
 import DelayedLink from '@/components/DelayedLinkWithLoading'
 import { Utensils } from 'lucide-react'
 
+// Keep words stable so effects don't rerun unnecessarily
+const WORDS = ['perfect', 'best', 'ultimate']
+
 function TypingEffect() {
-  const words = ['perfect', 'scrumptious', 'quintessential', 'ultimate']
+  const words = WORDS
   const [currentWordIndex, setCurrentWordIndex] = useState(0)
   const [currentText, setCurrentText] = useState('')
   const [isDeleting, setIsDeleting] = useState(false)
   const [showCursor, setShowCursor] = useState(true)
 
+  // Type/delete effect (single ticker)
   useEffect(() => {
     const currentWord = words[currentWordIndex]
 
-    const timeout = setTimeout(() => {
+    const tick = setTimeout(() => {
       if (!isDeleting) {
         // Typing
         if (currentText.length < currentWord.length) {
           setCurrentText(currentWord.slice(0, currentText.length + 1))
-        } else {
-          // Finished typing, wait then start deleting
-          const timeout = setTimeout(() => 
-            setIsDeleting(true)
-          , 1500)
-          clearTimeout(timeout)
         }
+        // When finished typing, do nothing here — the pause effect below will flip isDeleting
       } else {
         // Deleting
         if (currentText.length > 0) {
@@ -38,25 +37,32 @@ function TypingEffect() {
       }
     }, isDeleting ? 50 : 150) // Faster deletion, slower typing
 
-    return () => clearTimeout(timeout)
-  }, [currentText, isDeleting, currentWordIndex, words])
+    return () => clearTimeout(tick)
+  }, [currentText, isDeleting, currentWordIndex])
 
-  // Separate effect to handle the pause after typing
+  // Pause after finishing typing a word
   useEffect(() => {
-    if (!isDeleting && currentText.length === words[currentWordIndex].length) {
-      const pauseTimeout = setTimeout(() => {
+    const currentWord = words[currentWordIndex]
+    if (!isDeleting && currentText.length === currentWord.length) {
+      const pause = setTimeout(() => {
         setIsDeleting(true)
-      }, 2000)
-
-      return () => clearTimeout(pauseTimeout)
+      }, 1500) // how long to display the full word
+      return () => clearTimeout(pause)
     }
-  }, [currentText, isDeleting, currentWordIndex, words])
+  }, [currentText, isDeleting, currentWordIndex])
 
-  // Cursor blinking effect
+  // Optional tiny pause after fully deleting (feels smoother)
   useEffect(() => {
-    const interval = setInterval(() => {
-      setShowCursor(prev => !prev)
-    }, 500)
+    if (isDeleting || currentText.length !== 0) return
+    const pause = setTimeout(() => {
+      // no-op: the main effect will pick up typing the next word
+    }, 150) // small breather before next word starts
+    return () => clearTimeout(pause)
+  }, [isDeleting, currentText])
+
+  // Blinking cursor
+  useEffect(() => {
+    const interval = setInterval(() => setShowCursor((v) => !v), 500)
     return () => clearInterval(interval)
   }, [])
 
@@ -190,7 +196,7 @@ export default function LandingPage() {
                       <h2 className="text-xl font-bold text-gray-900 mb-1">Party: 2TQFKG</h2>
                       <p className="text-sm text-gray-600">Share your dining vibe and find the perfect restaurant together</p>
                       <div className="text-right text-xs text-gray-400 mt-1">
-                        <span>👥 0 members</span>
+                        <span>👥 3 members</span>
                       </div>
                     </div>
 
@@ -220,7 +226,7 @@ export default function LandingPage() {
                         <div className="relative">
                           <div
                             className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm bg-gray-50 text-black resize-none disabled:text-black disabled:opacity-100">
-                            "I'm craving sushi and have about $30 to spend"
+                            I'm craving sushi and a cozy atmosphere
                           </div>
                         </div>
                       </div>
@@ -234,7 +240,7 @@ export default function LandingPage() {
                           <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-600">$</span>
                           <input
                             type="text"
-                            defaultValue="15.00"
+                            defaultValue="30.00"
                             className="w-full px-3 py-2 pl-8 border border-gray-300 rounded-lg text-sm bg-gray-50"
                             readOnly
                             disabled

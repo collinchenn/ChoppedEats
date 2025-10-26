@@ -15,7 +15,7 @@ export default function DelayedLinkWithLoading({
   href, 
   children, 
   className = '',
-  delay = 1200,
+  delay = 1000,
   showLoadingState = true
 }: DelayedLinkProps) {
   const router = useRouter()

@@ -30,7 +30,7 @@ export default function JoinParty() {
           setShowLoadingOverlay(true)
           
           // Wait 3 seconds for animation
-          await new Promise(resolve => setTimeout(resolve, 3000))
+          await new Promise(resolve => setTimeout(resolve, 1500))
           
           // Use window.location for actual page change (not instant like router.push)
           window.location.href = `/party/${partyCode.toUpperCase()}`

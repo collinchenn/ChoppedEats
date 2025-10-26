@@ -8,7 +8,7 @@ export async function POST(
 ) {
   try {
     const { code } = params
-    const { user, message, budget } = await request.json()
+    const { user, message, budget, userId: clientUserId } = await request.json()
 
     const authHeader = request.headers.get('authorization') || ''
     const idToken = authHeader.startsWith('Bearer ') ? authHeader.slice(7) : null
@@ -29,16 +29,18 @@ export async function POST(
       )
     }
 
+    const finalUserId = userId || (typeof clientUserId === 'string' && clientUserId ? clientUserId : undefined)
+
     const newVibe = {
       id: Date.now().toString(),
       user,
       message,
       budget: budget ? parseFloat(budget) : undefined,
       timestamp: new Date().toISOString(),
-      userId: userId || undefined
+      userId: finalUserId
     }
     
-    console.log('👤 Creating vibe with userId:', userId, 'vibeId:', newVibe.id)
+    console.log('👤 Creating vibe with userId:', finalUserId || null, 'vibeId:', newVibe.id)
 
 
     // Write vibe to Firestore
@@ -64,9 +66,16 @@ export async function POST(
       // Read party doc from Firestore for location (fallback to SF)
       let partyLocation = 'San Francisco, CA'
       try {
-        const partySnap = await adminDb().collection('parties').doc(code).get()
+        const partyRef = adminDb().collection('parties').doc(code)
+        const partySnap = await partyRef.get()
         const pdata: any = partySnap.data()
         if (pdata?.location) partyLocation = pdata.location
+        // If no ownerSessionId is set yet, set it to the first client's user id
+        if (!pdata?.ownerSessionId && finalUserId) {
+          try {
+            await partyRef.set({ ownerSessionId: finalUserId }, { merge: true })
+          } catch {}
+        }
       } catch {}
       const GOOGLE_PLACES_API_KEY = process.env.GOOGLE_PLACES_API_KEY
       if (GOOGLE_PLACES_API_KEY) {

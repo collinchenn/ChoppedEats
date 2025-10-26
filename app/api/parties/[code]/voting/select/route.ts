@@ -9,7 +9,7 @@ export async function POST(
 ) {
   try {
     const { code } = params
-    // Verify owner
+    // Authorization: allow if Firebase ownerUid matches request OR if ownerSessionId matches a provided client session id
     const authHeader = request.headers.get('authorization') || ''
     const idToken = authHeader.startsWith('Bearer ') ? authHeader.slice(7) : null
     let requesterUid: string | null = null
@@ -17,28 +17,25 @@ export async function POST(
       try {
         const decoded = await adminAuth().verifyIdToken(idToken)
         requesterUid = decoded.uid
-      } catch (e) {
-        return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
-      }
-    } else {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+      } catch {}
     }
+
+    const { ownerSessionId: clientOwnerSessionId } = await request.json().catch(() => ({ ownerSessionId: undefined }))
+
+    // Load party doc from Firestore for owner checks
+    const partyDoc = await adminDb().collection('parties').doc(code).get()
+    const pdata = partyDoc.exists ? (partyDoc.data() as any) : null
+    const ownerUid: string | undefined = pdata?.ownerUid
+    const ownerSessionId: string | undefined = pdata?.ownerSessionId
+    
+    const isOwner = (ownerUid && requesterUid && ownerUid === requesterUid) || (ownerSessionId && clientOwnerSessionId && ownerSessionId === clientOwnerSessionId)
+    if (!isOwner) {
+      return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
+    }
+
     const party = getParty(code)
     if (!party) {
       return NextResponse.json({ error: 'Party not found' }, { status: 404 })
-    }
-
-    // Ensure requester is owner
-    try {
-      const partyDoc = await adminDb().collection('parties').doc(code).get()
-      if (partyDoc.exists) {
-        const data = partyDoc.data() as any
-        if (data?.ownerUid && data.ownerUid !== requesterUid) {
-          return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
-        }
-      }
-    } catch (e) {
-      // if we cannot verify, proceed but still rely on client being honest
     }
 
     let selected: Restaurant[] = []
@@ -56,7 +53,7 @@ export async function POST(
         const k = key((r as any).name, (r as any).address || '')
         const match = poolMap.get(k)
         if (match) {
-          selected.push(match)
+          selected.push({ ...match, addedBy: 'AI' })
         } else {
           selected.push({
             id: `${(r as any).name}-${(r as any).address || ''}`,
@@ -66,7 +63,8 @@ export async function POST(
             rating: (r as any).yelpRating || 0,
             distance: '',
             address: (r as any).address || '',
-            votes: 0
+            votes: 0,
+            addedBy: 'AI'
           })
         }
         if (selected.length >= 5) break
@@ -78,6 +76,7 @@ export async function POST(
         .slice()
         .sort((a, b) => (b.rating || 0) - (a.rating || 0))
         .slice(0, 5)
+        .map(r => ({ ...r, addedBy: 'AI' }))
     }
 
     // Merge with existing manual candidates and dedupe by name+address
@@ -95,8 +94,11 @@ export async function POST(
     // Mirror to Firestore votingCandidates
     try {
       const batch = adminDb().batch()
-      const col = adminDb().collection('parties').doc(code).collection('votingCandidates')
+      const partyRef = adminDb().collection('parties').doc(code)
+      const col = partyRef.collection('votingCandidates')
       merged.forEach((r) => batch.set(col.doc(r.id), r, { merge: true }))
+      // mark voting started to trigger client redirects
+      batch.set(partyRef, { votingStarted: true }, { merge: true })
       await batch.commit()
     } catch (e) {
       console.error('Firestore write votingCandidates error:', e)

@@ -8,6 +8,7 @@ import { ensureSignedInAnonymously, getFirebaseServices } from '@/lib/firebase-c
 import VibeList from '@/components/VibeList'
 import RestaurantRecommendations from '@/components/RestaurantRecommendations'
 import WinnerDisplay from '@/components/WinnerDisplay'
+import NameEntryModal from '@/components/NameEntryModal'
 import { collection, doc, onSnapshot, orderBy, query } from 'firebase/firestore'
 
 interface Vibe {
@@ -16,6 +17,7 @@ interface Vibe {
   message: string
   budget?: number
   timestamp: Date
+  userId?: string
 }
 
 interface Restaurant {
@@ -41,11 +43,41 @@ export default function PartyPage() {
   const [showRecommendations, setShowRecommendations] = useState(false)
   const [showWinner, setShowWinner] = useState(false)
   const [ownerUid, setOwnerUid] = useState<string | null>(null)
+  const [ownerSessionId, setOwnerSessionId] = useState<string | null>(null)
   const [currentUid, setCurrentUid] = useState<string | null>(null)
+  const [userName, setUserName] = useState<string>('')
+  const [showNameModal, setShowNameModal] = useState(false)
+  const [sessionUserId, setSessionUserId] = useState<string>('')
 
   // Load party data when component mounts
   useEffect(() => {
-    setupRealtimeUpdates()
+    // Check if user has a name for this session
+    const sessionKey = `cardivor-user-name-${partyCode}`
+    const savedName = sessionStorage.getItem(sessionKey)
+    
+    // Ensure we have a per-party session user id
+    const idKey = `cardivor-user-id-${partyCode}`
+    let uid = sessionStorage.getItem(idKey)
+    if (!uid) {
+      try {
+        uid = (self.crypto?.randomUUID && self.crypto.randomUUID()) || `${Date.now()}-${Math.random().toString(36).slice(2)}`
+      } catch {
+        uid = `${Date.now()}-${Math.random().toString(36).slice(2)}`
+      }
+      sessionStorage.setItem(idKey, uid)
+    }
+    setSessionUserId(uid!)
+    
+    // Setup party-level subscriptions immediately (for votingStarted redirect)
+    setupPartySubscriptions(uid!)
+    
+    if (savedName) {
+      setUserName(savedName)
+      setupRealtimeUpdates(uid!)
+    } else {
+      // Show name entry modal
+      setShowNameModal(true)
+    }
     
     return () => {
       // Cleanup Firestore subscriptions
@@ -59,29 +91,62 @@ export default function PartyPage() {
     }
   }, [partyCode])
 
-  const setupRealtimeUpdates = () => {
+  const handleNameSubmit = (name: string) => {
+    setUserName(name)
+    setShowNameModal(false)
+    
+    // Save name for this session
+    const sessionKey = `cardivor-user-name-${partyCode}`
+    sessionStorage.setItem(sessionKey, name)
+    
+    // Now setup realtime updates
+    const idKey = `cardivor-user-id-${partyCode}`
+    const uid = sessionStorage.getItem(idKey) || sessionUserId
+    setupRealtimeUpdates(uid)
+  }
+
+  const setupPartySubscriptions = (currentUserId: string) => {
     if (typeof window === 'undefined') return
     const { db } = getFirebaseServices()
-    console.log('🚀 Setting up realtime updates')
-    const unsubs: Array<() => void> = []
-    ;(window as any).partyUnsubs = unsubs
+    console.log('🚀 Setting up party-level subscriptions')
+    
+    // Initialize unsubs array if it doesn't exist
+    if (!(window as any).partyUnsubs) {
+      ;(window as any).partyUnsubs = []
+    }
+    const unsubs: Array<() => void> = (window as any).partyUnsubs
 
-    // Owner UID subscription
+    // Owner + votingStarted subscription
     const partyRef = doc(db, 'parties', partyCode)
     unsubs.push(onSnapshot(partyRef, (snap) => {
       const data: any = snap.data()
       setOwnerUid(data?.ownerUid || null)
+      setOwnerSessionId(data?.ownerSessionId || null)
+      if (data?.votingStarted) {
+        // redirect everyone to voting
+        if (window.location.pathname.indexOf('/voting') === -1) {
+          window.location.href = `/party/${partyCode}/voting`
+        }
+      }
     }))
+  }
+
+  const setupRealtimeUpdates = (currentUserId: string) => {
+    if (typeof window === 'undefined') return
+    const { db } = getFirebaseServices()
+    console.log('🚀 Setting up realtime updates')
+    
+    // Use existing unsubs array from party subscriptions
+    const unsubs: Array<() => void> = (window as any).partyUnsubs || []
 
     // Restaurants pool subscription
     const restaurantsCol = collection(db, 'parties', partyCode, 'restaurants')
     unsubs.push(onSnapshot(restaurantsCol, (snap) => {
       const arr = snap.docs.map(d => ({ id: d.id, ...(d.data() as any) })) as Restaurant[]
       setRestaurants(arr)
-      if (arr.length > 0) setShowRecommendations(true)
     }))
 
-    // Vibes and matches for latest vibe (show all vibes, but matches for latest)
+    // Vibes and matches for latest vibe by THIS user (pool remains shared)
     let matchesUnsub: null | (() => void) = null
     const vibesCol = collection(db, 'parties', partyCode, 'vibes')
     const vibesQ = query(vibesCol, orderBy('timestamp', 'asc'))
@@ -93,8 +158,8 @@ export default function PartyPage() {
       console.log('🔥 Vibes updated:', list.length, 'vibes')
       setVibes(list)
       
-      // Get the latest vibe (most recent)
-      const latest = list[list.length - 1]
+      // Get the latest vibe authored by this session user
+      const latest = list.filter(v => (v as any).userId === currentUserId).slice(-1)[0]
       const latestId = latest?.id
       console.log('📝 Latest vibe ID:', latestId)
       if (latestId) {
@@ -112,6 +177,9 @@ export default function PartyPage() {
         })
         // Add the matches unsubscribe to the cleanup array
         unsubs.push(() => { try { matchesUnsub && matchesUnsub() } catch {} })
+      } else {
+        setLatestMatches(null)
+        setShowRecommendations(false)
       }
     }))
   }
@@ -123,7 +191,7 @@ export default function PartyPage() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(vibe),
+        body: JSON.stringify({ ...vibe, userId: sessionUserId }),
       })
 
       if (!response.ok) {
@@ -272,7 +340,7 @@ export default function PartyPage() {
       await fetch(`/api/parties/${partyCode}/voting/add`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ restaurant })
+        body: JSON.stringify({ restaurant, addedBy: userName })
       })
     } catch (e) {
       console.error('Error adding to voting:', e)
@@ -295,7 +363,7 @@ export default function PartyPage() {
     try {
       const { auth } = getFirebaseServices()
       const token = await auth.currentUser?.getIdToken()
-      await fetch(`/api/parties/${partyCode}/voting/select`, { method: 'POST', headers: { ...(token ? { Authorization: `Bearer ${token}` } : {}) } })
+      await fetch(`/api/parties/${partyCode}/voting/select`, { method: 'POST', headers: { ...(token ? { Authorization: `Bearer ${token}` } : {}) }, body: JSON.stringify({ ownerSessionId: sessionUserId })})
       // optimistic navigate shortly after
       setTimeout(() => {
         window.location.href = `/party/${partyCode}/voting`
@@ -329,6 +397,12 @@ export default function PartyPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
+      {/* Name Entry Modal */}
+      <NameEntryModal 
+        isOpen={showNameModal} 
+        onClose={handleNameSubmit} 
+      />
+      
       <div className="container mx-auto px-4 py-8">
         {/* Header */}
         <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
@@ -348,7 +422,7 @@ export default function PartyPage() {
           {/* Left Column - Vibes + All Recommendations */}
           <div className="space-y-6">
             {/* Vibe Input */}
-            <VibeInput onSubmit={handleVibeSubmit} />
+            {userName && <VibeInput onSubmit={handleVibeSubmit} userName={userName} />}
             
             {/* Vibe List */}
             <VibeList vibes={vibes} />
@@ -386,29 +460,37 @@ export default function PartyPage() {
               <div className="space-y-4">
                 <div className="bg-white rounded-lg shadow-sm p-4 flex items-center justify-between">
                   <div className="text-sm text-gray-700">
-                    {latestMatches ? 'Latest vibe matches' : 'All recommendations'}
+                    Your vibe matches
                   </div>
-                  <button
-                    onClick={enterVoting}
-                    className="btn-primary px-4 py-2"
-                  >
-                    Enter voting
-                  </button>
+                  {(ownerUid || ownerSessionId) && (ownerUid ? true : (ownerSessionId === sessionUserId)) && (
+                    <button
+                      onClick={enterVoting}
+                      className="btn-primary px-4 py-2"
+                    >
+                      Enter voting
+                    </button>
+                  )}
                 </div>
-                <RestaurantRecommendations 
-                  restaurants={latestMatches && latestMatches.length > 0 ? latestMatches : restaurants} 
-                  onVote={handleVote}
-                  onAddToVoting={addToVoting}
-                  onRemoveFromVoting={removeFromVoting}
-                  partyCode={partyCode}
-                  mode={latestMatches && latestMatches.length > 0 ? 'matches' : 'all'}
-                />
+                {latestMatches && latestMatches.length > 0 ? (
+                  <RestaurantRecommendations 
+                    restaurants={latestMatches} 
+                    onVote={handleVote}
+                    onAddToVoting={addToVoting}
+                    onRemoveFromVoting={removeFromVoting}
+                    partyCode={partyCode}
+                    mode={'matches'}
+                  />
+                ) : (
+                  <div className="bg-white rounded-lg shadow-sm p-6 text-center text-gray-600">
+                    Share a vibe to see your recommendations
+                  </div>
+                )}
                 {/* Debug info */}
                 <div className="mt-4 p-2 bg-gray-100 text-xs">
                   <div>Debug: latestMatches = {latestMatches?.length || 0} items</div>
                   <div>Debug: restaurants = {restaurants.length} items</div>
                   <div>Debug: showRecommendations = {showRecommendations.toString()}</div>
-                  <div>Debug: mode = {latestMatches && latestMatches.length > 0 ? 'matches' : 'all'}</div>
+                  <div>Debug: mode = {latestMatches && latestMatches.length > 0 ? 'matches' : 'none'}</div>
                 </div>
                 
                 {/* Proceed Button */}

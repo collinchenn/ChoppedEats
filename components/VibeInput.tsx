@@ -1,23 +1,23 @@
 'use client'
 
 import { useState } from 'react'
-import { Send, DollarSign, User } from 'lucide-react'
+import { Send, DollarSign } from 'lucide-react'
 
 interface VibeInputProps {
   onSubmit: (vibe: { user: string; message: string; budget?: number }) => void
+  userName: string
 }
 
-export default function VibeInput({ onSubmit }: VibeInputProps) {
-  const [user, setUser] = useState('')
+export default function VibeInput({ onSubmit, userName }: VibeInputProps) {
   const [message, setMessage] = useState('')
   const [budget, setBudget] = useState('')
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    if (!user.trim() || !message.trim()) return
+    if (!message.trim()) return
 
     onSubmit({
-      user: user.trim(),
+      user: userName,
       message: message.trim(),
       budget: budget ? parseFloat(budget) : undefined
     })
@@ -30,23 +30,13 @@ export default function VibeInput({ onSubmit }: VibeInputProps) {
     <div className="bg-white rounded-lg shadow-sm p-6">
       <h3 className="text-lg font-semibold text-gray-900 mb-4">Share Your Vibe</h3>
       
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <div>
-          <label htmlFor="user" className="block text-sm font-medium text-gray-700 mb-2">
-            <User className="h-4 w-4 inline mr-1" />
-            Your Name
-          </label>
-          <input
-            type="text"
-            id="user"
-            value={user}
-            onChange={(e) => setUser(e.target.value)}
-            placeholder="Enter your name"
-            className="input-field"
-            required
-          />
-        </div>
+      <div className="mb-4 p-3 bg-blue-50 rounded-lg">
+        <p className="text-sm text-blue-800">
+          <strong>Posting as:</strong> {userName}
+        </p>
+      </div>
 
+      <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
             What are you feeling?
@@ -83,7 +73,7 @@ export default function VibeInput({ onSubmit }: VibeInputProps) {
 
         <button
           type="submit"
-          disabled={!user.trim() || !message.trim()}
+          disabled={!message.trim()}
           className="btn-primary w-full disabled:opacity-50 disabled:cursor-not-allowed"
         >
           <Send className="h-4 w-4 mr-2" />

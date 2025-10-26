@@ -17,6 +17,7 @@ interface Restaurant {
   image?: string
   votes: number
   votedBy?: string[]
+  addedBy?: string
 }
 
 export default function VotingPage() {
@@ -89,7 +90,18 @@ export default function VotingPage() {
                     <div className="w-20 h-20 rounded bg-gray-100 mr-4" />
                   )}
                   <div className="flex-1">
-                    <h4 className="font-semibold text-gray-900">{r.name}</h4>
+                    <div className="flex items-center justify-between mb-1">
+                      <h4 className="font-semibold text-gray-900">{r.name}</h4>
+                      {r.addedBy && (
+                        <span className={`text-xs px-2 py-1 rounded-full ${
+                          r.addedBy === 'AI' 
+                            ? 'bg-purple-100 text-purple-700' 
+                            : 'bg-blue-100 text-blue-700'
+                        }`}>
+                          {r.addedBy === 'AI' ? '🤖 AI' : `👤 ${r.addedBy}`}
+                        </span>
+                      )}
+                    </div>
                     <p className="text-sm text-gray-600 mb-2">{r.cuisine}</p>
                     <div className="flex items-center space-x-4 text-sm text-gray-500">
                       <div className="flex items-center">

@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getParty, setVotingCandidates, broadcastToParty, type Restaurant } from '@/lib/party-store'
+import { adminAuth, adminDb } from '@/lib/firebase-admin'
 import { analyzeVibesAndRecommendRestaurants } from '@/lib/groq'
 
 export async function POST(
@@ -8,9 +9,36 @@ export async function POST(
 ) {
   try {
     const { code } = params
+    // Verify owner
+    const authHeader = request.headers.get('authorization') || ''
+    const idToken = authHeader.startsWith('Bearer ') ? authHeader.slice(7) : null
+    let requesterUid: string | null = null
+    if (idToken) {
+      try {
+        const decoded = await adminAuth().verifyIdToken(idToken)
+        requesterUid = decoded.uid
+      } catch (e) {
+        return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+      }
+    } else {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    }
     const party = getParty(code)
     if (!party) {
       return NextResponse.json({ error: 'Party not found' }, { status: 404 })
+    }
+
+    // Ensure requester is owner
+    try {
+      const partyDoc = await adminDb().collection('parties').doc(code).get()
+      if (partyDoc.exists) {
+        const data = partyDoc.data() as any
+        if (data?.ownerUid && data.ownerUid !== requesterUid) {
+          return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
+        }
+      }
+    } catch (e) {
+      // if we cannot verify, proceed but still rely on client being honest
     }
 
     let selected: Restaurant[] = []
@@ -64,6 +92,15 @@ export async function POST(
     })
 
     setVotingCandidates(code, merged)
+    // Mirror to Firestore votingCandidates
+    try {
+      const batch = adminDb().batch()
+      const col = adminDb().collection('parties').doc(code).collection('votingCandidates')
+      merged.forEach((r) => batch.set(col.doc(r.id), r, { merge: true }))
+      await batch.commit()
+    } catch (e) {
+      console.error('Firestore write votingCandidates error:', e)
+    }
     broadcastToParty(code, { type: 'voting_candidates_updated', candidates: merged })
     return NextResponse.json({ success: true, candidates: merged })
   } catch (error) {

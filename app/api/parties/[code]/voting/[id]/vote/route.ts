@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getParty, voteForVotingCandidate, broadcastToParty } from '@/lib/party-store'
+import { adminDb } from '@/lib/firebase-admin'
 
 export async function POST(
   request: NextRequest,
@@ -13,6 +14,11 @@ export async function POST(
     }
 
     const votes = voteForVotingCandidate(code, id)
+    try {
+      await adminDb().collection('parties').doc(code).collection('votingCandidates').doc(id).set({ votes }, { merge: true })
+    } catch (e) {
+      console.error('Firestore vote update error:', e)
+    }
     broadcastToParty(code, { type: 'voting_vote_updated', restaurantId: id, votes })
     return NextResponse.json({ success: true, votes })
   } catch (error) {

@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { Copy, Check, MapPin, LocateFixed } from 'lucide-react'
 import { useRouter } from 'next/navigation'
+import { ensureSignedInAnonymously, getFirebaseServices } from '@/lib/firebase-client'
 import LoadingOverlay from '@/components/LoadingOverlay'
 
 export default function CreateParty() {
@@ -57,10 +58,14 @@ export default function CreateParty() {
     setIsCreating(true)
     
     try {
+      await ensureSignedInAnonymously()
+      const { auth } = getFirebaseServices()
+      const token = await auth.currentUser?.getIdToken()
       const response = await fetch('/api/parties', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          ...(token ? { Authorization: `Bearer ${token}` } : {})
         },
         body: JSON.stringify({
           name: partyName,

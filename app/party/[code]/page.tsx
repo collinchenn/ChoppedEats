@@ -4,9 +4,11 @@ import { useState, useEffect } from 'react'
 import { useParams } from 'next/navigation'
 import { Utensils, DollarSign, MapPin, Users, Send, Heart, Trophy, Vote, ListPlus } from 'lucide-react'
 import VibeInput from '@/components/VibeInput'
+import { ensureSignedInAnonymously, getFirebaseServices } from '@/lib/firebase-client'
 import VibeList from '@/components/VibeList'
 import RestaurantRecommendations from '@/components/RestaurantRecommendations'
 import WinnerDisplay from '@/components/WinnerDisplay'
+import { collection, doc, onSnapshot, orderBy, query } from 'firebase/firestore'
 
 interface Vibe {
   id: string
@@ -38,10 +40,16 @@ export default function PartyPage() {
   const [isAnalyzing, setIsAnalyzing] = useState(false)
   const [showRecommendations, setShowRecommendations] = useState(false)
   const [showWinner, setShowWinner] = useState(false)
+  const [ownerUid, setOwnerUid] = useState<string | null>(null)
+  const [currentUid, setCurrentUid] = useState<string | null>(null)
 
   // Load party data when component mounts
   useEffect(() => {
-    loadPartyData()
+    ensureSignedInAnonymously().then(async () => {
+      const { auth } = getFirebaseServices()
+      setCurrentUid(auth.currentUser?.uid || null)
+      loadPartyData()
+    })
     setupRealtimeUpdates()
     
     return () => {
@@ -57,40 +65,56 @@ export default function PartyPage() {
 
   const setupRealtimeUpdates = () => {
     if (typeof window === 'undefined') return
-    
-    const eventSource = new EventSource(`/api/parties/${partyCode}/events`)
-    ;(window as any).partyEventSource = eventSource
-    
-    eventSource.onmessage = (event) => {
-      const data = JSON.parse(event.data)
-      
-      if (data.type === 'vibe_added') {
-        const vibeWithDate = {
-          ...data.vibe,
-          timestamp: new Date(data.vibe.timestamp)
+    const { auth, db } = getFirebaseServices()
+    const uid = auth.currentUser?.uid || null
+    const unsubs: Array<() => void> = []
+    ;(window as any).partyUnsubs = unsubs
+
+    // Owner UID subscription
+    const partyRef = doc(db, 'parties', partyCode)
+    unsubs.push(onSnapshot(partyRef, (snap) => {
+      const data: any = snap.data()
+      setOwnerUid(data?.ownerUid || null)
+    }))
+
+    // Restaurants pool subscription
+    const restaurantsCol = collection(db, 'parties', partyCode, 'restaurants')
+    unsubs.push(onSnapshot(restaurantsCol, (snap) => {
+      const arr = snap.docs.map(d => ({ id: d.id, ...(d.data() as any) })) as Restaurant[]
+      setRestaurants(arr)
+      if (arr.length > 0) setShowRecommendations(true)
+    }))
+
+    // Vibes and matches for latest own vibe
+    let matchesUnsub: null | (() => void) = null
+    const vibesCol = collection(db, 'parties', partyCode, 'vibes')
+    const vibesQ = query(vibesCol, orderBy('timestamp', 'asc'))
+    unsubs.push(onSnapshot(vibesQ, (snap) => {
+      const list = snap.docs.map(d => {
+        const v: any = d.data()
+        return { ...v, timestamp: new Date(v.timestamp) }
+      }) as Vibe[]
+      setVibes(list)
+      if (uid) {
+        const own = (list as any[]).filter(v => (v as any).userId === uid)
+        const latest = own[own.length - 1]
+        const latestId = (latest as any)?.id
+        if (latestId) {
+          if (matchesUnsub) {
+            try { matchesUnsub() } catch {}
+          }
+          const matchesCol = collection(db, 'parties', partyCode, 'vibes', latestId, 'matches')
+          matchesUnsub = onSnapshot(matchesCol, (msnap) => {
+            const matches = msnap.docs.map(d => ({ id: d.id, ...(d.data() as any) })) as Restaurant[]
+            setLatestMatches(matches)
+            setShowRecommendations(true)
+          })
         }
-        setVibes(prev => [...prev, vibeWithDate])
-        if (Array.isArray(data.matches) && data.matches.length > 0) {
-          setLatestMatches(data.matches)
-          setShowRecommendations(true)
-        }
-      } else if (data.type === 'restaurants_updated') {
-        setRestaurants(data.restaurants)
-        setLatestMatches(null) // Clear latest matches to show all restaurants
-        setShowRecommendations(true)
-      } else if (data.type === 'vote_updated') {
-        setRestaurants(prev => 
-          prev.map(restaurant => 
-            restaurant.id === data.restaurantId 
-              ? { ...restaurant, votes: data.votes }
-              : restaurant
-          )
-        )
       }
-    }
-    
-    eventSource.onerror = (error) => {
-      console.error('EventSource failed:', error)
+    }))
+
+    if (matchesUnsub) {
+      unsubs.push(() => { try { matchesUnsub && matchesUnsub() } catch {} })
     }
   }
 
@@ -109,6 +133,7 @@ export default function PartyPage() {
         setVibes(vibesWithDates)
         setRestaurants(data.restaurants || [])
         setShowRecommendations(data.restaurants && data.restaurants.length > 0)
+        setOwnerUid(data.party?.ownerUid || null)
       }
     } catch (error) {
       console.error('Error loading party data:', error)
@@ -117,10 +142,13 @@ export default function PartyPage() {
 
   const handleVibeSubmit = async (vibe: Omit<Vibe, 'id' | 'timestamp'>) => {
     try {
+      const { auth } = getFirebaseServices()
+      const token = await auth.currentUser?.getIdToken()
       const response = await fetch(`/api/parties/${partyCode}/vibes`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          ...(token ? { Authorization: `Bearer ${token}` } : {})
         },
         body: JSON.stringify(vibe),
       })
@@ -280,7 +308,9 @@ export default function PartyPage() {
 
   const enterVoting = async () => {
     try {
-      await fetch(`/api/parties/${partyCode}/voting/select`, { method: 'POST' })
+      const { auth } = getFirebaseServices()
+      const token = await auth.currentUser?.getIdToken()
+      await fetch(`/api/parties/${partyCode}/voting/select`, { method: 'POST', headers: { ...(token ? { Authorization: `Bearer ${token}` } : {}) } })
       // optimistic navigate shortly after
       setTimeout(() => {
         window.location.href = `/party/${partyCode}/voting`
@@ -394,12 +424,14 @@ export default function PartyPage() {
                     >
                       View voting
                     </button>
-                    <button
-                      onClick={enterVoting}
-                      className="btn-primary px-4 py-2"
-                    >
-                      Enter voting
-                    </button>
+                    {ownerUid && currentUid === ownerUid && (
+                      <button
+                        onClick={enterVoting}
+                        className="btn-primary px-4 py-2"
+                      >
+                        Enter voting
+                      </button>
+                    )}
                   </div>
                 </div>
                 <RestaurantRecommendations 

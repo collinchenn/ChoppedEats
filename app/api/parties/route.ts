@@ -1,9 +1,21 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { setParty, getParty, type Party } from '@/lib/party-store'
+import { adminAuth, adminDb } from '@/lib/firebase-admin'
 
 export async function POST(request: NextRequest) {
   try {
     const { name, location } = await request.json()
+    const authHeader = request.headers.get('authorization') || ''
+    const idToken = authHeader.startsWith('Bearer ') ? authHeader.slice(7) : null
+    let ownerUid: string | undefined = undefined
+    if (idToken) {
+      try {
+        const decoded = await adminAuth().verifyIdToken(idToken)
+        ownerUid = decoded.uid
+      } catch (e) {
+        // ignore, allow party creation without verified owner
+      }
+    }
 
     if (!name || !location) {
       return NextResponse.json(
@@ -28,6 +40,20 @@ export async function POST(request: NextRequest) {
 
     setParty(code, party)
 
+    try {
+      // Persist to Firestore as well for multi-user
+      await adminDb().collection('parties').doc(code).set({
+        id,
+        code,
+        name,
+        location,
+        ownerUid: ownerUid || null,
+        createdAt: new Date().toISOString()
+      }, { merge: true })
+    } catch (e) {
+      console.error('Firestore create party error:', e)
+    }
+
     return NextResponse.json({ party })
   } catch (error) {
     console.error('Error creating party:', error)
@@ -49,13 +75,28 @@ export async function GET(request: NextRequest) {
     )
   }
 
+  try {
+    const snap = await adminDb().collection('parties').doc(code).get()
+    if (!snap.exists) {
+      const party = getParty(code)
+      if (!party) {
+        return NextResponse.json(
+          { error: 'Party not found' },
+          { status: 404 }
+        )
+      }
+      return NextResponse.json({ party })
+    }
+    return NextResponse.json({ party: { ...snap.data() } })
+  } catch (e) {
+    console.error('Firestore get party error:', e)
     const party = getParty(code)
-  if (!party) {
-    return NextResponse.json(
-      { error: 'Party not found' },
-      { status: 404 }
-    )
+    if (!party) {
+      return NextResponse.json(
+        { error: 'Party not found' },
+        { status: 404 }
+      )
+    }
+    return NextResponse.json({ party })
   }
-
-  return NextResponse.json({ party })
 }

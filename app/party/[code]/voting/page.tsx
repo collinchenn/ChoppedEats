@@ -3,6 +3,8 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'next/navigation'
 import { Users, Heart, Star, MapPin, DollarSign } from 'lucide-react'
+import { getFirebaseServices, ensureSignedInAnonymously } from '@/lib/firebase-client'
+import { collection, onSnapshot } from 'firebase/firestore'
 
 interface Restaurant {
   id: string
@@ -23,25 +25,15 @@ export default function VotingPage() {
   const [votedIds, setVotedIds] = useState<Record<string, boolean>>({})
 
   useEffect(() => {
-    const load = async () => {
-      const res = await fetch(`/api/parties/${partyCode}/voting`)
-      if (res.ok) {
-        const data = await res.json()
-        setCandidates(data.candidates || [])
-      }
-    }
-    load()
-
-    const eventSource = new EventSource(`/api/parties/${partyCode}/events`)
-    eventSource.onmessage = (event) => {
-      const data = JSON.parse(event.data)
-      if (data.type === 'voting_candidates_updated') {
-        setCandidates(data.candidates)
-      } else if (data.type === 'voting_vote_updated') {
-        setCandidates(prev => prev.map(r => r.id === data.restaurantId ? { ...r, votes: data.votes } : r))
-      }
-    }
-    return () => eventSource.close()
+    ensureSignedInAnonymously().then(() => {
+      const { db } = getFirebaseServices()
+      const col = collection(db, 'parties', partyCode, 'votingCandidates')
+      const unsub = onSnapshot(col, (snap) => {
+        const list = snap.docs.map(d => ({ id: d.id, ...(d.data() as any) })) as Restaurant[]
+        setCandidates(list)
+      })
+      return () => unsub()
+    })
   }, [partyCode])
 
   const vote = async (id: string) => {

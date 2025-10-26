@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getParty, addVibeToParty, broadcastToParty, setRestaurantsForParty, type Restaurant } from '@/lib/party-store'
+import { adminAuth, adminDb } from '@/lib/firebase-admin'
 
 export async function POST(
   request: NextRequest,
@@ -8,6 +9,18 @@ export async function POST(
   try {
     const { code } = params
     const { user, message, budget } = await request.json()
+
+    const authHeader = request.headers.get('authorization') || ''
+    const idToken = authHeader.startsWith('Bearer ') ? authHeader.slice(7) : null
+    let userId: string | null = null
+    if (idToken) {
+      try {
+        const decoded = await adminAuth().verifyIdToken(idToken)
+        userId = decoded.uid
+      } catch (e) {
+        // allow unauth, stays null
+      }
+    }
 
     if (!user || !message) {
       return NextResponse.json(
@@ -29,10 +42,18 @@ export async function POST(
       user,
       message,
       budget: budget ? parseFloat(budget) : undefined,
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
+      userId: userId || undefined
     }
 
     addVibeToParty(code, newVibe)
+
+    // Write vibe to Firestore
+    try {
+      await adminDb().collection('parties').doc(code).collection('vibes').doc(newVibe.id).set(newVibe, { merge: true })
+    } catch (e) {
+      console.error('Firestore write vibe error:', e)
+    }
 
     // Prepare matches container
     let matches: Restaurant[] = []
@@ -98,6 +119,19 @@ export async function POST(
 
           matches = newRestaurants.slice(0, 10)
 
+          // Write matches under this vibe (visible to author; enforce via rules client-side)
+          try {
+            const batch = adminDb().batch()
+            const vibeRef = adminDb().collection('parties').doc(code).collection('vibes').doc(newVibe.id)
+            matches.forEach((m) => {
+              const docRef = vibeRef.collection('matches').doc(m.id)
+              batch.set(docRef, m, { merge: true })
+            })
+            await batch.commit()
+          } catch (e) {
+            console.error('Firestore write matches error:', e)
+          }
+
           const merged: Restaurant[] = [...existing]
           for (const r of newRestaurants) {
             const key = `${r.name.toLowerCase()}|${r.address.toLowerCase()}`
@@ -108,6 +142,20 @@ export async function POST(
           }
 
           setRestaurantsForParty(code, merged)
+
+          // Upsert restaurants into Firestore pooled list
+          try {
+            const batch = adminDb().batch()
+            const restaurantsRef = adminDb().collection('parties').doc(code).collection('restaurants')
+            merged.forEach((r) => {
+              const docRef = restaurantsRef.doc(r.id)
+              batch.set(docRef, r, { merge: true })
+            })
+            await batch.commit()
+          } catch (e) {
+            console.error('Firestore write pooled restaurants error:', e)
+          }
+
           broadcastToParty(code, { type: 'restaurants_updated', restaurants: merged })
         }
       }
@@ -123,7 +171,7 @@ export async function POST(
       matches
     })
 
-    return NextResponse.json(newVibe)
+    return NextResponse.json({ ...newVibe, matches })
   } catch (error) {
     console.error('Error adding vibe:', error)
     return NextResponse.json(

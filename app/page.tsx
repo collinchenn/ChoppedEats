@@ -1,6 +1,72 @@
 'use client'
 
+import { useState, useEffect } from 'react'
 import DelayedLink from '@/components/DelayedLinkWithLoading'
+import { Utensils } from 'lucide-react'
+
+function TypingEffect() {
+  const words = ['perfect', 'scrumptious', 'quintessential', 'ultimate']
+  const [currentWordIndex, setCurrentWordIndex] = useState(0)
+  const [currentText, setCurrentText] = useState('')
+  const [isDeleting, setIsDeleting] = useState(false)
+  const [showCursor, setShowCursor] = useState(true)
+
+  useEffect(() => {
+    const currentWord = words[currentWordIndex]
+
+    const timeout = setTimeout(() => {
+      if (!isDeleting) {
+        // Typing
+        if (currentText.length < currentWord.length) {
+          setCurrentText(currentWord.slice(0, currentText.length + 1))
+        } else {
+          // Finished typing, wait then start deleting
+          const timeout = setTimeout(() => 
+            setIsDeleting(true)
+          , 1500)
+          clearTimeout(timeout)
+        }
+      } else {
+        // Deleting
+        if (currentText.length > 0) {
+          setCurrentText(currentText.slice(0, -1))
+        } else {
+          // Finished deleting, move to next word
+          setIsDeleting(false)
+          setCurrentWordIndex((prev) => (prev + 1) % words.length)
+        }
+      }
+    }, isDeleting ? 50 : 150) // Faster deletion, slower typing
+
+    return () => clearTimeout(timeout)
+  }, [currentText, isDeleting, currentWordIndex, words])
+
+  // Separate effect to handle the pause after typing
+  useEffect(() => {
+    if (!isDeleting && currentText.length === words[currentWordIndex].length) {
+      const pauseTimeout = setTimeout(() => {
+        setIsDeleting(true)
+      }, 2000)
+
+      return () => clearTimeout(pauseTimeout)
+    }
+  }, [currentText, isDeleting, currentWordIndex, words])
+
+  // Cursor blinking effect
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setShowCursor(prev => !prev)
+    }, 500)
+    return () => clearInterval(interval)
+  }, [])
+
+  return (
+    <em className="inline-block min-w-[280px]">
+      {currentText}
+      <span className={showCursor ? 'opacity-100' : 'opacity-0'}>|</span>
+    </em>
+  )
+}
 
 export default function LandingPage() {
   return (
@@ -18,8 +84,8 @@ export default function LandingPage() {
           }
         }
       `}</style>
-      
-      <div 
+
+      <div
         className="min-h-screen flex items-center justify-center px-6 py-12"
         style={{
           background: 'linear-gradient(90deg, #fecaca 0%, #fed7aa 30%, #fde68a 60%, #fef3c7 100%)',
@@ -30,24 +96,25 @@ export default function LandingPage() {
         <div className="max-w-7xl w-full grid lg:grid-cols-[1.2fr_1fr] gap-16 items-center">
           {/* Left side - Hero content */}
           <div>
-            <div className="mb-12">
-              <div className="text-3xl font-bold text-gray-900 tracking-tight">ChoppedEats</div>
+            <div className="flex items-center mb-12">
+              <Utensils className="h-12 w-12 text-primary-600 mr-3" />
+              <div className="text-4xl font-bold text-gray-900 tracking-tight">ChoppedEats</div>
             </div>
-            
+
             <h1 className="text-6xl lg:text-7xl xl:text-8xl font-bold leading-tight mb-8 text-gray-900">
-              Find your group&apos;s perfect restaurant in seconds
+              Find your group the <TypingEffect /> restaurant in seconds
             </h1>
-                      
+
             <p className="text-xl lg:text-2xl font-normal mb-10 leading-relaxed max-w-2xl text-gray-700">
               Stop the endless debate. Everyone contributes. Everyone shares what they&apos;re feeling, and we&apos;ll show you restaurants that make whole group happy.
             </p>
-            
+
             <div className="flex items-center gap-4">
-              <DelayedLink 
-                  href="/create"
-                  delay={1500}
-                  className="inline-block bg-gray-900 text-white font-semibold text-lg px-10 py-5 rounded-full hover:bg-gray-800 transition-all duration-200 shadow-xl hover:shadow-2xl transform hover:scale-105"
-                >
+              <DelayedLink
+                href="/create"
+                delay={1000}
+                className="inline-block bg-gray-900 text-white font-semibold text-lg px-10 py-5 rounded-full hover:bg-gray-800 transition-all duration-200 shadow-xl hover:shadow-2xl transform hover:scale-105"
+              >
                 Start a Group →
               </DelayedLink>
               <div className="text-sm text-gray-700">
@@ -108,12 +175,12 @@ export default function LandingPage() {
                   </div>
                 </div>
               </div>
-              
+
               {/* iPhone frame */}
               <div className="relative w-[340px] h-[690px] bg-black rounded-[3rem] p-3 shadow-[0_35px_60px_-15px_rgba(0,0,0,0.5)] z-10">
                 {/* Notch */}
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-40 h-7 bg-black rounded-b-3xl z-10"></div>
-                
+
                 {/* Screen */}
                 <div className="w-full h-full bg-white rounded-[2.5rem] overflow-hidden">
                   {/* Actual app interface */}
@@ -126,40 +193,38 @@ export default function LandingPage() {
                         <span>👥 0 members</span>
                       </div>
                     </div>
-                    
+
                     {/* Form */}
                     <div>
                       <h3 className="text-lg font-semibold text-gray-900 mb-4">Share Your Vibe</h3>
-                      
+
                       {/* Name input */}
                       <div className="mb-4">
                         <label className="block text-sm text-gray-700 mb-2">
                           👤 Your Name
                         </label>
-                        <input 
-                          type="text" 
-                          defaultValue="doma"
-                          className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
+                        <input
+                          type="text"
+                          defaultValue="Rick Owens"
+                          className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm bg-gray-50"
                           readOnly
+                          disabled
                         />
                       </div>
-                      
+
                       {/* Vibe textarea */}
                       <div className="mb-4">
                         <label className="block text-sm text-gray-700 mb-2">
                           What are you feeling?
                         </label>
                         <div className="relative">
-                          <textarea 
-                            placeholder="e.g., I'm craving sushi and have about $30 to spend"
-                            className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm min-h-[80px] resize-none"
-                          ></textarea>
-                          <div className="absolute bottom-2 right-2 w-7 h-7 bg-green-500 rounded-full flex items-center justify-center text-white text-base">
-                            ✓
+                          <div
+                            className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm bg-gray-50 text-black resize-none disabled:text-black disabled:opacity-100">
+                            "I'm craving sushi and have about $30 to spend"
                           </div>
                         </div>
                       </div>
-                      
+
                       {/* Budget input */}
                       <div className="mb-6">
                         <label className="block text-sm text-gray-700 mb-2">
@@ -167,20 +232,25 @@ export default function LandingPage() {
                         </label>
                         <div className="relative">
                           <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-600">$</span>
-                          <input 
-                            type="text" 
-                            placeholder="0.00"
-                            className="w-full px-3 py-2 pl-8 border border-gray-300 rounded-lg text-sm"
+                          <input
+                            type="text"
+                            defaultValue="15.00"
+                            className="w-full px-3 py-2 pl-8 border border-gray-300 rounded-lg text-sm bg-gray-50"
+                            readOnly
+                            disabled
                           />
                         </div>
                       </div>
-                      
+
                       {/* Share button */}
-                      <button className="w-full py-3.5 bg-rose-400 text-white border-none rounded-xl text-base font-semibold cursor-pointer flex items-center justify-center gap-2">
+                      <button
+                        className="w-full py-3.5 bg-rose-400 text-white border-none rounded-xl text-base font-semibold flex items-center justify-center gap-2 opacity-75 cursor-default"
+                        disabled
+                      >
                         <span className="text-xl">✈️</span>
                         Share Vibe
                       </button>
-                      
+
                       {/* Tips */}
                       <div className="mt-4 p-3 bg-blue-50 rounded-lg border-l-4 border-blue-500">
                         <p className="text-xs text-blue-900 leading-relaxed">

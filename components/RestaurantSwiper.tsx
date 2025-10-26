@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useRef, useEffect } from 'react'
-import { Star, MapPin, DollarSign, X, Heart, RotateCcw, Info } from 'lucide-react'
+import { Star, MapPin, DollarSign, X, Heart, RotateCcw, Info, Utensils } from 'lucide-react'
 
 interface Restaurant {
   id: string
@@ -297,7 +297,11 @@ export default function RestaurantSwiper({
     <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-pink-50 via-white to-purple-50 p-6">
       {/* Header */}
       <div className="mb-8 text-center">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">Restaurant Swipe</h1>
+        <h1 className="text-3xl font-bold text-gray-900 mb-2 flex items-center justify-center gap-2">
+          <Utensils className="h-8 w-8 text-primary-600" />
+          ChoppedEats
+        </h1>
+        <h3 className="text-l text-gray-500 mb-2">Everyone will swipe left or right, and we'll determine a winner at the end!</h3>
         <p className="text-gray-600">
           {currentIndex + 1} / {restaurants.length}
         </p>

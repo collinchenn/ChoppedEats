@@ -3579,5 +3579,245 @@
         }
       ]
     }
+  ],
+  [
+    "NUDQXB",
+    {
+      "id": "1761494454336",
+      "code": "NUDQXB",
+      "name": "Friday Night Dinner",
+      "location": "irvine, CA",
+      "createdAt": "2025-10-26T16:00:54.336Z",
+      "vibes": [],
+      "restaurants": [],
+      "votingCandidates": [
+        {
+          "id": "The Winery Restaurant & Wine Bar-3131 W Pacific Coast Hwy, Newport Beach, CA 92663",
+          "name": "The Winery Restaurant & Wine Bar",
+          "cuisine": "Seafood",
+          "priceRange": "$$$",
+          "rating": 4.5,
+          "distance": "",
+          "address": "3131 W Pacific Coast Hwy, Newport Beach, CA 92663",
+          "votes": 0,
+          "addedBy": "AI"
+        },
+        {
+          "id": "Bluewater Grill-630 Lido Park Dr, Newport Beach, CA 92663",
+          "name": "Bluewater Grill",
+          "cuisine": "Seafood",
+          "priceRange": "$$$",
+          "rating": 4.4,
+          "distance": "",
+          "address": "630 Lido Park Dr, Newport Beach, CA 92663",
+          "votes": 0,
+          "addedBy": "AI"
+        },
+        {
+          "id": "Bistango-19100 Von Karman Ave, Irvine, CA 92612",
+          "name": "Bistango",
+          "cuisine": "Seafood",
+          "priceRange": "$$$",
+          "rating": 4.4,
+          "distance": "",
+          "address": "19100 Von Karman Ave, Irvine, CA 92612",
+          "votes": 0,
+          "addedBy": "AI"
+        },
+        {
+          "id": "Ocean Ranch Cafe-13490 Newport Ave, Tustin, CA 92780",
+          "name": "Ocean Ranch Cafe",
+          "cuisine": "Seafood",
+          "priceRange": "$$",
+          "rating": 4.3,
+          "distance": "",
+          "address": "13490 Newport Ave, Tustin, CA 92780",
+          "votes": 0,
+          "addedBy": "AI"
+        },
+        {
+          "id": "Water Grill-3300 W Pacific Coast Hwy, Newport Beach, CA 92663",
+          "name": "Water Grill",
+          "cuisine": "Seafood",
+          "priceRange": "$$$",
+          "rating": 4.4,
+          "distance": "",
+          "address": "3300 W Pacific Coast Hwy, Newport Beach, CA 92663",
+          "votes": 0,
+          "addedBy": "AI"
+        }
+      ]
+    }
+  ],
+  [
+    "K4WL0O",
+    {
+      "id": "1761494913020",
+      "code": "K4WL0O",
+      "name": "chopoed shyt",
+      "location": "Irvine, CA",
+      "createdAt": "2025-10-26T16:08:33.020Z",
+      "vibes": [],
+      "restaurants": [],
+      "votingCandidates": [
+        {
+          "id": "ChIJ4dqeo2vd3IAROGIHwffAUmM",
+          "address": "6628 Irvine Center Dr, Irvine, CA 92618, USA",
+          "distance": "",
+          "addedBy": "Bob",
+          "name": "Grater Grilled Cheese",
+          "rating": 4.3,
+          "cuisine": "Sandwiches",
+          "votes": 0,
+          "priceRange": "$$"
+        },
+        {
+          "id": "Eddie's Philly Steaks & Subs-14450 Culver Dr, Irvine, CA 92604",
+          "address": "14450 Culver Dr, Irvine, CA 92604",
+          "distance": "",
+          "addedBy": "AI",
+          "name": "Eddie's Philly Steaks & Subs",
+          "rating": 4.5,
+          "cuisine": "American, Sandwiches",
+          "votes": 0,
+          "priceRange": "$"
+        },
+        {
+          "id": "The Cut-3333 Michelson Dr, Irvine, CA 92612",
+          "address": "3333 Michelson Dr, Irvine, CA 92612",
+          "distance": "",
+          "addedBy": "AI",
+          "name": "The Cut",
+          "rating": 4.5,
+          "cuisine": "American",
+          "votes": 0,
+          "priceRange": "$$"
+        },
+        {
+          "id": "The Habit Burger Grill-15333 Culver Dr, Irvine, CA 92604",
+          "address": "15333 Culver Dr, Irvine, CA 92604",
+          "distance": "",
+          "addedBy": "AI",
+          "name": "The Habit Burger Grill",
+          "rating": 4.2,
+          "cuisine": "American, Burgers",
+          "votes": 0,
+          "priceRange": "$"
+        },
+        {
+          "id": "Eddie's Philly Steaks & Hoagies-15475 Jeffrey Rd, Irvine, CA 92618",
+          "name": "Eddie's Philly Steaks & Hoagies",
+          "cuisine": "American, Sandwiches",
+          "priceRange": "$",
+          "rating": 4.5,
+          "distance": "",
+          "address": "15475 Jeffrey Rd, Irvine, CA 92618",
+          "votes": 0,
+          "addedBy": "AI"
+        },
+        {
+          "id": "The Habit Burger Grill-14441 Culver Dr, Irvine, CA 92604",
+          "name": "The Habit Burger Grill",
+          "cuisine": "American, Burgers",
+          "priceRange": "$$",
+          "rating": 4.1,
+          "distance": "",
+          "address": "14441 Culver Dr, Irvine, CA 92604",
+          "votes": 0,
+          "addedBy": "AI"
+        },
+        {
+          "id": "Jersey Mike's Subs-5325 Alton Pkwy, Irvine, CA 92604",
+          "name": "Jersey Mike's Subs",
+          "cuisine": "American, Sandwiches",
+          "priceRange": "$",
+          "rating": 4.2,
+          "distance": "",
+          "address": "5325 Alton Pkwy, Irvine, CA 92604",
+          "votes": 0,
+          "addedBy": "AI"
+        },
+        {
+          "id": "Which Wich-3850 Barranca Pkwy, Irvine, CA 92606",
+          "name": "Which Wich",
+          "cuisine": "American, Sandwiches",
+          "priceRange": "$",
+          "rating": 4.1,
+          "distance": "",
+          "address": "3850 Barranca Pkwy, Irvine, CA 92606",
+          "votes": 0,
+          "addedBy": "AI"
+        }
+      ]
+    }
+  ],
+  [
+    "JFP4TY",
+    {
+      "id": "1761495112027",
+      "code": "JFP4TY",
+      "name": "chopped ",
+      "location": "new york",
+      "createdAt": "2025-10-26T16:11:52.027Z",
+      "vibes": [],
+      "restaurants": [],
+      "votingCandidates": [
+        {
+          "id": "Carbone-181 Thompson St, New York, NY 10012",
+          "name": "Carbone",
+          "cuisine": "Italian",
+          "priceRange": "$$$",
+          "rating": 4.2,
+          "distance": "",
+          "address": "181 Thompson St, New York, NY 10012",
+          "votes": 0,
+          "addedBy": "AI"
+        },
+        {
+          "id": "L'Artusi-228 W 10th St, New York, NY 10014",
+          "name": "L'Artusi",
+          "cuisine": "Italian",
+          "priceRange": "$$$",
+          "rating": 4.5,
+          "distance": "",
+          "address": "228 W 10th St, New York, NY 10014",
+          "votes": 0,
+          "addedBy": "AI"
+        },
+        {
+          "id": "Babbo-110 Waverly Pl, New York, NY 10011",
+          "name": "Babbo",
+          "cuisine": "Italian",
+          "priceRange": "$$$",
+          "rating": 4.4,
+          "distance": "",
+          "address": "110 Waverly Pl, New York, NY 10011",
+          "votes": 0,
+          "addedBy": "AI"
+        },
+        {
+          "id": "Patsy's Italian Restaurant-236 W 56th St, New York, NY 10019",
+          "name": "Patsy's Italian Restaurant",
+          "cuisine": "Italian",
+          "priceRange": "$$",
+          "rating": 4.3,
+          "distance": "",
+          "address": "236 W 56th St, New York, NY 10019",
+          "votes": 0,
+          "addedBy": "AI"
+        },
+        {
+          "id": "Parm-235 Bleecker St, New York, NY 10014",
+          "name": "Parm",
+          "cuisine": "Italian",
+          "priceRange": "$$",
+          "rating": 4.2,
+          "distance": "",
+          "address": "235 Bleecker St, New York, NY 10014",
+          "votes": 0,
+          "addedBy": "AI"
+        }
+      ]
+    }
   ]
 ]

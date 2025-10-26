@@ -81,14 +81,14 @@ export async function POST(
         .filter((x) => !!x.restaurant)
         .sort((a, b) => b.score - a.score)
 
-      top3 = scoredList.slice(0, 3).map((s) => ({ ...s.restaurant, finalScore: s.score }))
+      top3 = scoredList.slice(0, 1).map((s) => ({ ...s.restaurant, finalScore: s.score }))
       scoresMap = score
 
       try {
         await partyRef.set({
           votingAllFinished: true,
           votingCombinedScores: scoresMap,
-          votingTop3: top3
+          votingTop1: top3
         }, { merge: true })
       } catch (e) {
         console.error('Firestore write voting results error:', e)
@@ -100,7 +100,7 @@ export async function POST(
       finishedCount,
       participantsCount,
       allFinished,
-      top3: top3 || undefined
+      top1: top3 || undefined
     })
   } catch (error) {
     console.error('Error submitting ballot:', error)

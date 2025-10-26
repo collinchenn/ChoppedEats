@@ -13,6 +13,7 @@ interface Restaurant {
   address: string
   image?: string
   votes?: number
+  addedBy?: string
 }
 
 interface RestaurantSwiperProps {
@@ -405,9 +406,16 @@ export default function RestaurantSwiper({
             <div className="p-6">
               <div className="flex items-start justify-between mb-3">
                 <div className="flex-1">
-                  <h2 className="text-2xl font-bold text-gray-900 mb-1">
-                    {currentRestaurant.name}
-                  </h2>
+                  <div className="flex items-center gap-2 mb-1">
+                    <h2 className="text-2xl font-bold text-gray-900">
+                      {currentRestaurant.name}
+                    </h2>
+                    {currentRestaurant.addedBy === 'AI' && (
+                      <span className="text-xs px-2 py-1 rounded-full bg-purple-100 text-purple-700 font-medium">
+                        🤖 AI Suggested
+                      </span>
+                    )}
+                  </div>
                   <p className="text-gray-600 text-lg">{currentRestaurant.cuisine}</p>
                 </div>
                 <button

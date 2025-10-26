@@ -18,6 +18,7 @@ interface Restaurant {
   image?: string
   votes?: number
   addedBy?: string
+  finalScore?: number
 }
 
 type Phase = 'swiping' | 'waiting' | 'results'
@@ -31,7 +32,7 @@ export default function VotingPage() {
   const [phase, setPhase] = useState<Phase>('swiping')
   const [finishedCount, setFinishedCount] = useState<number>(0)
   const [participantsCount, setParticipantsCount] = useState<number>(0)
-  const [top3, setTop3] = useState<Restaurant[]>([])
+  const [top1, setTop1] = useState<Restaurant[]>([])
   const [combinedScores, setCombinedScores] = useState<Record<string, number>>({})
   const [showScores, setShowScores] = useState<boolean>(false)
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false)
@@ -78,9 +79,9 @@ export default function VotingPage() {
 
         if (data?.votingAllFinished) {
           const scores = (data?.votingCombinedScores || {}) as Record<string, number>
-          const t3 = Array.isArray(data?.votingTop3) ? data.votingTop3 : []
+          const t1 = Array.isArray(data?.votingTop1) ? data.votingTop1 : []
           setCombinedScores(scores)
-          setTop3(t3)
+          setTop1(t1)
           setPhase('results')
         }
       })
@@ -92,14 +93,14 @@ export default function VotingPage() {
     })
   }, [partyCode])
 
-  // Fetch photos for top 3 restaurants
+  // Fetch photos for top 1 restaurant
   useEffect(() => {
     const fetchPhotos = async () => {
-      if (top3.length === 0) return
+      if (top1.length === 0) return
       
       const updates: Record<string, string> = {}
       await Promise.all(
-        top3.map(async (restaurant) => {
+        top1.map(async (restaurant) => {
           if (photoUrls[restaurant.id]) return
           try {
             const res = await fetch('/api/restaurants', {
@@ -126,7 +127,7 @@ export default function VotingPage() {
     }
     
     fetchPhotos()
-  }, [top3])
+  }, [top1])
 
   const submitBallot = async (likedIds: string[]) => {
     setIsSubmitting(true)
@@ -140,8 +141,8 @@ export default function VotingPage() {
         const data = await res.json()
         setFinishedCount(data.finishedCount || 0)
         setParticipantsCount(data.participantsCount || 0)
-        if (data.allFinished && Array.isArray(data.top3)) {
-          setTop3(data.top3)
+        if (data.allFinished && Array.isArray(data.top1)) {
+          setTop1(data.top1)
           setPhase('results')
         } else {
           setPhase('waiting')
@@ -212,8 +213,8 @@ export default function VotingPage() {
           <div className="flex items-center space-x-3">
             <Trophy className="h-8 w-8 text-yellow-500" />
             <div>
-              <h1 className="text-2xl font-bold text-gray-900">Top Picks</h1>
-              <p className="text-gray-600">Your group's top 3 restaurants</p>
+              <h1 className="text-2xl font-bold text-gray-900">Winner!</h1>
+              <p className="text-gray-600">Your group's chosen restaurant</p>
             </div>
           </div>
           <div className="text-sm text-gray-600 flex items-center space-x-2">
@@ -222,15 +223,15 @@ export default function VotingPage() {
           </div>
         </div>
 
-        {/* Deck of top3 */}
-        <div className="grid gap-4 md:grid-cols-3">
-          {top3.map((r) => (
-            <div key={r.id} className="bg-white rounded-2xl shadow-lg overflow-hidden flex flex-col">
-              <div className="h-40 relative">
-                {photoUrls[r.id] ? (
+        {/* Single winner card */}
+        {top1.length > 0 && (
+          <div className="max-w-md mx-auto">
+            <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
+              <div className="h-64 relative">
+                {photoUrls[top1[0].id] ? (
                   <img
-                    src={photoUrls[r.id]}
-                    alt={r.name}
+                    src={photoUrls[top1[0].id]}
+                    alt={top1[0].name}
                     className="w-full h-full object-cover"
                   />
                 ) : (
@@ -239,23 +240,42 @@ export default function VotingPage() {
                   </div>
                 )}
               </div>
-              <div className="p-4 flex-1 flex flex-col">
-                <div className="font-semibold text-gray-900 mb-1">{r.name}</div>
-                <div className="text-sm text-gray-600 mb-2">{r.cuisine}</div>
-                <div className="mt-auto">
+              <div className="p-6">
+                <div className="text-center mb-4">
+                  <h2 className="text-2xl font-bold text-gray-900 mb-2">{top1[0].name}</h2>
+                  <p className="text-gray-600 mb-3">{top1[0].cuisine}</p>
+                  <div className="flex items-center justify-center space-x-4 text-sm text-gray-500 mb-4">
+                    <div className="flex items-center">
+                      <span className="font-medium">{top1[0].rating} ⭐</span>
+                    </div>
+                    <div className="flex items-center">
+                      <span>{top1[0].priceRange}</span>
+                    </div>
+                    <div className="flex items-center">
+                      <span>{top1[0].distance}</span>
+                    </div>
+                  </div>
+                  <div className="text-sm text-gray-600 mb-4">
+                    <p>{top1[0].address}</p>
+                  </div>
+                </div>
+                <div className="space-y-3">
                   <a
-                    href={getGoogleMapsUrl(r)}
+                    href={getGoogleMapsUrl(top1[0])}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-full inline-flex items-center justify-center px-3 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700"
+                    className="w-full inline-flex items-center justify-center px-4 py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors"
                   >
                     Open in Google Maps
                   </a>
+                  <div className="text-center text-sm text-gray-500">
+                    Final Score: {top1[0].finalScore || 0} votes
+                  </div>
                 </div>
               </div>
             </div>
-          ))}
-        </div>
+          </div>
+        )}
 
         {/* Scores toggle button */}
         <button

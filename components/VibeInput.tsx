@@ -74,7 +74,7 @@ export default function VibeInput({ onSubmit, userName }: VibeInputProps) {
         <button
           type="submit"
           disabled={!message.trim()}
-          className="btn-primary w-full disabled:opacity-50 disabled:cursor-not-allowed"
+          className="flex justify-center item-center btn-primary w-full disabled:opacity-50 disabled:cursor-not-allowed"
         >
           <Send className="h-4 w-4 mr-2" />
           Share Vibe

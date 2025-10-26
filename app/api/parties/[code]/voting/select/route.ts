@@ -38,14 +38,36 @@ export async function POST(
       return NextResponse.json({ error: 'Party not found' }, { status: 404 })
     }
 
+    // Get all vibes from Firestore (not just party-store)
+    let allVibes: any[] = []
+    try {
+      const vibesSnap = await adminDb().collection('parties').doc(code).collection('vibes').orderBy('timestamp', 'asc').get()
+      allVibes = vibesSnap.docs.map((d: any) => d.data())
+    } catch (e) {
+      console.error('Error fetching vibes from Firestore:', e)
+      // Fallback to party-store vibes
+      allVibes = party.vibes || []
+    }
+
+    // Get all restaurants from Firestore (not just party-store)
+    let allRestaurants: any[] = []
+    try {
+      const restaurantsSnap = await adminDb().collection('parties').doc(code).collection('restaurants').get()
+      allRestaurants = restaurantsSnap.docs.map((d: any) => ({ id: d.id, ...d.data() }))
+    } catch (e) {
+      console.error('Error fetching restaurants from Firestore:', e)
+      // Fallback to party-store restaurants
+      allRestaurants = party.restaurants || []
+    }
+
     let selected: Restaurant[] = []
     try {
       const recs = await analyzeVibesAndRecommendRestaurants(
-        party.vibes.map(v => ({ user: v.user, message: v.message, budget: v.budget })),
+        allVibes.map(v => ({ user: v.user, message: v.message, budget: v.budget })),
         party.location
       )
       // Map by name+address match from pooled restaurants when possible, else create entries
-      const pool = party.restaurants || []
+      const pool = allRestaurants
       const key = (name: string, address: string) => `${(name||'').toLowerCase()}|${(address||'').toLowerCase()}`
       const poolMap = new Map(pool.map(r => [key(r.name, r.address), r]))
 
@@ -71,7 +93,7 @@ export async function POST(
       }
     } catch (e) {
       // Fallback heuristic: top-rated from pool
-      const pool = party.restaurants || []
+      const pool = allRestaurants
       selected = pool
         .slice()
         .sort((a, b) => (b.rating || 0) - (a.rating || 0))
@@ -79,9 +101,19 @@ export async function POST(
         .map(r => ({ ...r, addedBy: 'AI' }))
     }
 
+    // Get existing manual candidates from Firestore (not just party-store)
+    let existingCandidates: any[] = []
+    try {
+      const candidatesSnap = await adminDb().collection('parties').doc(code).collection('votingCandidates').get()
+      existingCandidates = candidatesSnap.docs.map((d: any) => ({ id: d.id, ...d.data() }))
+    } catch (e) {
+      console.error('Error fetching existing candidates from Firestore:', e)
+      // Fallback to party-store candidates
+      existingCandidates = party.votingCandidates || []
+    }
+
     // Merge with existing manual candidates and dedupe by name+address
-    const existing = party.votingCandidates || []
-    const combined = [...existing, ...selected]
+    const combined = [...existingCandidates, ...selected]
     const seen = new Set<string>()
     const merged = combined.filter(r => {
       const k = `${r.name.toLowerCase()}|${(r.address||'').toLowerCase()}`

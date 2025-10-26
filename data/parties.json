@@ -1762,5 +1762,53 @@
         }
       ]
     }
+  ],
+  [
+    "TYO83V",
+    {
+      "id": "1761464092527",
+      "code": "TYO83V",
+      "name": "Friday Night Dinner",
+      "location": "Irvine, CA",
+      "createdAt": "2025-10-26T07:34:52.527Z",
+      "vibes": [],
+      "restaurants": []
+    }
+  ],
+  [
+    "13K2S2",
+    {
+      "id": "1761464158771",
+      "code": "13K2S2",
+      "name": "Friday Night Dinner",
+      "location": "Irvine, CA",
+      "createdAt": "2025-10-26T07:35:58.771Z",
+      "vibes": [],
+      "restaurants": [],
+      "votingCandidates": [
+        {
+          "id": "ChIJXffy_pze3IART7nYLkq8YUg",
+          "name": "Haidilao Hot Pot Irvine",
+          "cuisine": "Restaurant",
+          "priceRange": "$$",
+          "rating": 4.8,
+          "distance": "",
+          "address": "2710 Alton Pkwy #215, Irvine, CA 92606, USA",
+          "votes": 0,
+          "addedBy": "bob"
+        },
+        {
+          "id": "ChIJzSClqxPd3IARcZfE7oKyRm4",
+          "name": "NEP Cafe - Irvine",
+          "cuisine": "Restaurant",
+          "priceRange": "$$",
+          "rating": 4.5,
+          "distance": "",
+          "address": "14346 Culver Dr, Irvine, CA 92604, USA",
+          "votes": 0,
+          "addedBy": "bob"
+        }
+      ]
+    }
   ]
 ]

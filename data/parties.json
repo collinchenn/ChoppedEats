@@ -1,235 +1,238 @@
 [
   [
-    "QLWA9W",
+    "CFZ3SC",
     {
-      "id": "1761449019081",
-      "code": "QLWA9W",
-      "name": "Rick",
-      "location": "San Francisco",
-      "createdAt": "2025-10-26T03:23:39.081Z",
+      "id": "1761453286436",
+      "code": "CFZ3SC",
+      "name": "Qweu",
+      "location": "1501 19th Ave, San Francisco, CA 94122, USA",
+      "createdAt": "2025-10-26T04:34:46.436Z",
       "vibes": [
         {
-          "id": "1761449034503",
-          "user": "Rick Liu",
-          "message": "Sushi",
-          "budget": 20,
-          "timestamp": "2025-10-26T03:23:54.503Z"
+          "id": "1761453296763",
+          "user": "Nigger",
+          "message": "sushi",
+          "timestamp": "2025-10-26T04:34:56.763Z"
         },
         {
-          "id": "1761449056950",
-          "user": "Jrick",
-          "message": "Chciekn",
-          "budget": 20,
-          "timestamp": "2025-10-26T03:24:16.950Z"
-        },
-        {
-          "id": "1761449071590",
-          "user": "Jrick",
-          "message": "fries",
-          "budget": 30,
-          "timestamp": "2025-10-26T03:24:31.590Z"
+          "id": "1761453310508",
+          "user": "bruh",
+          "message": "pizza",
+          "timestamp": "2025-10-26T04:35:10.508Z"
         }
       ],
       "restaurants": [
         {
-          "id": "1",
-          "name": "Sushi Hon",
-          "cuisine": "Japanese, Sushi",
-          "description": "Casual sushi spot with a wide variety of rolls and traditional Japanese dishes",
+          "id": "ChIJ4ShgGXCHhYAR1UMjouhlWdw",
+          "name": "Sushi Uma",
+          "cuisine": "Restaurant",
+          "priceRange": "$$",
+          "rating": 4,
+          "distance": "",
+          "address": "2026 Irving St, San Francisco, CA 94122, USA",
+          "votes": 0
+        },
+        {
+          "id": "ChIJI1-0LoCHhYARmn0IA5tIM4g",
+          "name": "Shinjuku Japanese Bistro",
+          "cuisine": "Restaurant",
+          "priceRange": "$$",
+          "rating": 2.8,
+          "distance": "",
+          "address": "2026 Irving St, San Francisco, CA 94122, USA",
+          "votes": 0
+        },
+        {
+          "id": "ChIJXan6DWaHhYARfEg6P4q9XXM",
+          "name": "Sushi Goemon Restaurant",
+          "cuisine": "Restaurant",
           "priceRange": "$$",
           "rating": 4.5,
-          "address": "3835 24th St, San Francisco, CA 94114",
+          "distance": "",
+          "address": "1524 Irving St, San Francisco, CA 94122, USA",
           "votes": 0
         },
         {
-          "id": "2",
-          "name": "PPQ Beef Noodle House",
-          "cuisine": "Vietnamese, Chicken",
-          "description": "Vietnamese restaurant serving a variety of noodle dishes, including chicken options, and sides like fries",
+          "id": "ChIJDyKiTu6HhYAR-jAyYENzQkU",
+          "name": "Noriega Teriyaki House",
+          "cuisine": "Restaurant",
           "priceRange": "$$",
-          "rating": 4.2,
-          "address": "1816 Irving St, San Francisco, CA 94122",
+          "rating": 4.1,
+          "distance": "",
+          "address": "1755 Noriega St, San Francisco, CA 94122, USA",
           "votes": 0
         },
         {
-          "id": "3",
-          "name": "Eiji",
-          "cuisine": "Japanese, Sushi, Chicken",
-          "description": "Japanese restaurant with a mix of sushi, chicken dishes, and sides, including fries",
+          "id": "ChIJVyzXKAeHhYARNSvg3G6RphI",
+          "name": "Yoma Cafe - Japanese Bento Box, Sushi rolls, Sandwiches, Snacks and boba Drinks",
+          "cuisine": "Restaurant",
           "priceRange": "$$",
+          "rating": 4.8,
+          "distance": "",
+          "address": "1518 Irving St, San Francisco, CA 94122, USA",
+          "votes": 0
+        },
+        {
+          "id": "ChIJmdMDeGKHhYARxOwt0GsQdUI",
+          "name": "Fujiyama-Ya",
+          "cuisine": "Restaurant",
+          "priceRange": "$",
           "rating": 4.4,
-          "address": "317 Clement St, San Francisco, CA 94118",
+          "distance": "",
+          "address": "1234 Noriega St, San Francisco, CA 94122, USA",
           "votes": 0
         },
         {
-          "id": "4",
-          "name": "Bistro Central Parc",
-          "cuisine": "American, French, Chicken",
-          "description": "Casual bistro serving American and French dishes, including chicken options and sides like fries",
+          "id": "ChIJSf9KlMiHhYARjdG-GjPd-OE",
+          "name": "Zentarou Sushi and Sake Bar",
+          "cuisine": "Restaurant",
           "priceRange": "$$",
-          "rating": 4.3,
-          "address": "560 Central Ave, San Francisco, CA 94117",
+          "rating": 4.8,
+          "distance": "",
+          "address": "1380 9th Ave, San Francisco, CA 94122, USA",
           "votes": 0
         },
         {
-          "id": "5",
-          "name": "Liholiho Yacht Club",
-          "cuisine": "Hawaiian, American, Sushi",
-          "description": "Hawaiian-inspired restaurant with a mix of sushi, chicken dishes, and sides, including fries, in a lively atmosphere",
+          "id": "ChIJE9bWr12HhYARa9JKFMOMMFs",
+          "name": "Sushi Kazu",
+          "cuisine": "Restaurant",
+          "priceRange": "$",
+          "rating": 4.6,
+          "distance": "",
+          "address": "841 Irving St, San Francisco, CA 94122, USA",
+          "votes": 0
+        },
+        {
+          "id": "ChIJ93MU4FyHhYARNsN1cMElpgo",
+          "name": "Ebisu Restaurant",
+          "cuisine": "Restaurant",
+          "priceRange": "$$",
+          "rating": 4.6,
+          "distance": "",
+          "address": "1283 9th Ave, San Francisco, CA 94122, USA",
+          "votes": 0
+        },
+        {
+          "id": "ChIJbT8jR1mHhYARsRwIaCpbYAY",
+          "name": "You See Sushi",
+          "cuisine": "Restaurant",
+          "priceRange": "$",
+          "rating": 4.4,
+          "distance": "",
+          "address": "94 Judah St, San Francisco, CA 94122, USA",
+          "votes": 0
+        },
+        {
+          "id": "ChIJj2dkgWWHhYAReMxgaDvJN-E",
+          "name": "SF Hole In The Wall Pizza",
+          "cuisine": "Restaurant",
+          "priceRange": "$",
+          "rating": 4.3,
+          "distance": "",
+          "address": "1825 Irving St, San Francisco, CA 94122, USA",
+          "votes": 0
+        },
+        {
+          "id": "ChIJv50vpo-HhYARcpT8f3sjfFs",
+          "name": "The Pizza Place on Noriega",
+          "cuisine": "Restaurant",
+          "priceRange": "$$",
+          "rating": 4.5,
+          "distance": "",
+          "address": "3901 Noriega St, San Francisco, CA 94122, USA",
+          "votes": 0
+        },
+        {
+          "id": "ChIJ7dBoQVyHhYAR1kAzDEJvXOU",
+          "name": "Pasquale's Pizzeria",
+          "cuisine": "Restaurant",
+          "priceRange": "$",
+          "rating": 4.4,
+          "distance": "",
+          "address": "700 Irving St, San Francisco, CA 94122, USA",
+          "votes": 0
+        },
+        {
+          "id": "ChIJsXD4it59j4ARISJszTESKyU",
+          "name": "Seniores Pizza",
+          "cuisine": "Restaurant",
+          "priceRange": "$",
+          "rating": 4.1,
+          "distance": "",
+          "address": "2415 19th Ave, San Francisco, CA 94116, USA",
+          "votes": 0
+        },
+        {
+          "id": "ChIJHxooqPeHhYARPEcGJ0tTqnU",
+          "name": "DAMNFiNE pizza",
+          "cuisine": "Restaurant",
+          "priceRange": "$$",
+          "rating": 4.6,
+          "distance": "",
+          "address": "3410 Judah St, San Francisco, CA 94122, USA",
+          "votes": 0
+        }
+      ],
+      "votingCandidates": [
+        {
+          "id": "Ebisu-1283 9th Ave, San Francisco, CA 94122",
+          "name": "Ebisu",
+          "cuisine": "Sushi",
+          "priceRange": "$$",
+          "rating": 4.5,
+          "distance": "",
+          "address": "1283 9th Ave, San Francisco, CA 94122",
+          "votes": 0,
+          "addedBy": "AI",
+          "source": "groq"
+        },
+        {
+          "id": "Pizzeria Delfina-3611 18th St, San Francisco, CA 94110",
+          "name": "Pizzeria Delfina",
+          "cuisine": "Pizza",
+          "priceRange": "$$",
+          "rating": 4.5,
+          "distance": "",
+          "address": "3611 18th St, San Francisco, CA 94110",
+          "votes": 0,
+          "addedBy": "AI",
+          "source": "groq"
+        },
+        {
+          "id": "Sushi Hon-3838 24th St, San Francisco, CA 94114",
+          "name": "Sushi Hon",
+          "cuisine": "Sushi",
+          "priceRange": "$$",
+          "rating": 4.5,
+          "distance": "",
+          "address": "3838 24th St, San Francisco, CA 94114",
+          "votes": 0,
+          "addedBy": "AI",
+          "source": "groq"
+        },
+        {
+          "id": "Gioia Pizzeria-2240 Polk St, San Francisco, CA 94109",
+          "name": "Gioia Pizzeria",
+          "cuisine": "Pizza",
+          "priceRange": "$$",
+          "rating": 4.5,
+          "distance": "",
+          "address": "2240 Polk St, San Francisco, CA 94109",
+          "votes": 0,
+          "addedBy": "AI",
+          "source": "groq"
+        },
+        {
+          "id": "Roku-1819 Market St, San Francisco, CA 94102",
+          "name": "Roku",
+          "cuisine": "Sushi",
           "priceRange": "$$$",
           "rating": 4.5,
-          "address": "871 Sutter St, San Francisco, CA 94109",
-          "votes": 0
-        }
-      ]
-    }
-  ],
-  [
-    "31K3H6",
-    {
-      "id": "1761449231041",
-      "code": "31K3H6",
-      "name": "Marvin Gaye",
-      "location": "San Francisco, CA",
-      "createdAt": "2025-10-26T03:27:11.041Z",
-      "vibes": [],
-      "restaurants": []
-    }
-  ],
-  [
-    "8KX199",
-    {
-      "id": "1761449576232",
-      "code": "8KX199",
-      "name": "asd",
-      "location": "asd",
-      "createdAt": "2025-10-26T03:32:56.232Z",
-      "vibes": [],
-      "restaurants": []
-    }
-  ],
-  [
-    "UNG9J0",
-    {
-      "id": "1761449673328",
-      "code": "UNG9J0",
-      "name": "asd",
-      "location": "asd",
-      "createdAt": "2025-10-26T03:34:33.328Z",
-      "vibes": [],
-      "restaurants": []
-    }
-  ],
-  [
-    "HL7JRW",
-    {
-      "id": "1761450096975",
-      "code": "HL7JRW",
-      "name": "Friday Night Dinner",
-      "location": "Irvine, CA",
-      "createdAt": "2025-10-26T03:41:36.975Z",
-      "vibes": [],
-      "restaurants": []
-    }
-  ],
-  [
-    "H8MKOM",
-    {
-      "id": "1761450105155",
-      "code": "H8MKOM",
-      "name": "Friday Night Dinner",
-      "location": "Irvine CA",
-      "createdAt": "2025-10-26T03:41:45.155Z",
-      "vibes": [],
-      "restaurants": []
-    }
-  ],
-  [
-    "5Y52G6",
-    {
-      "id": "1761450627651",
-      "code": "5Y52G6",
-      "name": "Friday Night Dinner",
-      "location": "Irvine CA",
-      "createdAt": "2025-10-26T03:50:27.651Z",
-      "vibes": [],
-      "restaurants": []
-    }
-  ],
-  [
-    "0HKNHL",
-    {
-      "id": "1761450897210",
-      "code": "0HKNHL",
-      "name": "Friday Night Dinner",
-      "location": "Irvine, CA",
-      "createdAt": "2025-10-26T03:54:57.210Z",
-      "vibes": [
-        {
-          "id": "1761450910474",
-          "user": "Dog shit",
-          "message": "Bob",
-          "budget": 33,
-          "timestamp": "2025-10-26T03:55:10.474Z"
-        },
-        {
-          "id": "1761451033772",
-          "user": "qwe",
-          "message": "Burger",
-          "budget": 50000,
-          "timestamp": "2025-10-26T03:57:13.772Z"
-        }
-      ],
-      "restaurants": [
-        {
-          "id": "1",
-          "name": "The Habit Burger Grill",
-          "cuisine": "Burger",
-          "description": "Casual burger joint serving chargrilled burgers and sandwiches",
-          "priceRange": "$",
-          "rating": 4,
-          "address": "15333 Culver Dr, Irvine, CA 92604",
-          "votes": 0
-        },
-        {
-          "id": "2",
-          "name": "Umami Burger",
-          "cuisine": "Burger",
-          "description": "Gourmet burger restaurant with creative toppings and sides",
-          "priceRange": "$$",
-          "rating": 4,
-          "address": "2995 Michelson Dr, Irvine, CA 92612",
-          "votes": 0
-        },
-        {
-          "id": "3",
-          "name": "Eureka!",
-          "cuisine": "Burger",
-          "description": "American restaurant serving gourmet burgers and craft beer",
-          "priceRange": "$$",
-          "rating": 4,
-          "address": "4143 Campus Dr, Irvine, CA 92612",
-          "votes": 0
-        },
-        {
-          "id": "4",
-          "name": "Hopdoddy Burger Bar",
-          "cuisine": "Burger",
-          "description": "Gourmet burger restaurant with creative toppings and craft beer",
-          "priceRange": "$$",
-          "rating": 4,
-          "address": "13020 Pacific Promenade, Irvine, CA 92618",
-          "votes": 0
-        },
-        {
-          "id": "5",
-          "name": "Slater's 50/50",
-          "cuisine": "Burger",
-          "description": "Burger restaurant with creative toppings and a wide selection of craft beer",
-          "priceRange": "$$",
-          "rating": 4,
-          "address": "633 Anton Blvd, Irvine, CA 92606",
-          "votes": 0
+          "distance": "",
+          "address": "1819 Market St, San Francisco, CA 94102",
+          "votes": 0,
+          "addedBy": "AI",
+          "source": "groq"
         }
       ]
     }

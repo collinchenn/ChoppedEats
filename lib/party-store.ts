@@ -18,6 +18,8 @@ export interface Vibe {
   message: string
   budget?: number
   timestamp: string
+  addedBy?: string
+  source?: 'manual' | 'groq'
 }
 
 export interface Restaurant {
@@ -259,4 +261,61 @@ export function cleanupOldParties(maxAgeHours: number = 24): number {
   }
 
   return removed
+}
+
+
+export function getVotingCandidates(code: string): Restaurant[] {
+  const party = parties.get(code)
+  return party?.votingCandidates || [] 
+}
+
+export function setVotingCandidates(code: string, candidates: Restaurant[]) {
+  const party = parties.get(code)
+  if (party) {
+    party.votingCandidates = candidates  
+    parties.set(code, party)
+    saveParties(parties)
+  }
+}
+
+export function addVotingCandidate(code: string, candidate: Restaurant) {
+  const party = parties.get(code)
+  if (party) {
+    const list = party.votingCandidates || [] 
+    const key = (r: Restaurant) => `${(r.name || '').toLowerCase()}|${(r.address || '').toLowerCase()}`
+    const exists = list.some(r => key(r) === key(candidate))
+    if (!exists) {
+      list.push({ ...candidate, votes: candidate.votes ?? 0, addedBy: candidate.addedBy, source: candidate.source || 'manual' })
+      party.votingCandidates = list    
+      parties.set(code, party)
+      saveParties(parties)
+    }
+    return party.votingCandidates   
+  }
+  return []
+}
+
+export function clearVotingCandidates(code: string) {
+  const party = parties.get(code)
+  if (party) {
+    party.votingCandidates = []
+    parties.set(code, party)
+    saveParties(parties)
+  }
+}
+
+
+
+export function voteForVotingCandidate(code: string, restaurantId: string) {
+  const party = parties.get(code)
+  if (party && party.votingCandidates) {
+    const restaurant = party.votingCandidates.find(r => r.id === restaurantId)
+    if (restaurant) {
+      restaurant.votes = (restaurant.votes || 0) + 1
+      parties.set(code, party)
+      saveParties(parties)
+      return restaurant.votes
+    }
+  }
+  return 0
 }

@@ -18,6 +18,8 @@ interface Restaurant {
 interface RestaurantRecommendationsProps {
   restaurants: Restaurant[]
   onVote: (restaurantId: string) => void
+  onAddToVoting: (restaurant: Restaurant) => Promise<void>
+  mode?: 'matches' | 'all'
 }
 
 export default function RestaurantRecommendations({ restaurants, onVote }: RestaurantRecommendationsProps) {

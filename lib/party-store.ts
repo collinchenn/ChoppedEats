@@ -1,7 +1,4 @@
-// Simple file-based storage for party data
-// In production, this would be replaced with a database
-
-import { readFileSync, writeFileSync, existsSync } from 'fs'
+import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'fs'
 import { join } from 'path'
 
 export interface Party {
@@ -39,15 +36,17 @@ export interface Restaurant {
 
 const DATA_FILE = join(process.cwd(), 'data', 'parties.json')
 
-// Ensure data directory exists
-if (typeof window === 'undefined') {
-  const fs = require('fs')
-  const path = require('path')
-  const dataDir = path.join(process.cwd(), 'data')
-  if (!fs.existsSync(dataDir)) {
-    fs.mkdirSync(dataDir, { recursive: true })
+// Ensure data directory exists (server-side only)
+function ensureDataDirectory() {
+  if (typeof window === 'undefined') {
+    const dataDir = join(process.cwd(), 'data')
+    if (!existsSync(dataDir)) {
+      mkdirSync(dataDir, { recursive: true })
+    }
   }
 }
+
+ensureDataDirectory()
 
 // Load parties from file
 function loadParties(): Map<string, Party> {
@@ -58,7 +57,7 @@ function loadParties(): Map<string, Party> {
   try {
     if (existsSync(DATA_FILE)) {
       const data = readFileSync(DATA_FILE, 'utf8')
-      const partiesArray = JSON.parse(data)
+      const partiesArray: [string, Party][] = JSON.parse(data)
       return new Map(partiesArray)
     }
   } catch (error) {
@@ -67,18 +66,38 @@ function loadParties(): Map<string, Party> {
   return new Map()
 }
 
-// Save parties to file
+// Save parties to file with write lock simulation
+let isSaving = false
+let pendingSave: NodeJS.Timeout | null = null
+
 function saveParties(parties: Map<string, Party>) {
   if (typeof window !== 'undefined') {
     return // Client-side, do nothing
   }
 
-  try {
-    const partiesArray = Array.from(parties.entries())
-    writeFileSync(DATA_FILE, JSON.stringify(partiesArray, null, 2))
-  } catch (error) {
-    console.error('Error saving parties:', error)
+  // Debounce saves to prevent race conditions
+  if (pendingSave) {
+    clearTimeout(pendingSave)
   }
+
+  pendingSave = setTimeout(() => {
+    if (isSaving) {
+      // If already saving, retry after a short delay
+      saveParties(parties)
+      return
+    }
+
+    isSaving = true
+    try {
+      const partiesArray = Array.from(parties.entries())
+      writeFileSync(DATA_FILE, JSON.stringify(partiesArray, null, 2), 'utf8')
+    } catch (error) {
+      console.error('Error saving parties:', error)
+    } finally {
+      isSaving = false
+      pendingSave = null
+    }
+  }, 100) // 100ms debounce
 }
 
 // In-memory storage with file persistence
@@ -92,109 +111,152 @@ export function getParty(code: string): Party | undefined {
   return parties.get(code)
 }
 
-export function setParty(code: string, party: Party) {
-  parties.set(code, party)
-  saveParties(parties)
+export function setParty(code: string, party: Party): boolean {
+  try {
+    parties.set(code, party)
+    saveParties(parties)
+    return true
+  } catch (error) {
+    console.error('Error setting party:', error)
+    return false
+  }
 }
 
-export function addVibeToParty(code: string, vibe: Vibe) {
+export function addVibeToParty(code: string, vibe: Vibe): boolean {
   const party = parties.get(code)
-  if (party) {
+  if (!party) {
+    console.error(`Party not found: ${code}`)
+    return false
+  }
+
+  try {
     party.vibes.push(vibe)
     parties.set(code, party)
     saveParties(parties)
+    return true
+  } catch (error) {
+    console.error('Error adding vibe:', error)
+    return false
   }
 }
 
-export function setRestaurantsForParty(code: string, restaurants: Restaurant[]) {
+export function setRestaurantsForParty(code: string, restaurants: Restaurant[]): boolean {
   const party = parties.get(code)
-  if (party) {
+  if (!party) {
+    console.error(`Party not found: ${code}`)
+    return false
+  }
+
+  try {
     party.restaurants = restaurants
     parties.set(code, party)
     saveParties(parties)
+    return true
+  } catch (error) {
+    console.error('Error setting restaurants:', error)
+    return false
   }
 }
 
-export function getVotingCandidates(code: string): Restaurant[] {
+export function voteForRestaurant(code: string, restaurantId: string): number {
   const party = parties.get(code)
-  return party?.votingCandidates || []
-}
+  if (!party) {
+    console.error(`Party not found: ${code}`)
+    return 0
+  }
 
-export function setVotingCandidates(code: string, candidates: Restaurant[]) {
-  const party = parties.get(code)
-  if (party) {
-    party.votingCandidates = candidates
+  const restaurant = party.restaurants.find(r => r.id === restaurantId)
+  if (!restaurant) {
+    console.error(`Restaurant not found: ${restaurantId}`)
+    return 0
+  }
+
+  try {
+    restaurant.votes = (restaurant.votes || 0) + 1
     parties.set(code, party)
     saveParties(parties)
+    return restaurant.votes
+  } catch (error) {
+    console.error('Error voting for restaurant:', error)
+    return 0
   }
 }
 
-export function addVotingCandidate(code: string, candidate: Restaurant) {
-  const party = parties.get(code)
-  if (party) {
-    const list = party.votingCandidates || []
-    const key = (r: Restaurant) => `${(r.name || '').toLowerCase()}|${(r.address || '').toLowerCase()}`
-    const exists = list.some(r => key(r) === key(candidate))
-    if (!exists) {
-      list.push({ ...candidate, votes: candidate.votes ?? 0, addedBy: candidate.addedBy, source: candidate.source || 'manual' })
-      party.votingCandidates = list
-      parties.set(code, party)
-      saveParties(parties)
-    }
-    return party.votingCandidates
+// Add controller to event stream
+export function addEventStreamController(
+  partyCode: string, 
+  controller: ReadableStreamDefaultController
+) {
+  if (!eventStreams.has(partyCode)) {
+    eventStreams.set(partyCode, new Set())
   }
-  return []
+  eventStreams.get(partyCode)!.add(controller)
 }
 
-export function clearVotingCandidates(code: string) {
-  const party = parties.get(code)
-  if (party) {
-    party.votingCandidates = []
-    parties.set(code, party)
-    saveParties(parties)
-  }
-}
-
-export function voteForVotingCandidate(code: string, restaurantId: string) {
-  const party = parties.get(code)
-  if (party && party.votingCandidates) {
-    const restaurant = party.votingCandidates.find(r => r.id === restaurantId)
-    if (restaurant) {
-      restaurant.votes = (restaurant.votes || 0) + 1
-      parties.set(code, party)
-      saveParties(parties)
-      return restaurant.votes
+// Remove controller from event stream
+export function removeEventStreamController(
+  partyCode: string, 
+  controller: ReadableStreamDefaultController
+) {
+  const streams = eventStreams.get(partyCode)
+  if (streams) {
+    streams.delete(controller)
+    if (streams.size === 0) {
+      eventStreams.delete(partyCode)
     }
   }
-  return 0
-}
-
-export function voteForRestaurant(code: string, restaurantId: string) {
-  const party = parties.get(code)
-  if (party) {
-    const restaurant = party.restaurants.find(r => r.id === restaurantId)
-    if (restaurant) {
-      restaurant.votes = (restaurant.votes || 0) + 1
-      parties.set(code, party)
-      saveParties(parties)
-      return restaurant.votes
-    }
-  }
-  return 0
 }
 
 // Broadcast function for real-time updates
-export function broadcastToParty(partyCode: string, data: any) {
+export function broadcastToParty(partyCode: string, data: any): void {
   const streams = eventStreams.get(partyCode)
-  if (streams) {
-    const message = `data: ${JSON.stringify(data)}\n\n`
-    streams.forEach(controller => {
-      try {
-        controller.enqueue(new TextEncoder().encode(message))
-      } catch (error) {
-        console.error('Error broadcasting to client:', error)
-        streams.delete(controller)
-      }
-    })
+  if (!streams || streams.size === 0) {
+    return
   }
+
+  const message = `data: ${JSON.stringify(data)}\n\n`
+  const encodedMessage = new TextEncoder().encode(message)
+  const deadControllers: ReadableStreamDefaultController[] = []
+
+  streams.forEach(controller => {
+    try {
+      controller.enqueue(encodedMessage)
+    } catch (error) {
+      console.error('Error broadcasting to client:', error)
+      deadControllers.push(controller)
+    }
+  })
+
+  // Clean up dead controllers
+  deadControllers.forEach(controller => {
+    streams.delete(controller)
+  })
+
+  // Remove empty stream sets
+  if (streams.size === 0) {
+    eventStreams.delete(partyCode)
+  }
+}
+
+// Cleanup old parties (optional utility function)
+export function cleanupOldParties(maxAgeHours: number = 24): number {
+  const now = new Date()
+  let removed = 0
+
+  parties.forEach((party, code) => {
+    const partyAge = now.getTime() - new Date(party.createdAt).getTime()
+    const maxAge = maxAgeHours * 60 * 60 * 1000
+
+    if (partyAge > maxAge) {
+      parties.delete(code)
+      eventStreams.delete(code)
+      removed++
+    }
+  })
+
+  if (removed > 0) {
+    saveParties(parties)
+  }
+
+  return removed
 }

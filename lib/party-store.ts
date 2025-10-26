@@ -35,6 +35,7 @@ export interface Restaurant {
   address: string
   image?: string
   votes: number
+  votedBy?: string[] // Track which users have voted
 }
 
 const DATA_FILE = join(process.cwd(), 'data', 'parties.json')
@@ -146,6 +147,17 @@ export function addVotingCandidate(code: string, candidate: Restaurant) {
   return []
 }
 
+export function removeVotingCandidate(code: string, restaurantId: string) {
+  const party = parties.get(code)
+  if (party && party.votingCandidates) {
+    party.votingCandidates = party.votingCandidates.filter(r => r.id !== restaurantId)
+    parties.set(code, party)
+    saveParties(parties)
+    return party.votingCandidates
+  }
+  return []
+}
+
 export function clearVotingCandidates(code: string) {
   const party = parties.get(code)
   if (party) {
@@ -155,18 +167,41 @@ export function clearVotingCandidates(code: string) {
   }
 }
 
-export function voteForVotingCandidate(code: string, restaurantId: string) {
+export function voteForVotingCandidate(code: string, restaurantId: string, userId: string) {
   const party = parties.get(code)
   if (party && party.votingCandidates) {
     const restaurant = party.votingCandidates.find(r => r.id === restaurantId)
     if (restaurant) {
-      restaurant.votes = (restaurant.votes || 0) + 1
-      parties.set(code, party)
-      saveParties(parties)
-      return restaurant.votes
+      if (!restaurant.votedBy) {
+        restaurant.votedBy = []
+      }
+      // Only add vote if user hasn't voted yet
+      if (!restaurant.votedBy.includes(userId)) {
+        restaurant.votedBy.push(userId)
+        restaurant.votes = restaurant.votedBy.length
+        parties.set(code, party)
+        saveParties(parties)
+      }
+      return { votes: restaurant.votes, votedBy: restaurant.votedBy }
     }
   }
-  return 0
+  return { votes: 0, votedBy: [] }
+}
+
+export function unvoteForVotingCandidate(code: string, restaurantId: string, userId: string) {
+  const party = parties.get(code)
+  if (party && party.votingCandidates) {
+    const restaurant = party.votingCandidates.find(r => r.id === restaurantId)
+    if (restaurant && restaurant.votedBy) {
+      // Remove user's vote
+      restaurant.votedBy = restaurant.votedBy.filter(id => id !== userId)
+      restaurant.votes = restaurant.votedBy.length
+      parties.set(code, party)
+      saveParties(parties)
+      return { votes: restaurant.votes, votedBy: restaurant.votedBy }
+    }
+  }
+  return { votes: 0, votedBy: [] }
 }
 
 export function voteForRestaurant(code: string, restaurantId: string) {

@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { Star, MapPin, DollarSign, Heart, Users, CheckCircle } from 'lucide-react'
+import { Star, MapPin, DollarSign, Users, CheckCircle } from 'lucide-react'
 
 interface Restaurant {
   id: string
@@ -19,25 +19,68 @@ interface RestaurantRecommendationsProps {
   restaurants: Restaurant[]
   onVote: (restaurantId: string) => void
   onAddToVoting?: (restaurant: Restaurant) => void
+  onRemoveFromVoting?: (restaurantId: string) => void
+  partyCode?: string
   mode?: 'matches' | 'all'
 }
 
-export default function RestaurantRecommendations({ restaurants, onVote, onAddToVoting, mode = 'all' }: RestaurantRecommendationsProps) {
-  const [votedRestaurant, setVotedRestaurant] = useState<string | null>(null)
+export default function RestaurantRecommendations({ restaurants, onVote, onAddToVoting, onRemoveFromVoting, partyCode, mode = 'all' }: RestaurantRecommendationsProps) {
   const [photoUrls, setPhotoUrls] = useState<Record<string, string>>({})
   const [addedToVoting, setAddedToVoting] = useState<Set<string>>(new Set())
 
-  const handleVote = (restaurantId: string) => {
-    if (votedRestaurant) return 
+  // Load voting candidates on mount
+  useEffect(() => {
+    if (!partyCode) return
     
-    onVote(restaurantId)
-    setVotedRestaurant(restaurantId)
-  }
+    const loadVotingCandidates = async () => {
+      try {
+        const response = await fetch(`/api/parties/${partyCode}/voting`)
+        if (response.ok) {
+          const data = await response.json()
+          const candidateIds = new Set<string>(data.candidates.map((c: Restaurant) => c.id))
+          setAddedToVoting(candidateIds)
+        }
+      } catch (error) {
+        console.error('Error loading voting candidates:', error)
+      }
+    }
+    
+    loadVotingCandidates()
 
-  const handleAddToVoting = (restaurant: Restaurant) => {
-    if (onAddToVoting) {
-      onAddToVoting(restaurant)
-      setAddedToVoting(prev => new Set(Array.from(prev).concat(restaurant.id)))
+    // Listen for real-time updates to voting candidates
+    const eventSource = new EventSource(`/api/parties/${partyCode}/events`)
+    eventSource.onmessage = (event) => {
+      const data = JSON.parse(event.data)
+      if (data.type === 'voting_candidates_updated') {
+        const candidateIds = new Set<string>(data.candidates.map((c: Restaurant) => c.id))
+        setAddedToVoting(candidateIds)
+      }
+    }
+    
+    return () => {
+      eventSource.close()
+    }
+  }, [partyCode])
+
+  const handleToggleVoting = async (restaurant: Restaurant) => {
+    const isAdded = addedToVoting.has(restaurant.id)
+    
+    if (isAdded) {
+      // Remove from voting
+      if (onRemoveFromVoting) {
+        onRemoveFromVoting(restaurant.id)
+        setAddedToVoting(prev => {
+          const newSet = new Set(Array.from(prev))
+          newSet.delete(restaurant.id)
+          return newSet
+        })
+      }
+    } else {
+      // Add to voting
+      if (onAddToVoting) {
+        onAddToVoting(restaurant)
+        setAddedToVoting(prev => new Set(Array.from(prev).concat(restaurant.id)))
+      }
     }
   }
 
@@ -123,76 +166,38 @@ export default function RestaurantRecommendations({ restaurants, onVote, onAddTo
                     <span>{restaurant.rating}</span>
                   </div>
                   <div className="flex items-center">
-                    <DollarSign className="h-4 w-4 mr-1" />
                     <span>{restaurant.priceRange}</span>
                   </div>
-                  <div className="flex items-center">
-                    <MapPin className="h-4 w-4 mr-1" />
-                    <span>{restaurant.distance}</span>
-                  </div>
+                  
                 </div>
                 
                 <p className="text-sm text-gray-600 mt-2">{restaurant.address}</p>
                 </div>
               </div>
               
-              <div className="ml-4 text-right">
-                <div className="text-2xl font-bold text-primary-600 mb-2">
-                  {restaurant.votes}
-                </div>
-                <div className="flex items-center justify-end space-x-2">
-                  {onAddToVoting && (
-                    <button
-                      onClick={() => handleAddToVoting(restaurant)}
-                      disabled={addedToVoting.has(restaurant.id)}
-                      className={`flex items-center space-x-1 px-3 py-1 rounded-full text-sm font-medium transition-colors ${
-                        addedToVoting.has(restaurant.id)
-                          ? 'bg-green-100 text-green-700 cursor-default'
-                          : 'bg-blue-100 text-blue-700 hover:bg-blue-200'
-                      }`}
-                    >
-                      {addedToVoting.has(restaurant.id) && (
-                        <CheckCircle className="h-4 w-4" />
-                      )}
-                      <span>
-                        {addedToVoting.has(restaurant.id) ? 'Added to voting' : 'Add to voting'}
-                      </span>
-                    </button>
-                  )}
+              <div className="ml-4 flex items-center">
+                {onAddToVoting && (
                   <button
-                  onClick={() => handleVote(restaurant.id)}
-                  disabled={votedRestaurant !== null}
-                  className={`flex items-center space-x-1 px-3 py-1 rounded-full text-sm font-medium transition-colors ${
-                    votedRestaurant === restaurant.id
-                      ? 'bg-green-100 text-green-700'
-                      : votedRestaurant !== null
-                      ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
-                      : 'bg-primary-100 text-primary-700 hover:bg-primary-200'
-                  }`}
-                >
-                  <Heart className="h-4 w-4" />
-                  <span>
-                    {votedRestaurant === restaurant.id ? 'Voted' : 'Vote'}
-                  </span>
-                </button>
-                </div>
+                    onClick={() => handleToggleVoting(restaurant)}
+                    className={`flex items-center space-x-1 px-3 py-1 rounded-full text-sm font-medium transition-colors ${
+                      addedToVoting.has(restaurant.id)
+                        ? 'bg-green-100 text-green-700 hover:bg-green-200'
+                        : 'bg-blue-100 text-blue-700 hover:bg-blue-200'
+                    }`}
+                  >
+                    {addedToVoting.has(restaurant.id) && (
+                      <CheckCircle className="h-4 w-4" />
+                    )}
+                    <span>
+                      {addedToVoting.has(restaurant.id) ? 'Added to voting' : 'Add to voting'}
+                    </span>
+                  </button>
+                )}
               </div>
             </div>
           </div>
         ))}
       </div>
-
-      {votedRestaurant && (
-        <div className="mt-6 p-4 bg-green-50 border border-green-200 rounded-lg">
-          <div className="flex items-center">
-            <CheckCircle className="h-5 w-5 text-green-600 mr-2" />
-            <p className="text-green-800 font-medium">Thanks for voting!</p>
-          </div>
-          <p className="text-green-700 text-sm mt-1">
-            The restaurant with the most votes will be the group's choice.
-          </p>
-        </div>
-      )}
     </div>
   )
 }

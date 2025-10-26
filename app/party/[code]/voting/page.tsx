@@ -14,15 +14,24 @@ interface Restaurant {
   address: string
   image?: string
   votes: number
+  votedBy?: string[]
 }
 
 export default function VotingPage() {
   const params = useParams()
   const partyCode = params.code as string
   const [candidates, setCandidates] = useState<Restaurant[]>([])
-  const [votedIds, setVotedIds] = useState<Record<string, boolean>>({})
+  const [userId, setUserId] = useState<string>('')
 
   useEffect(() => {
+    // Generate or retrieve userId from localStorage
+    let storedUserId = localStorage.getItem(`userId_${partyCode}`)
+    if (!storedUserId) {
+      storedUserId = `user_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`
+      localStorage.setItem(`userId_${partyCode}`, storedUserId)
+    }
+    setUserId(storedUserId)
+
     const load = async () => {
       const res = await fetch(`/api/parties/${partyCode}/voting`)
       if (res.ok) {
@@ -38,16 +47,40 @@ export default function VotingPage() {
       if (data.type === 'voting_candidates_updated') {
         setCandidates(data.candidates)
       } else if (data.type === 'voting_vote_updated') {
-        setCandidates(prev => prev.map(r => r.id === data.restaurantId ? { ...r, votes: data.votes } : r))
+        setCandidates(prev => prev.map(r => 
+          r.id === data.restaurantId 
+            ? { ...r, votes: data.votes, votedBy: data.votedBy } 
+            : r
+        ))
       }
     }
     return () => eventSource.close()
   }, [partyCode])
 
-  const vote = async (id: string) => {
-    if (votedIds[id]) return
-    setVotedIds(prev => ({ ...prev, [id]: true }))
-    await fetch(`/api/parties/${partyCode}/voting/${id}/vote`, { method: 'POST' })
+  const hasVoted = (restaurant: Restaurant) => {
+    return restaurant.votedBy?.includes(userId) || false
+  }
+
+  const toggleVote = async (restaurant: Restaurant) => {
+    if (!userId) return
+    
+    const voted = hasVoted(restaurant)
+    
+    if (voted) {
+      // Unvote
+      await fetch(`/api/parties/${partyCode}/voting/${restaurant.id}/vote`, {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ userId })
+      })
+    } else {
+      // Vote
+      await fetch(`/api/parties/${partyCode}/voting/${restaurant.id}/vote`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ userId })
+      })
+    }
   }
 
   return (
@@ -98,16 +131,15 @@ export default function VotingPage() {
                 <div className="ml-4 text-right">
                   <div className="text-2xl font-bold text-primary-600 mb-2">{r.votes}</div>
                   <button
-                    onClick={() => vote(r.id)}
-                    disabled={!!votedIds[r.id]}
+                    onClick={() => toggleVote(r)}
                     className={`flex items-center space-x-1 px-3 py-1 rounded-full text-sm font-medium transition-colors ${
-                      votedIds[r.id]
-                        ? 'bg-green-100 text-green-700'
+                      hasVoted(r)
+                        ? 'bg-green-100 text-green-700 hover:bg-green-200'
                         : 'bg-primary-100 text-primary-700 hover:bg-primary-200'
                     }`}
                   >
                     <Heart className="h-4 w-4" />
-                    <span>{votedIds[r.id] ? 'Voted' : 'Vote'}</span>
+                    <span>{hasVoted(r) ? 'Voted' : 'Vote'}</span>
                   </button>
                 </div>
               </div>

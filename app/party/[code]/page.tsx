@@ -278,6 +278,18 @@ export default function PartyPage() {
     }
   }
 
+  const removeFromVoting = async (restaurantId: string) => {
+    try {
+      await fetch(`/api/parties/${partyCode}/voting/remove`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ restaurantId })
+      })
+    } catch (e) {
+      console.error('Error removing from voting:', e)
+    }
+  }
+
   const enterVoting = async () => {
     try {
       await fetch(`/api/parties/${partyCode}/voting/select`, { method: 'POST' })
@@ -387,25 +399,19 @@ export default function PartyPage() {
                   <div className="text-sm text-gray-700">
                     {latestMatches ? 'Latest vibe matches' : 'All recommendations'}
                   </div>
-                  <div className="flex items-center gap-2">
-                    <button
-                      onClick={() => (window.location.href = `/party/${partyCode}/voting`)}
-                      className="px-3 py-2 bg-gray-100 text-gray-700 rounded hover:bg-gray-200"
-                    >
-                      View voting
-                    </button>
-                    <button
-                      onClick={enterVoting}
-                      className="btn-primary px-4 py-2"
-                    >
-                      Enter voting
-                    </button>
-                  </div>
+                  <button
+                    onClick={enterVoting}
+                    className="btn-primary px-4 py-2"
+                  >
+                    Enter voting
+                  </button>
                 </div>
                 <RestaurantRecommendations 
                   restaurants={latestMatches && latestMatches.length > 0 ? latestMatches : restaurants} 
                   onVote={handleVote}
                   onAddToVoting={addToVoting}
+                  onRemoveFromVoting={removeFromVoting}
+                  partyCode={partyCode}
                   mode={latestMatches && latestMatches.length > 0 ? 'matches' : 'all'}
                 />
                 

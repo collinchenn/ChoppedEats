@@ -65,7 +65,7 @@ export async function POST(
       if (partyAfterVibe && GOOGLE_PLACES_API_KEY) {
         const textQuery = `${newVibe.message} ${partyAfterVibe.location}`.trim()
         const BASE_URL = 'https://places.googleapis.com/v1/places:searchText'
-        const fieldMask = 'places.id,places.displayName,places.formattedAddress,places.rating,places.priceLevel,places.location,places.photos'
+        const fieldMask = 'places.id,places.displayName,places.formattedAddress,places.rating,places.priceLevel,places.location,places.photos,places.types'
 
         const response = await fetch(BASE_URL, {
           method: 'POST',
@@ -97,6 +97,51 @@ export async function POST(
             }
           }
 
+          const getCuisineType = (types: string[] | undefined): string => {
+            if (!types || !Array.isArray(types)) return 'Restaurant'
+            
+            // Cuisine type mappings from Google Places types
+            const cuisineMap: Record<string, string> = {
+              'chinese_restaurant': 'Chinese',
+              'japanese_restaurant': 'Japanese',
+              'korean_restaurant': 'Korean',
+              'italian_restaurant': 'Italian',
+              'mexican_restaurant': 'Mexican',
+              'indian_restaurant': 'Indian',
+              'thai_restaurant': 'Thai',
+              'vietnamese_restaurant': 'Vietnamese',
+              'french_restaurant': 'French',
+              'american_restaurant': 'American',
+              'greek_restaurant': 'Greek',
+              'spanish_restaurant': 'Spanish',
+              'mediterranean_restaurant': 'Mediterranean',
+              'middle_eastern_restaurant': 'Middle Eastern',
+              'seafood_restaurant': 'Seafood',
+              'steakhouse': 'Steakhouse',
+              'sushi_restaurant': 'Sushi',
+              'pizza_restaurant': 'Pizza',
+              'hamburger_restaurant': 'Burger',
+              'sandwich_shop': 'Sandwiches',
+              'bakery': 'Bakery',
+              'cafe': 'Cafe',
+              'bar': 'Bar & Grill',
+              'barbecue_restaurant': 'BBQ',
+              'fast_food_restaurant': 'Fast Food',
+              'vegetarian_restaurant': 'Vegetarian',
+              'vegan_restaurant': 'Vegan'
+            }
+            
+            // Find first matching cuisine type
+            for (const type of types) {
+              if (cuisineMap[type]) {
+                return cuisineMap[type]
+              }
+            }
+            
+            // Default to Restaurant if no specific cuisine found
+            return 'Restaurant'
+          }
+
           const existing: Restaurant[] = partyAfterVibe.restaurants || []
           const existingKey = new Set(
             existing.map(r => `${(r.name || '').toLowerCase()}|${(r.address || '').toLowerCase()}`)
@@ -108,7 +153,7 @@ export async function POST(
             return {
               id: p?.id || `${name}-${address}`,
               name,
-              cuisine: 'Restaurant',
+              cuisine: getCuisineType(p?.types),
               priceRange: mapPriceLevel(p?.priceLevel),
               rating: typeof p?.rating === 'number' ? p.rating : 0,
               distance: '',

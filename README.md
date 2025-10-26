@@ -6,7 +6,7 @@
 
 *Built for groups who want to find the perfect restaurant together*
 
-[Live Demo](https://img.youtube.com/vi/J5GTRfs5ZoA/0.jpg) • [Features](#-features) • [Tech Stack](#%EF%B8%8F-tech-stack) • [Getting Started](#-getting-started)
+[Live Demo](https://www.youtube.com/watch?v=J5GTRfs5ZoA) • [Features](#-features) • [Tech Stack](#%EF%B8%8F-tech-stack) • [Getting Started](#-getting-started)
 
 </div>
 

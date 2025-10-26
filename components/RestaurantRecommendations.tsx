@@ -39,7 +39,11 @@ export default function RestaurantRecommendations({ restaurants, onVote, onAddTo
     
     const unsubscribe = onSnapshot(votingCandidatesCol, (snapshot) => {
       const candidateIds = new Set<string>(snapshot.docs.map(doc => doc.id))
-      setAddedToVoting(candidateIds)
+      
+      // Small delay to prevent race conditions with optimistic updates
+      setTimeout(() => {
+        setAddedToVoting(candidateIds)
+      }, 100)
     })
     
     return () => {
@@ -54,17 +58,25 @@ export default function RestaurantRecommendations({ restaurants, onVote, onAddTo
       // Remove from voting
       if (onRemoveFromVoting) {
         onRemoveFromVoting(restaurant.id)
-        setAddedToVoting(prev => {
-          const newSet = new Set(Array.from(prev))
-          newSet.delete(restaurant.id)
-          return newSet
-        })
+        // Don't update local state here - let Firestore listener handle it
       }
     } else {
       // Add to voting
       if (onAddToVoting) {
-        onAddToVoting(restaurant)
+        // Optimistic update
         setAddedToVoting(prev => new Set(Array.from(prev).concat(restaurant.id)))
+        
+        try {
+          await onAddToVoting(restaurant)
+        } catch (error) {
+          // Revert optimistic update on error
+          setAddedToVoting(prev => {
+            const newSet = new Set(Array.from(prev))
+            newSet.delete(restaurant.id)
+            return newSet
+          })
+          console.error('Failed to add restaurant to voting:', error)
+        }
       }
     }
   }

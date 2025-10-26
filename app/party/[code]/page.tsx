@@ -336,15 +336,18 @@ export default function PartyPage() {
   }
 
   const addToVoting = async (restaurant: Restaurant) => {
-    try {
-      await fetch(`/api/parties/${partyCode}/voting/add`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ restaurant, addedBy: userName })
-      })
-    } catch (e) {
-      console.error('Error adding to voting:', e)
+    const response = await fetch(`/api/parties/${partyCode}/voting/add`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ restaurant, addedBy: userName })
+    })
+    
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({ error: 'Unknown error' }))
+      throw new Error(errorData.error || 'Failed to add restaurant to voting')
     }
+    
+    return response.json()
   }
 
   const removeFromVoting = async (restaurantId: string) => {

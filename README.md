@@ -6,11 +6,15 @@
 
 *Built for groups who want to find the perfect restaurant together*
 
-[Live Demo](#) • [Features](#-features) • [Tech Stack](#-tech-stack) • [Getting Started](#-getting-started)
+[Live Demo](#-live-demo) • [Features](#-features) • [Tech Stack](#%EF%B8%8F-tech-stack) • [Getting Started](#-getting-started)
 
 </div>
 
 ---
+
+## Live Demo
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/J5GTRfs5ZoA?si=NLV-qjtlUP0sAMHa" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 ## 📖 Overview
 

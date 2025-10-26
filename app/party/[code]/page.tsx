@@ -414,7 +414,14 @@ export default function PartyPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div 
+      className="min-h-screen"
+      style={{
+        background: `radial-gradient(circle, transparent 20%, rgba(249, 250, 251, 0.2) 20%, rgba(249, 250, 251, 0.2) 80%, transparent 80%, transparent), radial-gradient(circle, transparent 20%, rgba(249, 250, 251, 0.2) 20%, rgba(249, 250, 251, 0.2) 80%, transparent 80%, transparent) 25px 25px, linear-gradient(rgba(166, 166, 166, 0.2) 2px, transparent 2px) 0 -1px, linear-gradient(90deg, rgba(166, 166, 166, 0.2) 2px, rgba(249, 250, 251, 0.2) 2px) -1px 0`,
+        backgroundSize: '50px 50px, 50px 50px, 25px 25px, 25px 25px',
+        backgroundColor: '#f9fafb'
+      }}
+    >
       {/* Name Entry Modal */}
       <NameEntryModal 
         isOpen={showNameModal} 

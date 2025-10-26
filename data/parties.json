@@ -3103,5 +3103,481 @@
       "vibes": [],
       "restaurants": []
     }
+  ],
+  [
+    "17P046",
+    {
+      "id": "1761491168001",
+      "code": "17P046",
+      "name": "Friday Night Dinner",
+      "location": "Irvine, CA",
+      "createdAt": "2025-10-26T15:06:08.001Z",
+      "vibes": [],
+      "restaurants": []
+    }
+  ],
+  [
+    "5NFHAW",
+    {
+      "id": "1761491202766",
+      "code": "5NFHAW",
+      "name": "Friday Night Dinner",
+      "location": "Irvine, CA",
+      "createdAt": "2025-10-26T15:06:42.766Z",
+      "vibes": [],
+      "restaurants": [],
+      "votingCandidates": [
+        {
+          "id": "ChIJ02paaDzf3IARl610yDQdWNo",
+          "address": "18420 Von Karman Ave #100, Irvine, CA 92612, USA",
+          "distance": "",
+          "addedBy": "Collin Chen",
+          "name": "Benny and Mary's",
+          "rating": 4.4,
+          "cuisine": "Bar & Grill",
+          "votes": 0,
+          "priceRange": "$$"
+        },
+        {
+          "id": "ChIJ1ce5isbf3IARnSpbk2Fmp2I",
+          "address": "2000 Main St Suite 200, Irvine, CA 92614, USA",
+          "distance": "",
+          "addedBy": "Collin Chen",
+          "name": "The Goldfinch Restaurant",
+          "rating": 4.5,
+          "cuisine": "Restaurant",
+          "votes": 0,
+          "priceRange": "$$"
+        },
+        {
+          "id": "ChIJ55TUCYXe3IAR_x_3E-d8is4",
+          "address": "2607 Main St, Irvine, CA 92614, USA",
+          "distance": "",
+          "addedBy": "Collin Chen",
+          "name": "Andrei's Restaurant",
+          "rating": 4.6,
+          "cuisine": "American",
+          "votes": 0,
+          "priceRange": "$$$"
+        },
+        {
+          "id": "The Winery Restaurant & Wine Bar-3131 W Pacific Coast Hwy, Newport Beach, CA 92663",
+          "name": "The Winery Restaurant & Wine Bar",
+          "cuisine": "American, Wine Bar",
+          "priceRange": "$$$",
+          "rating": 4.5,
+          "distance": "",
+          "address": "3131 W Pacific Coast Hwy, Newport Beach, CA 92663",
+          "votes": 0,
+          "addedBy": "AI"
+        },
+        {
+          "id": "Bistango-19100 Von Karman Ave, Irvine, CA 92612",
+          "name": "Bistango",
+          "cuisine": "American, Italian",
+          "priceRange": "$$$",
+          "rating": 4.5,
+          "distance": "",
+          "address": "19100 Von Karman Ave, Irvine, CA 92612",
+          "votes": 0,
+          "addedBy": "AI"
+        },
+        {
+          "id": "Cha For Tea-5408 Walnut Ave, Irvine, CA 92604",
+          "name": "Cha For Tea",
+          "cuisine": "Asian Fusion, Tea House",
+          "priceRange": "$$",
+          "rating": 4.5,
+          "distance": "",
+          "address": "5408 Walnut Ave, Irvine, CA 92604",
+          "votes": 0,
+          "addedBy": "AI"
+        },
+        {
+          "id": "Paul Martin's American Grill-14545 Jeffrey Rd, Irvine, CA 92618",
+          "name": "Paul Martin's American Grill",
+          "cuisine": "American",
+          "priceRange": "$$",
+          "rating": 4.2,
+          "distance": "",
+          "address": "14545 Jeffrey Rd, Irvine, CA 92618",
+          "votes": 0,
+          "addedBy": "AI"
+        },
+        {
+          "id": "Haven Craft Kitchen + Bar-190 S Glassell St, Orange, CA 92866",
+          "name": "Haven Craft Kitchen + Bar",
+          "cuisine": "American, Gastropub",
+          "priceRange": "$$",
+          "rating": 4.4,
+          "distance": "",
+          "address": "190 S Glassell St, Orange, CA 92866",
+          "votes": 0,
+          "addedBy": "AI"
+        }
+      ]
+    }
+  ],
+  [
+    "33VTQ7",
+    {
+      "id": "1761492103212",
+      "code": "33VTQ7",
+      "name": "Friday Night Dinner",
+      "location": "Irvine, CA",
+      "createdAt": "2025-10-26T15:21:43.212Z",
+      "vibes": [],
+      "restaurants": [],
+      "votingCandidates": [
+        {
+          "id": "ChIJ13gkNTTc3IAR-C-h8vR8ASA",
+          "address": "3972 Barranca Pkwy, Irvine, CA 92606, USA",
+          "distance": "",
+          "addedBy": "Rick",
+          "name": "CAVA",
+          "rating": 4.5,
+          "cuisine": "Mediterranean",
+          "votes": 0,
+          "priceRange": "$$"
+        },
+        {
+          "id": "ChIJ3zfzfwDn3IARhloH6vYl34M",
+          "address": "772 Spectrum Center Dr, Irvine, CA 92618, USA",
+          "distance": "",
+          "addedBy": "Rick",
+          "name": "Mastro's Ocean Club",
+          "rating": 4.2,
+          "cuisine": "Restaurant",
+          "votes": 0,
+          "priceRange": "$$"
+        },
+        {
+          "id": "ChIJVS-XHiTf3IARX5n1WyXQqXE",
+          "address": "633 Anton Blvd, Costa Mesa, CA 92626, USA",
+          "distance": "",
+          "addedBy": "Rick",
+          "name": "Mastro's Steakhouse",
+          "rating": 4.5,
+          "cuisine": "Restaurant",
+          "votes": 0,
+          "priceRange": "$$$$"
+        },
+        {
+          "id": "Fig & Olive-8088 E Santa Cruz Rd, Irvine, CA 92618",
+          "name": "Fig & Olive",
+          "cuisine": "Mediterranean",
+          "priceRange": "$$$",
+          "rating": 4,
+          "distance": "",
+          "address": "8088 E Santa Cruz Rd, Irvine, CA 92618",
+          "votes": 0,
+          "addedBy": "AI"
+        },
+        {
+          "id": "Mastro's Ocean Club-17380 Red Hill Ave, Irvine, CA 92614",
+          "name": "Mastro's Ocean Club",
+          "cuisine": "Steakhouse",
+          "priceRange": "$$$$",
+          "rating": 4.5,
+          "distance": "",
+          "address": "17380 Red Hill Ave, Irvine, CA 92614",
+          "votes": 0,
+          "addedBy": "AI"
+        },
+        {
+          "id": "Paul Martin's American Grill-31261 Rancho Viejo Rd, San Juan Capistrano, CA 92675",
+          "name": "Paul Martin's American Grill",
+          "cuisine": "American, Steakhouse",
+          "priceRange": "$$$",
+          "rating": 4,
+          "distance": "",
+          "address": "31261 Rancho Viejo Rd, San Juan Capistrano, CA 92675",
+          "votes": 0,
+          "addedBy": "AI"
+        },
+        {
+          "id": "The Winery Restaurant & Wine Bar-3131 W Pacific Coast Hwy, Newport Beach, CA 92663",
+          "name": "The Winery Restaurant & Wine Bar",
+          "cuisine": "Mediterranean, American",
+          "priceRange": "$$$",
+          "rating": 4.5,
+          "distance": "",
+          "address": "3131 W Pacific Coast Hwy, Newport Beach, CA 92663",
+          "votes": 0,
+          "addedBy": "AI"
+        },
+        {
+          "id": "Haven Craft Kitchen + Bar-190 S Glassell St, Orange, CA 92866",
+          "name": "Haven Craft Kitchen + Bar",
+          "cuisine": "American, Mediterranean",
+          "priceRange": "$$",
+          "rating": 4.5,
+          "distance": "",
+          "address": "190 S Glassell St, Orange, CA 92866",
+          "votes": 0,
+          "addedBy": "AI"
+        }
+      ]
+    }
+  ],
+  [
+    "P0B1RT",
+    {
+      "id": "1761493421294",
+      "code": "P0B1RT",
+      "name": "Friday Night Dinner",
+      "location": "San Francisco",
+      "createdAt": "2025-10-26T15:43:41.294Z",
+      "vibes": [],
+      "restaurants": [],
+      "votingCandidates": [
+        {
+          "id": "ChIJ19UEuoeAhYARhJZP3hwsoS4",
+          "address": "783 Mission St, San Francisco, CA 94103, USA",
+          "distance": "",
+          "addedBy": "Collin Chen",
+          "name": "Super Duper Burgers",
+          "rating": 4.5,
+          "cuisine": "Restaurant",
+          "votes": 0,
+          "priceRange": "$"
+        },
+        {
+          "id": "Super Duper Burgers-721 Market St, San Francisco, CA 94103",
+          "name": "Super Duper Burgers",
+          "cuisine": "American, Burgers",
+          "priceRange": "$$",
+          "rating": 4.2,
+          "distance": "",
+          "address": "721 Market St, San Francisco, CA 94103",
+          "votes": 0,
+          "addedBy": "AI"
+        },
+        {
+          "id": "Zuni Cafe-1658 Market St, San Francisco, CA 94102",
+          "name": "Zuni Cafe",
+          "cuisine": "American, Mediterranean",
+          "priceRange": "$$$",
+          "rating": 4.4,
+          "distance": "",
+          "address": "1658 Market St, San Francisco, CA 94102",
+          "votes": 0,
+          "addedBy": "AI"
+        },
+        {
+          "id": "Nopa-560 Divisadero St, San Francisco, CA 94117",
+          "name": "Nopa",
+          "cuisine": "American, Burgers",
+          "priceRange": "$$$",
+          "rating": 4.4,
+          "distance": "",
+          "address": "560 Divisadero St, San Francisco, CA 94117",
+          "votes": 0,
+          "addedBy": "AI"
+        },
+        {
+          "id": "Nathan's Famous-2690 Geary Blvd, San Francisco, CA 94118",
+          "name": "Nathan's Famous",
+          "cuisine": "American, Burgers",
+          "priceRange": "$",
+          "rating": 3.5,
+          "distance": "",
+          "address": "2690 Geary Blvd, San Francisco, CA 94118",
+          "votes": 0,
+          "addedBy": "AI"
+        },
+        {
+          "id": "Causwells-2346 Chestnut St, San Francisco, CA 94123",
+          "name": "Causwells",
+          "cuisine": "American, Burgers",
+          "priceRange": "$$",
+          "rating": 4.4,
+          "distance": "",
+          "address": "2346 Chestnut St, San Francisco, CA 94123",
+          "votes": 0,
+          "addedBy": "AI"
+        }
+      ]
+    }
+  ],
+  [
+    "SZFPJH",
+    {
+      "id": "1761493804457",
+      "code": "SZFPJH",
+      "name": "Friday Night Dinner",
+      "location": "Irvine CA",
+      "createdAt": "2025-10-26T15:50:04.457Z",
+      "vibes": [],
+      "restaurants": [],
+      "votingCandidates": [
+        {
+          "id": "The Winery Restaurant & Wine Bar-3131 W Pacific Coast Hwy, Newport Beach, CA 92663",
+          "name": "The Winery Restaurant & Wine Bar",
+          "cuisine": "American",
+          "priceRange": "$$",
+          "rating": 4.5,
+          "distance": "",
+          "address": "3131 W Pacific Coast Hwy, Newport Beach, CA 92663",
+          "votes": 0,
+          "addedBy": "AI"
+        },
+        {
+          "id": "Cha For Tea-5408 Walnut Ave, Irvine, CA 92604",
+          "name": "Cha For Tea",
+          "cuisine": "Asian Fusion",
+          "priceRange": "$",
+          "rating": 4.5,
+          "distance": "",
+          "address": "5408 Walnut Ave, Irvine, CA 92604",
+          "votes": 0,
+          "addedBy": "AI"
+        },
+        {
+          "id": "BCD Tofu House-8911 Warner Ave, Fountain Valley, CA 92708",
+          "name": "BCD Tofu House",
+          "cuisine": "Korean",
+          "priceRange": "$$",
+          "rating": 4.5,
+          "distance": "",
+          "address": "8911 Warner Ave, Fountain Valley, CA 92708",
+          "votes": 0,
+          "addedBy": "AI"
+        },
+        {
+          "id": "Shin Sen Gumi Hakata Ramen-2121 Main St, Irvine, CA 92614",
+          "name": "Shin Sen Gumi Hakata Ramen",
+          "cuisine": "Japanese",
+          "priceRange": "$",
+          "rating": 4.5,
+          "distance": "",
+          "address": "2121 Main St, Irvine, CA 92614",
+          "votes": 0,
+          "addedBy": "AI"
+        },
+        {
+          "id": "Urban Seoul-2750 Alton Pkwy, Irvine, CA 92606",
+          "name": "Urban Seoul",
+          "cuisine": "Korean Fusion",
+          "priceRange": "$$",
+          "rating": 4,
+          "distance": "",
+          "address": "2750 Alton Pkwy, Irvine, CA 92606",
+          "votes": 0,
+          "addedBy": "AI"
+        }
+      ]
+    }
+  ],
+  [
+    "Z4HKN4",
+    {
+      "id": "1761493862283",
+      "code": "Z4HKN4",
+      "name": "Friday Night Dinner",
+      "location": "Irvine, CA",
+      "createdAt": "2025-10-26T15:51:02.283Z",
+      "vibes": [],
+      "restaurants": [
+        {
+          "id": "1",
+          "name": "The Boiling Crab",
+          "cuisine": "Seafood",
+          "description": "A seafood restaurant specializing in seafood boil, offering a variety of seafood options and flavors",
+          "priceRange": "$$$",
+          "rating": 4,
+          "address": "2750 Alton Pkwy, Irvine, CA 92614",
+          "votes": 0
+        },
+        {
+          "id": "2",
+          "name": "Seafood City",
+          "cuisine": "Seafood",
+          "description": "A casual seafood restaurant offering a variety of seafood dishes, including seafood boil options",
+          "priceRange": "$$",
+          "rating": 4,
+          "address": "33 Parker, Irvine, CA 92618",
+          "votes": 0
+        },
+        {
+          "id": "3",
+          "name": "Joe's Crab Shack",
+          "cuisine": "Seafood",
+          "description": "A casual seafood chain restaurant offering a variety of seafood dishes, including seafood boil and crab legs",
+          "priceRange": "$$$",
+          "rating": 3.5,
+          "address": "15440 Jeffrey Rd, Irvine, CA 92618",
+          "votes": 0
+        }
+      ],
+      "votingCandidates": [
+        {
+          "id": "ChIJ_foQC53e3IARRB7aV3cso-I",
+          "address": "2740 Alton Pkwy, Irvine, CA 92606, USA",
+          "distance": "",
+          "addedBy": "green fortnite",
+          "name": "The Kickin' Crab",
+          "rating": 4.4,
+          "cuisine": "Seafood",
+          "votes": 0,
+          "priceRange": "$$"
+        },
+        {
+          "id": "The Boiling Crab-2750 Alton Pkwy, Irvine, CA 92614",
+          "name": "The Boiling Crab",
+          "cuisine": "Seafood",
+          "priceRange": "$$$",
+          "rating": 4,
+          "distance": "",
+          "address": "2750 Alton Pkwy, Irvine, CA 92614",
+          "votes": 0,
+          "addedBy": "AI"
+        },
+        {
+          "id": "Kickin' Crab-15333 Culver Dr, Irvine, CA 92604",
+          "name": "Kickin' Crab",
+          "cuisine": "Seafood",
+          "priceRange": "$$$",
+          "rating": 4,
+          "distance": "",
+          "address": "15333 Culver Dr, Irvine, CA 92604",
+          "votes": 0,
+          "addedBy": "AI"
+        },
+        {
+          "id": "Seafood City-3300 Irvine Blvd, Irvine, CA 92614",
+          "name": "Seafood City",
+          "cuisine": "Seafood",
+          "priceRange": "$$",
+          "rating": 4,
+          "distance": "",
+          "address": "3300 Irvine Blvd, Irvine, CA 92614",
+          "votes": 0,
+          "addedBy": "AI"
+        },
+        {
+          "id": "Angelo's Seafood-15455 Jeffrey Rd, Irvine, CA 92618",
+          "name": "Angelo's Seafood",
+          "cuisine": "Seafood",
+          "priceRange": "$$$",
+          "rating": 4,
+          "distance": "",
+          "address": "15455 Jeffrey Rd, Irvine, CA 92618",
+          "votes": 0,
+          "addedBy": "AI"
+        },
+        {
+          "id": "Cajun Crab House-5365 Alton Pkwy, Irvine, CA 92604",
+          "name": "Cajun Crab House",
+          "cuisine": "Seafood",
+          "priceRange": "$$$",
+          "rating": 4,
+          "distance": "",
+          "address": "5365 Alton Pkwy, Irvine, CA 92604",
+          "votes": 0,
+          "addedBy": "AI"
+        }
+      ]
+    }
   ]
 ]

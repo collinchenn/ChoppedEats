@@ -38,7 +38,7 @@ export default function RestaurantSwiper({
   const [likedRestaurants, setLikedRestaurants] = useState<Restaurant[]>([])
   const [dislikedRestaurants, setDislikedRestaurants] = useState<Restaurant[]>([])
   const [photoUrls, setPhotoUrls] = useState<Record<string, string>>({})
-  const [showInfo, setShowInfo] = useState(false)
+  const [showInfo, setShowInfo] = useState(true)
   const [isTransitioning, setIsTransitioning] = useState(false)
   const [imagesLoaded, setImagesLoaded] = useState<Record<string, boolean>>({})
   const cardRef = useRef<HTMLDivElement>(null)
@@ -432,7 +432,6 @@ export default function RestaurantSwiper({
                   <span className="text-gray-700 font-medium">{currentRestaurant.rating}</span>
                 </div>
                 <div className="flex items-center">
-                  <DollarSign className="h-5 w-5 text-gray-400 mr-1" />
                   <span className="text-gray-700">{currentRestaurant.priceRange}</span>
                 </div>
                 <div className="flex items-center">

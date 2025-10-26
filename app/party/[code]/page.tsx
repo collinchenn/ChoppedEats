@@ -270,7 +270,7 @@ export default function PartyPage() {
       await fetch(`/api/parties/${partyCode}/voting/add`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ restaurant, addedBy: 'Current User' })
+        body: JSON.stringify({ restaurant })
       })
     } catch (e) {
       console.error('Error adding to voting:', e)

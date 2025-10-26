@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Star, MapPin, DollarSign, Heart, Users, CheckCircle } from 'lucide-react'
 
 interface Restaurant {
@@ -18,10 +18,13 @@ interface Restaurant {
 interface RestaurantRecommendationsProps {
   restaurants: Restaurant[]
   onVote: (restaurantId: string) => void
+  onAddToVoting?: (restaurant: Restaurant) => void
+  mode?: 'matches' | 'all'
 }
 
-export default function RestaurantRecommendations({ restaurants, onVote }: RestaurantRecommendationsProps) {
+export default function RestaurantRecommendations({ restaurants, onVote, onAddToVoting, mode = 'all' }: RestaurantRecommendationsProps) {
   const [votedRestaurant, setVotedRestaurant] = useState<string | null>(null)
+  const [photoUrls, setPhotoUrls] = useState<Record<string, string>>({})
 
   const handleVote = (restaurantId: string) => {
     if (votedRestaurant) return 
@@ -31,6 +34,40 @@ export default function RestaurantRecommendations({ restaurants, onVote }: Resta
   }
 
   const sortedRestaurants = [...restaurants].sort((a, b) => b.votes - a.votes)
+
+  useEffect(() => {
+    const fetchPhotos = async () => {
+      const updates: Record<string, string> = {}
+      await Promise.all(
+        restaurants.map(async (restaurant) => {
+          if (photoUrls[restaurant.id]) return
+          try {
+            const res = await fetch('/api/restaurants', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ query: `${restaurant.name} ${restaurant.address || ''}`.trim() })
+            })
+            if (!res.ok) return
+            const data: any = await res.json()
+            const place = data.results?.[0]
+            const photoName = place?.photos?.[0]?.name
+            const placeId = place?.id
+            if (photoName && placeId) {
+              updates[restaurant.id] = `/api/photo?placeId=${encodeURIComponent(placeId)}&photoName=${encodeURIComponent(photoName)}`
+            }
+          } catch (e) {
+            // ignore per-restaurant photo failures
+          }
+        })
+      )
+      if (Object.keys(updates).length > 0) {
+        setPhotoUrls((prev) => ({ ...prev, ...updates }))
+      }
+    }
+    if (restaurants.length > 0) {
+      fetchPhotos()
+    }
+  }, [restaurants])
 
   return (
     <div className="bg-white rounded-lg shadow-sm p-6">
@@ -53,7 +90,17 @@ export default function RestaurantRecommendations({ restaurants, onVote }: Resta
             }`}
           >
             <div className="flex items-start justify-between mb-3">
-              <div className="flex-1">
+              <div className="flex-1 flex">
+                {photoUrls[restaurant.id] ? (
+                  <img
+                    src={photoUrls[restaurant.id]}
+                    alt={restaurant.name}
+                    className="w-20 h-20 rounded object-cover mr-4"
+                  />
+                ) : (
+                  <div className="w-20 h-20 rounded bg-gray-100 mr-4" />
+                )}
+                <div className="flex-1">
                 <div className="flex items-center space-x-2 mb-1">
                   <h4 className="font-semibold text-gray-900">{restaurant.name}</h4>
                   {index === 0 && restaurant.votes > 0 && (
@@ -71,10 +118,13 @@ export default function RestaurantRecommendations({ restaurants, onVote }: Resta
                     <DollarSign className="h-4 w-4 mr-1" />
                     <span>{restaurant.priceRange}</span>
                   </div>
+                  <div className="flex items-center">
+                    <MapPin className="h-4 w-4 mr-1" />
+                    <span>{restaurant.distance}</span>
+                  </div>
                 </div>
-                <div className="flex items-center">
-                  <MapPin className="h-4 w-4 mr-1" />
-                  <p className="text-sm text-gray-600 mt-2">{restaurant.address}</p>
+                
+                <p className="text-sm text-gray-600 mt-2">{restaurant.address}</p>
                 </div>
               </div>
               
@@ -82,7 +132,16 @@ export default function RestaurantRecommendations({ restaurants, onVote }: Resta
                 <div className="text-2xl font-bold text-primary-600 mb-2">
                   {restaurant.votes}
                 </div>
-                <button
+                <div className="flex items-center justify-end space-x-2">
+                  {onAddToVoting && (
+                    <button
+                      onClick={() => onAddToVoting(restaurant)}
+                      className="px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-700 hover:bg-blue-200"
+                    >
+                      Add to voting
+                    </button>
+                  )}
+                  <button
                   onClick={() => handleVote(restaurant.id)}
                   disabled={votedRestaurant !== null}
                   className={`flex items-center space-x-1 px-3 py-1 rounded-full text-sm font-medium transition-colors ${
@@ -98,6 +157,7 @@ export default function RestaurantRecommendations({ restaurants, onVote }: Resta
                     {votedRestaurant === restaurant.id ? 'Voted' : 'Vote'}
                   </span>
                 </button>
+                </div>
               </div>
             </div>
           </div>

@@ -2374,5 +2374,85 @@
         }
       ]
     }
+  ],
+  [
+    "BBB18X",
+    {
+      "id": "1761467450109",
+      "code": "BBB18X",
+      "name": "Friday Night Dinner",
+      "location": "Irvine, CA",
+      "createdAt": "2025-10-26T08:30:50.109Z",
+      "vibes": [],
+      "restaurants": [],
+      "votingCandidates": [
+        {
+          "id": "ChIJAQDAcIje3IARPAZCh3K1_qg",
+          "name": "SDA Partnership USA",
+          "cuisine": "Restaurant",
+          "priceRange": "$$",
+          "rating": 0,
+          "distance": "",
+          "address": "3161 Michelson Dr UNIT 420, Irvine, CA 92612, USA",
+          "votes": 0,
+          "addedBy": "chopped"
+        },
+        {
+          "id": "The Winery Restaurant & Wine Bar-3131 W Pacific Coast Hwy, Newport Beach, CA 92663",
+          "name": "The Winery Restaurant & Wine Bar",
+          "cuisine": "American, Wine Bar",
+          "priceRange": "$$$",
+          "rating": 4.5,
+          "distance": "",
+          "address": "3131 W Pacific Coast Hwy, Newport Beach, CA 92663",
+          "votes": 0,
+          "addedBy": "AI"
+        },
+        {
+          "id": "Habana Irvine-7083 Irvine Blvd, Irvine, CA 92618",
+          "name": "Habana Irvine",
+          "cuisine": "Cuban, Latin American",
+          "priceRange": "$$",
+          "rating": 4.2,
+          "distance": "",
+          "address": "7083 Irvine Blvd, Irvine, CA 92618",
+          "votes": 0,
+          "addedBy": "AI"
+        },
+        {
+          "id": "Mastro's Ocean Club-17380 Red Hill Ave, Irvine, CA 92614",
+          "name": "Mastro's Ocean Club",
+          "cuisine": "Steakhouse, Seafood",
+          "priceRange": "$$$",
+          "rating": 4.5,
+          "distance": "",
+          "address": "17380 Red Hill Ave, Irvine, CA 92614",
+          "votes": 0,
+          "addedBy": "AI"
+        },
+        {
+          "id": "Cha For Tea-5408 Walnut Ave, Irvine, CA 92604",
+          "name": "Cha For Tea",
+          "cuisine": "Asian Fusion, Tea House",
+          "priceRange": "$",
+          "rating": 4.4,
+          "distance": "",
+          "address": "5408 Walnut Ave, Irvine, CA 92604",
+          "votes": 0,
+          "addedBy": "AI"
+        },
+        {
+          "id": "Bistango-19100 Von Karman Ave, Irvine, CA 92612",
+          "name": "Bistango",
+          "cuisine": "Italian, American",
+          "priceRange": "$$$",
+          "rating": 4.3,
+          "distance": "",
+          "address": "19100 Von Karman Ave, Irvine, CA 92612",
+          "votes": 0,
+          "addedBy": "AI"
+        }
+      ]
+    }
   ]
 ]

@@ -2113,5 +2113,621 @@
         }
       ]
     }
+  ],
+  [
+    "3234ED",
+    {
+      "id": "1761450847009",
+      "code": "3234ED",
+      "name": "derek",
+      "location": "1529 Kirkham St, San Francisco, CA 94122, USA",
+      "createdAt": "2025-10-26T03:54:07.009Z",
+      "vibes": [
+        {
+          "id": "1761450858417",
+          "user": "Derek",
+          "message": "sushi",
+          "timestamp": "2025-10-26T03:54:18.417Z"
+        },
+        {
+          "id": "1761450870513",
+          "user": "Derek",
+          "message": "pizza",
+          "timestamp": "2025-10-26T03:54:30.513Z"
+        },
+        {
+          "id": "1761450883393",
+          "user": "Derek",
+          "message": "chicken",
+          "timestamp": "2025-10-26T03:54:43.393Z"
+        },
+        {
+          "id": "1761450902008",
+          "user": "derek",
+          "message": "chicken",
+          "timestamp": "2025-10-26T03:55:02.008Z"
+        }
+      ],
+      "restaurants": [
+        {
+          "id": "ChIJ4ShgGXCHhYAR1UMjouhlWdw",
+          "name": "Sushi Uma",
+          "cuisine": "Restaurant",
+          "priceRange": "$$",
+          "rating": 4,
+          "distance": "",
+          "address": "2026 Irving St, San Francisco, CA 94122, USA",
+          "votes": 0
+        },
+        {
+          "id": "ChIJXan6DWaHhYARfEg6P4q9XXM",
+          "name": "Sushi Goemon Restaurant",
+          "cuisine": "Restaurant",
+          "priceRange": "$$",
+          "rating": 4.5,
+          "distance": "",
+          "address": "1524 Irving St, San Francisco, CA 94122, USA",
+          "votes": 0
+        },
+        {
+          "id": "ChIJE9bWr12HhYARa9JKFMOMMFs",
+          "name": "Sushi Kazu",
+          "cuisine": "Restaurant",
+          "priceRange": "$",
+          "rating": 4.6,
+          "distance": "",
+          "address": "841 Irving St, San Francisco, CA 94122, USA",
+          "votes": 0
+        },
+        {
+          "id": "ChIJI1-0LoCHhYARmn0IA5tIM4g",
+          "name": "Shinjuku Japanese Bistro",
+          "cuisine": "Restaurant",
+          "priceRange": "$$",
+          "rating": 2.8,
+          "distance": "",
+          "address": "2026 Irving St, San Francisco, CA 94122, USA",
+          "votes": 0
+        },
+        {
+          "id": "ChIJSf9KlMiHhYARjdG-GjPd-OE",
+          "name": "Zentarou Sushi and Sake Bar",
+          "cuisine": "Restaurant",
+          "priceRange": "$$",
+          "rating": 4.8,
+          "distance": "",
+          "address": "1380 9th Ave, San Francisco, CA 94122, USA",
+          "votes": 0
+        },
+        {
+          "id": "ChIJy4z46FuHhYAR5U-1Sj2Ue7Q",
+          "name": "Koo Japanese Restaurant",
+          "cuisine": "Restaurant",
+          "priceRange": "$$",
+          "rating": 4.6,
+          "distance": "",
+          "address": "408 Irving St, San Francisco, CA 94122, USA",
+          "votes": 0
+        },
+        {
+          "id": "ChIJbT8jR1mHhYARsRwIaCpbYAY",
+          "name": "You See Sushi",
+          "cuisine": "Restaurant",
+          "priceRange": "$",
+          "rating": 4.4,
+          "distance": "",
+          "address": "94 Judah St, San Francisco, CA 94122, USA",
+          "votes": 0
+        },
+        {
+          "id": "ChIJcUsS4FyHhYARnWU9lRcJ1gE",
+          "name": "Kiki Japanese",
+          "cuisine": "Restaurant",
+          "priceRange": "$",
+          "rating": 4.3,
+          "distance": "",
+          "address": "1269 9th Ave, San Francisco, CA 94122, USA",
+          "votes": 0
+        },
+        {
+          "id": "ChIJfwCq65uHhYARmkkict06u5s",
+          "name": "Tazaki Sushi",
+          "cuisine": "Restaurant",
+          "priceRange": "$$",
+          "rating": 4.4,
+          "distance": "",
+          "address": "3420 Judah St, San Francisco, CA 94122, USA",
+          "votes": 0
+        },
+        {
+          "id": "ChIJ93MU4FyHhYARNsN1cMElpgo",
+          "name": "Ebisu Restaurant",
+          "cuisine": "Restaurant",
+          "priceRange": "$$",
+          "rating": 4.6,
+          "distance": "",
+          "address": "1283 9th Ave, San Francisco, CA 94122, USA",
+          "votes": 0
+        },
+        {
+          "id": "ChIJj2dkgWWHhYAReMxgaDvJN-E",
+          "name": "SF Hole In The Wall Pizza",
+          "cuisine": "Restaurant",
+          "priceRange": "$",
+          "rating": 4.3,
+          "distance": "",
+          "address": "1825 Irving St, San Francisco, CA 94122, USA",
+          "votes": 0
+        },
+        {
+          "id": "ChIJ7dBoQVyHhYAR1kAzDEJvXOU",
+          "name": "Pasquale's Pizzeria",
+          "cuisine": "Restaurant",
+          "priceRange": "$",
+          "rating": 4.4,
+          "distance": "",
+          "address": "700 Irving St, San Francisco, CA 94122, USA",
+          "votes": 0
+        },
+        {
+          "id": "ChIJHxooqPeHhYARPEcGJ0tTqnU",
+          "name": "DAMNFiNE pizza",
+          "cuisine": "Restaurant",
+          "priceRange": "$$",
+          "rating": 4.6,
+          "distance": "",
+          "address": "3410 Judah St, San Francisco, CA 94122, USA",
+          "votes": 0
+        },
+        {
+          "id": "ChIJv50vpo-HhYARcpT8f3sjfFs",
+          "name": "The Pizza Place on Noriega",
+          "cuisine": "Restaurant",
+          "priceRange": "$$",
+          "rating": 4.5,
+          "distance": "",
+          "address": "3901 Noriega St, San Francisco, CA 94122, USA",
+          "votes": 0
+        },
+        {
+          "id": "ChIJ-UdgVlSHhYARdN1RZs-r7eI",
+          "name": "Golden Edge Pizza",
+          "cuisine": "Restaurant",
+          "priceRange": "$",
+          "rating": 4.6,
+          "distance": "",
+          "address": "5351 Geary Blvd, San Francisco, CA 94121, USA",
+          "votes": 0
+        },
+        {
+          "id": "ChIJnyjjKgiHhYARd_zONR67fP4",
+          "name": "Pizza Joint",
+          "cuisine": "Restaurant",
+          "priceRange": "$",
+          "rating": 4.2,
+          "distance": "",
+          "address": "3088 Balboa St, San Francisco, CA 94121, USA",
+          "votes": 0
+        },
+        {
+          "id": "ChIJi6lMyYR9j4ARS30Re2QOiVQ",
+          "name": "Eagle Pizzeria",
+          "cuisine": "Restaurant",
+          "priceRange": "$$",
+          "rating": 4.4,
+          "distance": "",
+          "address": "1712 Taraval St, San Francisco, CA 94116, USA",
+          "votes": 0
+        },
+        {
+          "id": "ChIJ-Tu9InB9j4ARn4npo8PZzEw",
+          "name": "Pasquale's Pizzeria Restaurant",
+          "cuisine": "Restaurant",
+          "priceRange": "$$",
+          "rating": 4,
+          "distance": "",
+          "address": "2640 Sloat Blvd, San Francisco, CA 94116, USA",
+          "votes": 0
+        },
+        {
+          "id": "ChIJtTBBsFCHhYARp1SNa_l0wKk",
+          "name": "Pizzetta Napoletana",
+          "cuisine": "Restaurant",
+          "priceRange": "$$",
+          "rating": 4.7,
+          "distance": "",
+          "address": "775 Frederick St, San Francisco, CA 94117, USA",
+          "votes": 0
+        },
+        {
+          "id": "ChIJac6NJJeHhYARbgnjOkxc-ts",
+          "name": "Golden Gate Indian Cuisine & Pizza",
+          "cuisine": "Restaurant",
+          "priceRange": "$$",
+          "rating": 4.1,
+          "distance": "",
+          "address": "4038 Judah St, San Francisco, CA 94122, USA",
+          "votes": 0
+        },
+        {
+          "id": "ChIJ39dBdGeHhYARAhR91GqbO8Q",
+          "name": "Proposition Chicken",
+          "cuisine": "Restaurant",
+          "priceRange": "$$",
+          "rating": 4.3,
+          "distance": "",
+          "address": "3465 California St, San Francisco, CA 94118, USA",
+          "votes": 0
+        },
+        {
+          "id": "ChIJB-P7NaB_j4ARH-7zKwuWziA",
+          "name": "Saba Live Poultry 2",
+          "cuisine": "Restaurant",
+          "priceRange": "$$",
+          "rating": 4.4,
+          "distance": "",
+          "address": "1526 Wallace Ave, San Francisco, CA 94124, USA",
+          "votes": 0
+        },
+        {
+          "id": "ChIJu-hJfueBhYAR_9UWwEcvgO4",
+          "name": "Chicken King",
+          "cuisine": "Restaurant",
+          "priceRange": "$",
+          "rating": 4,
+          "distance": "",
+          "address": "212 6th St, San Francisco, CA 94103, USA",
+          "votes": 0
+        },
+        {
+          "id": "ChIJARk0qkB-j4ARhiVT1P4gInY",
+          "name": "Pollo Campero",
+          "cuisine": "Restaurant",
+          "priceRange": "$$",
+          "rating": 4.3,
+          "distance": "",
+          "address": "2740 Mission St, San Francisco, CA 94110, USA",
+          "votes": 0
+        },
+        {
+          "id": "ChIJH3li3xaBhYARkOO4e78xk5U",
+          "name": "Pollo Campero",
+          "cuisine": "Restaurant",
+          "priceRange": "$$",
+          "rating": 4.2,
+          "distance": "",
+          "address": "155 Jefferson St, San Francisco, CA 94133, USA",
+          "votes": 0
+        }
+      ],
+      "votingCandidates": [
+        {
+          "id": "ChIJ39dBdGeHhYARAhR91GqbO8Q",
+          "name": "Proposition Chicken",
+          "cuisine": "Restaurant",
+          "priceRange": "$$",
+          "rating": 4.3,
+          "distance": "",
+          "address": "3465 California St, San Francisco, CA 94118, USA",
+          "votes": 0,
+          "addedBy": "Current User",
+          "source": "manual"
+        },
+        {
+          "id": "ChIJARk0qkB-j4ARhiVT1P4gInY",
+          "name": "Pollo Campero",
+          "cuisine": "Restaurant",
+          "priceRange": "$$",
+          "rating": 4.3,
+          "distance": "",
+          "address": "2740 Mission St, San Francisco, CA 94110, USA",
+          "votes": 0,
+          "addedBy": "Current User",
+          "source": "manual"
+        },
+        {
+          "id": "Ebisu-1283 9th Ave, San Francisco, CA 94122",
+          "name": "Ebisu",
+          "cuisine": "Sushi",
+          "priceRange": "$$",
+          "rating": 4.5,
+          "distance": "",
+          "address": "1283 9th Ave, San Francisco, CA 94122",
+          "votes": 0,
+          "addedBy": "AI",
+          "source": "groq"
+        },
+        {
+          "id": "Pizzeria Delfina-3611 18th St, San Francisco, CA 94110",
+          "name": "Pizzeria Delfina",
+          "cuisine": "Pizzeria",
+          "priceRange": "$$",
+          "rating": 4.5,
+          "distance": "",
+          "address": "3611 18th St, San Francisco, CA 94110",
+          "votes": 0,
+          "addedBy": "AI",
+          "source": "groq"
+        },
+        {
+          "id": "Nopa-560 Divisadero St, San Francisco, CA 94117",
+          "name": "Nopa",
+          "cuisine": "American",
+          "priceRange": "$$$",
+          "rating": 4.5,
+          "distance": "",
+          "address": "560 Divisadero St, San Francisco, CA 94117",
+          "votes": 0,
+          "addedBy": "AI",
+          "source": "groq"
+        },
+        {
+          "id": "Wing Wings-422 Haight St, San Francisco, CA 94117",
+          "name": "Wing Wings",
+          "cuisine": "Chicken Wings",
+          "priceRange": "$",
+          "rating": 4.5,
+          "distance": "",
+          "address": "422 Haight St, San Francisco, CA 94117",
+          "votes": 0,
+          "addedBy": "AI",
+          "source": "groq"
+        },
+        {
+          "id": "PPQ Beef Noodle House-1816 Irving St, San Francisco, CA 94122",
+          "name": "PPQ Beef Noodle House",
+          "cuisine": "Vietnamese",
+          "priceRange": "$$",
+          "rating": 4.5,
+          "distance": "",
+          "address": "1816 Irving St, San Francisco, CA 94122",
+          "votes": 0,
+          "addedBy": "AI",
+          "source": "groq"
+        }
+      ]
+    }
+  ],
+  [
+    "M4HI74",
+    {
+      "id": "1761452100380",
+      "code": "M4HI74",
+      "name": "derek",
+      "location": "1501 CA-1, San Francisco, CA 94122, USA",
+      "createdAt": "2025-10-26T04:15:00.380Z",
+      "vibes": [
+        {
+          "id": "1761452111747",
+          "user": "derek",
+          "message": "sushi",
+          "timestamp": "2025-10-26T04:15:11.747Z"
+        },
+        {
+          "id": "1761452122517",
+          "user": "derek",
+          "message": "burger",
+          "timestamp": "2025-10-26T04:15:22.517Z"
+        }
+      ],
+      "restaurants": [
+        {
+          "id": "ChIJ4ShgGXCHhYAR1UMjouhlWdw",
+          "name": "Sushi Uma",
+          "cuisine": "Restaurant",
+          "priceRange": "$$",
+          "rating": 4,
+          "distance": "",
+          "address": "2026 Irving St, San Francisco, CA 94122, USA",
+          "votes": 0
+        },
+        {
+          "id": "ChIJVyzXKAeHhYARNSvg3G6RphI",
+          "name": "Yoma Cafe - Japanese Bento Box, Sushi rolls, Sandwiches, Snacks and boba Drinks",
+          "cuisine": "Restaurant",
+          "priceRange": "$$",
+          "rating": 4.8,
+          "distance": "",
+          "address": "1518 Irving St, San Francisco, CA 94122, USA",
+          "votes": 0
+        },
+        {
+          "id": "ChIJE9bWr12HhYARa9JKFMOMMFs",
+          "name": "Sushi Kazu",
+          "cuisine": "Restaurant",
+          "priceRange": "$",
+          "rating": 4.6,
+          "distance": "",
+          "address": "841 Irving St, San Francisco, CA 94122, USA",
+          "votes": 0
+        },
+        {
+          "id": "ChIJh3BGdJ2HhYARI3EoQx-BUXQ",
+          "name": "Super Duper Burgers",
+          "cuisine": "Restaurant",
+          "priceRange": "$",
+          "rating": 4.3,
+          "distance": "",
+          "address": "737 Irving St, San Francisco, CA 94122, USA",
+          "votes": 0
+        },
+        {
+          "id": "ChIJixXUIACHhYARyLK4UAtXipo",
+          "name": "Maillards",
+          "cuisine": "Restaurant",
+          "priceRange": "$$",
+          "rating": 4.5,
+          "distance": "",
+          "address": "1994 37th Ave, San Francisco, CA 94122, USA",
+          "votes": 0
+        },
+        {
+          "id": "ChIJN3uCAl2HhYARCbk6Y6YwlNc",
+          "name": "Jenny's Burger",
+          "cuisine": "Restaurant",
+          "priceRange": "$",
+          "rating": 4.5,
+          "distance": "",
+          "address": "1233 9th Ave, San Francisco, CA 94122, USA",
+          "votes": 0
+        },
+        {
+          "id": "ChIJqRjbTQCBhYARj_DZB8ZAZzs",
+          "name": "Hamburger Project",
+          "cuisine": "Restaurant",
+          "priceRange": "$$",
+          "rating": 3.6,
+          "distance": "",
+          "address": "808 Divisadero St, San Francisco, CA 94117, USA",
+          "votes": 0
+        },
+        {
+          "id": "ChIJt4KbiIWHhYARQPRRqJxeHs0",
+          "name": "Papa Mak's Burgers",
+          "cuisine": "Restaurant",
+          "priceRange": "$$",
+          "rating": 4.3,
+          "distance": "",
+          "address": "3755 Noriega St, San Francisco, CA 94122, USA",
+          "votes": 0
+        },
+        {
+          "id": "ChIJmTm-OAB_j4ARkO2FIJLi7zY",
+          "name": "Burger Littles",
+          "cuisine": "Restaurant",
+          "priceRange": "$$",
+          "rating": 4.8,
+          "distance": "",
+          "address": "Four, Embarcadero Ctr r4104, San Francisco, CA 94111, USA",
+          "votes": 0
+        },
+        {
+          "id": "ChIJMygjLHF_j4ARINwVSNsAigE",
+          "name": "Flats Burgers",
+          "cuisine": "Restaurant",
+          "priceRange": "$$",
+          "rating": 4.5,
+          "distance": "",
+          "address": "4753 Mission St, San Francisco, CA 94112, USA",
+          "votes": 0
+        },
+        {
+          "id": "ChIJyXzXUgCHhYARexfIBlhthBc",
+          "name": "Lovely's",
+          "cuisine": "Restaurant",
+          "priceRange": "$$",
+          "rating": 4.4,
+          "distance": "",
+          "address": "848 Cole St, San Francisco, CA 94117, USA",
+          "votes": 0
+        },
+        {
+          "id": "ChIJd6ytC4-BhYARbnmwuZ3jpdo",
+          "name": "Smish Smash",
+          "cuisine": "Restaurant",
+          "priceRange": "$$",
+          "rating": 3.9,
+          "distance": "",
+          "address": "945 Market St First Floor, San Francisco, CA 94103, USA",
+          "votes": 0
+        },
+        {
+          "id": "ChIJX_mq8ZGAhYARnz8KMjewbCs",
+          "name": "Pearl's Deluxe Burgers",
+          "cuisine": "Restaurant",
+          "priceRange": "$",
+          "rating": 4.6,
+          "distance": "",
+          "address": "708 Post St, San Francisco, CA 94109, USA",
+          "votes": 0
+        }
+      ],
+      "votingCandidates": [
+        {
+          "id": "ChIJh3BGdJ2HhYARI3EoQx-BUXQ",
+          "name": "Super Duper Burgers",
+          "cuisine": "Restaurant",
+          "priceRange": "$",
+          "rating": 4.3,
+          "distance": "",
+          "address": "737 Irving St, San Francisco, CA 94122, USA",
+          "votes": 0,
+          "addedBy": "Current User",
+          "source": "manual"
+        },
+        {
+          "id": "ChIJixXUIACHhYARyLK4UAtXipo",
+          "name": "Maillards",
+          "cuisine": "Restaurant",
+          "priceRange": "$$",
+          "rating": 4.5,
+          "distance": "",
+          "address": "1994 37th Ave, San Francisco, CA 94122, USA",
+          "votes": 0,
+          "addedBy": "Current User",
+          "source": "manual"
+        },
+        {
+          "id": "Z & Y Restaurant-655 Grant Ave, San Francisco, CA 94108",
+          "name": "Z & Y Restaurant",
+          "cuisine": "Sushi, Asian",
+          "priceRange": "$$",
+          "rating": 4,
+          "distance": "",
+          "address": "655 Grant Ave, San Francisco, CA 94108",
+          "votes": 0,
+          "addedBy": "AI",
+          "source": "groq"
+        },
+        {
+          "id": "Super Duper Burgers-600 Steiner St, San Francisco, CA 94117",
+          "name": "Super Duper Burgers",
+          "cuisine": "Burgers, American",
+          "priceRange": "$",
+          "rating": 4,
+          "distance": "",
+          "address": "600 Steiner St, San Francisco, CA 94117",
+          "votes": 0,
+          "addedBy": "AI",
+          "source": "groq"
+        },
+        {
+          "id": "Ebisu-1283 9th Ave, San Francisco, CA 94122",
+          "name": "Ebisu",
+          "cuisine": "Sushi, Japanese",
+          "priceRange": "$$",
+          "rating": 4,
+          "distance": "",
+          "address": "1283 9th Ave, San Francisco, CA 94122",
+          "votes": 0,
+          "addedBy": "AI",
+          "source": "groq"
+        },
+        {
+          "id": "Nopa-560 Divisadero St, San Francisco, CA 94117",
+          "name": "Nopa",
+          "cuisine": "American, Burgers",
+          "priceRange": "$$$",
+          "rating": 4,
+          "distance": "",
+          "address": "560 Divisadero St, San Francisco, CA 94117",
+          "votes": 0,
+          "addedBy": "AI",
+          "source": "groq"
+        },
+        {
+          "id": "Pacific Catch-2027 Chestnut St, San Francisco, CA 94123",
+          "name": "Pacific Catch",
+          "cuisine": "Seafood, Sushi, American",
+          "priceRange": "$$",
+          "rating": 4,
+          "distance": "",
+          "address": "2027 Chestnut St, San Francisco, CA 94123",
+          "votes": 0,
+          "addedBy": "AI",
+          "source": "groq"
+        }
+      ]
+    }
   ]
 ]
